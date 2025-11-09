@@ -1,0 +1,253 @@
+{
+    "controller": [
+        {
+            "name": "安卓端",
+            "type": "Adb"
+        }
+    ],
+    "resource": [
+        {
+            "name": "官服",
+            "path": [
+                "{PROJECT_DIR}/resource"
+            ]
+        }
+    ],
+    "agent": {
+        "child_exec": "python",
+        "child_args": [
+            "../agent/main.py"
+        ]
+    },
+    "task": [
+        {
+            "name": "养成本",
+            "entry": "养成材料"
+            
+        },
+
+        {
+            "name": "日常",
+            "entry": "每日任务"
+        },
+        {
+            "name": "困难关卡扫荡测试",
+            "entry": "story_select",
+            "option": ["故事选择", "关卡选择"]
+        },
+        {
+            "name": "金光束射击扫荡",
+            "entry": "Skip",
+            "pipeline_override": {
+               "Skip": {
+                            "action": "Custom",
+                            "custom_action": "困难关卡自动扫荡",
+                            "custom_action_param": {
+                                "target": [["机动战士高达", "HARD1"],["机动战士Z高达", "HARD2"],["SEED", "HARD3"],["ZZ","HARD3"],["SEED", "HARD1"],["铁血的奥尔芬斯","HARD1"]]
+                            }
+                        }
+            }
+        }
+
+    ],
+    "option": {
+        "故事选择": {
+            "cases": [
+                {
+                    "name": "机动战士高达",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "机动战士高达"
+                            }
+                            
+                        }
+                    }
+                },
+                {
+                    "name": "SEED",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "SEED"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "X",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "X"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "W","pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "W"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "机动武斗传G高达",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "机动武斗传G高达"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "机动战士Z高达",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "机动战士Z高达"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "00",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "00"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "水星的魔女",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "水星的魔女"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "DESTINY",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "DESTINY"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "Recollection",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "Recollection"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "铁血的奥尔芬斯",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "铁血的奥尔芬斯"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "ZZ",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "ZZ"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "逆袭的夏亚",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "逆袭的夏亚"
+                            }
+                        }
+                    }
+                },
+                {"name": "独角兽",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "独角兽"
+                            }
+                        }
+                    }
+                }
+
+            ]
+        },
+        "关卡选择": {
+            "cases": [
+                {
+                    "name": "HARD1",
+                    "pipeline_override": {
+                        "stage_select": {
+                            "custom_action_param": {
+                                "stage_target": "HARD1"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "HARD2",
+                    "pipeline_override": {
+                        "stage_select": {
+                            "custom_action_param": {
+                                "stage_target": "HARD2"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "HARD3",
+                    "pipeline_override": {
+                        "stage_select": {
+                            "custom_action_param": {
+                                "stage_target": "HARD3"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "HARD4",
+                    "pipeline_override": {
+                        "stage_select": {
+                            "custom_action_param": {
+                                "stage_target": "HARD4"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "HARD5",
+                    "pipeline_override": {
+                        "stage_select": {
+                            "custom_action_param": {
+                                "stage_target": "HARD5"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

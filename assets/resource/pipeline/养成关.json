@@ -1,0 +1,335 @@
+{
+    "关卡": {
+        "recognition": "OCR",
+        "expected": "关卡"
+    },
+    "强化培育关卡": {
+        "recognition": "TemplateMatch",
+        "template": "强化培育关卡.png"
+    },
+    "主画面": {
+        "recognition": "OCR",
+        "expected": "主画面"
+    },
+    "CAPITAL": {
+        "recognition": "TemplateMatch",
+        "template": "CAPITAL.png"
+    },
+    "单位培育": {
+        "recognition": "TemplateMatch",
+        "template": "单位培育.png"
+    },
+    "角色培育": {
+        "recognition": "TemplateMatch",
+        "template": "角色培育.png"
+    },
+    "支援人员培育": {
+        "recognition": "TemplateMatch",
+        "template": "支援人员培育.png"
+    },
+    "关卡点击": {
+        "recognition": "Custom",
+        "custom_recognition_param": {
+            "target": "OK"
+        },
+        "custom_recognition": "通用识别动作",
+        "action": "Custom",
+        "custom_action": "通用点击动作"
+    },
+    "关闭": {
+        "recognition": "OCR",
+        "expected": "关闭"
+    },
+    "略过": {
+        "recognition": "TemplateMatch",
+        "template": "略过.png"
+    },
+    "执行": {
+        "recognition": "TemplateMatch",
+        "template": "执行.png"
+    },
+    "OK":{
+        "recognition": "TemplateMatch",
+        "template": "OK.png"
+    },
+    "自定义检测动作":{
+        "recognition": "Custom",
+        "custom_recognition": "通用识别动作"
+    },
+    "自定义点击动作":{
+        "action": "Custom",
+        "custom_action": "通用点击动作"
+    },
+    "养成材料":{
+        "action": "Custom",
+        "custom_action": "养成培育材料"
+    },
+    "全满":{
+        "recognition": "TemplateMatch",
+        "template": "全满.png"
+    },
+    "tb":{
+        "recognition": "TemplateMatch",
+        "template": "tb.png"
+    },
+    "0079":{
+        "recognition": "TemplateMatch",
+        "template": "0079.png"
+    },
+    "每日任务":{
+        "action": "Custom",
+        "custom_action": "每日任务"
+    },
+    "商店":{
+       "recognition": "OCR",
+       "expected": "商店"
+    },
+    "高级":{
+        "recognition": "OCR",
+        "expected": "高级"
+    },
+    "购买按钮":{
+        "recognition": "FeatureMatch",
+        "template": "购买按钮.png"
+    },
+    "购买":{
+        "recognition": "OCR",
+        "expected": "购买"
+    },
+    "开发":{
+        "recognition": "OCR",
+        "expected": "开发"
+    },
+    "全部开发":{
+        "recognition": "OCR",
+        "expected": "全部开发"
+    },
+    "执行开发":{
+        "recognition": "OCR",
+        "expected": "执行开发"
+    },
+    "刚坦克":{
+        "recognition": "TemplateMatch",
+        "template": "刚坦克.png"
+    },
+    "TAP TO NEXT":{
+        "recognition": "OCR",
+        "expected": "TAP TO NEXT"
+    },
+    "返回":{
+        "recognition": "TemplateMatch",
+        "template": "返回.png"
+    },
+    "个人基地":{
+        "recognition": "OCR",
+        "expected": "个人基地"
+    },
+    "战舰巡航":{
+        "recognition": "OCR",
+        "expected": "战舰巡航"
+    },
+    "全部回收":{
+        "recognition": "OCR",
+        "expected": "全部回收"
+    },
+    "主要关卡":{
+        "recognition": "OCR",
+        "expected": "主要关卡"
+    },
+    "机动战士高达":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "机动战士高达.png"
+    },
+    "选择":{
+        "recognition": "OCR",
+        "expected": "选择"
+    },
+    "HARD3":{
+        "recognition": "TemplateMatch",
+        "template": "HARD3.png"
+    },
+    "材料本":{
+        "action": "Custom",
+        "custom_action": "养成培养材料"
+    },
+    "免费":{
+        "recognition": "OCR",
+        "expected": "免费"
+    },
+    "使命":{
+        "recognition": "OCR",
+        "expected": "使命"
+    },
+    "全部领取":{
+        "recognition": "OCR",
+        "expected": "全部领取"
+    },
+    "礼物":{
+        "recognition": "OCR",
+        "expected": "礼物"
+    },
+    "独角兽":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "独角兽.png"
+    },
+    "战斗关卡选择":{
+        "action": "Custom",
+        "custom_action": "战斗关卡选择"
+    },
+    "HARD2":{
+        "recognition": "TemplateMatch",
+        "template": "HARD2.png"
+    },
+    "HARD1":{
+        "recognition": "TemplateMatch",
+        "template": "HARD1.png"
+    },
+    "HARD":{
+        "recognition": "OCR",
+        "expected": "HARD"
+    },
+    "HARD4":{
+        "recognition": "TemplateMatch",
+        "template": "HARD4.png"
+    },
+    "HARD2_OCR":{
+        "recognition": "OCR",
+        "expected": "2",
+        "roi":[676,73,603,47]
+    },
+    "HARD3_OCR":{
+        "recognition": "OCR",
+        "expected": "3",
+        "roi":[676,73,603,47]
+    },
+    "HARD4_OCR":{
+        "recognition": "OCR",
+        "expected": "4",
+        "roi":[676,73,603,47]
+    },
+    "HARD1_OCR":{
+        "recognition": "OCR",
+        "expected": "1",
+        "roi":[676,73,603,47]
+    },
+    "HARD1_STAGE":{
+        "recognition": "FeatureMatch",
+        "template": "HARD1_STAGE.png"
+    },
+    "HARD2_STAGE":{
+        "recognition": "FeatureMatch",
+        "template": "HARD2_STAGE.png"
+    },
+    "HARD3_STAGE":{
+        "recognition": "FeatureMatch",
+        "template": "HARD3_STAGE.png"
+    },
+    "HARD4_STAGE":{
+        "recognition": "FeatureMatch",
+        "template": "HARD4_STAGE.png"
+    },
+    "Skip":{
+        "action": "Custom",
+        "custom_action": "困难关卡自动扫荡"
+    },
+    "ZZ":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "机动战士高达ZZ.png"
+    },
+    "SEED":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "SEED.png"
+    },
+    "铁血的奥尔芬斯":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "铁血的奥尔芬斯.png"
+    },
+    "W":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "新机动战记高达W.png"
+    },
+    "normal1":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "normal1.png"
+    },
+    "stage_select":{
+        "action": "Custom",
+        "custom_action": "战斗关卡选择"
+        
+        }
+    ,
+    "story_select":{
+        "action": "Custom",
+        "custom_action": "故事选择",
+        "next": ["stage_select"]
+    },
+    "机动战士Z高达":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "机动战士Z高达.png"
+    }
+    ,
+    "X":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "新机动世纪高达X.png"
+    },
+    "机动武斗传G高达":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "机动武斗传G高达.png"
+    }
+    ,
+    "00":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "00.png"
+    },
+    "水星的魔女":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "水星的魔女.png"
+    },
+    "DESTINY":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "DESTINY.png"
+    },
+    "Recollection":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "Recollection.png"
+    },
+    "逆袭的夏亚":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "逆袭的夏亚.png"
+    },
+    "Enpty_OCR":{
+        "recognition": "OCR",
+        "expected": "",
+        "roi":[676,73,603,47]
+    }
+
+    
+
+      
+
+
+  
+
+
+    
+    
+      
+    
+      
+      
+}
