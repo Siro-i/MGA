@@ -25,13 +25,13 @@ sys.path.insert(0, current_dir)
 
 from maa.agent.agent_server import AgentServer
 from maa.toolkit import Toolkit
-from agent import GenericClickAction
-from agent import UPgradeMission
-from agent import GenericRecognition
-from agent import DailyMission
-from agent import StageSelect
-from agent import HardSkip
-from agent import StorySelect
+import GenericClickAction
+import UPgradeMission
+import GenericRecognition
+import DailyMission
+import StageSelect
+import HardSkip
+import StorySelect
 
 
 def main():
