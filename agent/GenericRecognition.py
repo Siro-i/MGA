@@ -88,9 +88,14 @@ class GenericRecognition(CustomRecognition):
         best_result = []
         roi = None
         found = False
+        
+        if reco_detail is None:
+            print("[通用识别动作] reco_detail 为 None")
+            return found, roi, best_result, filterd_results, all_results
+            
         try:
-            all_results =getattr(reco_detail, "all_results", [])
-            filterd_results =getattr(reco_detail, "filterd_results", [])
+            all_results = getattr(reco_detail, "all_results", [])
+            filterd_results = getattr(reco_detail, "filterd_results", [])
             best_result = getattr(reco_detail, "best_result", [])
             box = getattr(reco_detail, "box", (0,0,0,0))
             roi = list(box)

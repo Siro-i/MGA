@@ -4,6 +4,7 @@ from GenericRecognition import GenericRecognition
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
+from GenericSwipeAction import GenericSwipeAction
 from StageSelect import StageSelect
 from UtilTools import UtilTools
 
@@ -12,13 +13,13 @@ class DailyMission(CustomAction):
 
     def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
         shop_targets = ['主画面','商店','高级','免费','购买按钮','关闭','主画面'] 
-        development_targets = ['开发','0079','刚坦克','全部开发','执行开发','执行','TAP TO NEXT','返回','主画面'] 
+        development_targets = ['开发','0079','终极','地球联邦','刚坦克','全部开发','执行开发','执行','TAP TO NEXT','返回','主画面'] 
         base_targets = ['个人基地','战舰巡航','全部回收','OK','主画面']  
         last_targets = ['主画面','使命','全部领取','OK','主画面','礼物','全部领取','OK','关闭']
         task_groups = [ ("商店任务", shop_targets), 
         ("开发任务", development_targets), 
         ("基地任务", base_targets), 
-        ("最后任务", last_targets) 
+        ("领取每日任务奖励并收取邮件", last_targets) 
         ]
         
 
@@ -60,18 +61,12 @@ class DailyMission(CustomAction):
                         print(f"[每日任务] 购买按钮识别结果: {item}")
 
                     free_box = result_free["roi"]
-                    candidates = [item["box"] for item in all_buy if item["box"][0] < free_box[0]]
-                    if not candidates:
-                        print("[每日任务] 未找到位于免费文本下方的购买按钮，直接结束此任务组")
-                        task_success = False
-                        break
-
+                    candidates = [item["box"] for item in all_buy ]
                     target_box = min(candidates, key=lambda b:abs(b[0] - free_box[0]))
                     print(f"[每日任务] 点击购买按钮 ROI={target_box}")
                     GenericClickAction.click_roi(context, target_box)
                     continue  
-
-                success = GenericClickAction.click_target(context, target, wait_for_next=next_target, timeout=8, interval=0.5)
+                success = GenericClickAction.click_target(context, target, wait_for_next=next_target)
                 time.sleep(0.5)
                 if not success:
                     print(f"[每日任务] {task_name} - 点击 {target} 或等待下一个目标失败")
@@ -85,13 +80,9 @@ class DailyMission(CustomAction):
                     if not retry_success:
                         task_success = False
                         if target != targets[0]:
-                            print(f"[每日任务] 尝试返回主画面")
-                            if not GenericClickAction.click_target(context, "主画面", timeout=5):
-                                try:
-                                    GenericClickAction.click_target(context, "关闭", timeout=5)
-                                except:
-                                    GenericClickAction.click_target(context, "返回", timeout=5)
-                                break
+                           UtilTools.return_home(context)
+                        break
+            
                         
 
                 time.sleep(0.5)

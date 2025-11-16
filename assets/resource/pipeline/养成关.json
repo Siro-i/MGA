@@ -316,7 +316,16 @@
         "recognition": "OCR",
         "expected": "",
         "roi":[676,73,603,47]
+    },
+    "终极":{
+        "recognition": "OCR",
+        "expected": "终极"
+    },
+    "地球联邦":{
+        "recognition": "OCR",
+        "expected": "地球联邦"
     }
+
 
     
 

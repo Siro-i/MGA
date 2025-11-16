@@ -71,12 +71,8 @@ class StageSelect(CustomAction):
     @staticmethod
     def select(context: Context,Stagetarget: str,Hardtarget: str, way: str = "right", ) -> bool:
         """选择主线和HARD关卡"""
-        GenericClickAction.click_target(context,target="主画面")
-        time.sleep(0.6)
-        GenericClickAction.click_target(context,target="关卡")
-        time.sleep(0.6)
-        GenericClickAction.click_target(context,target="主要关卡")
-        time.sleep(0.6)
+        targets=['主画面','关卡','主要关卡']
+        UtilTools.click_wait(context,targets)
         StageSelect.select_story(context,way,Stagetarget)
         time.sleep(0.6)
         StageSelect.select_hardstage(context,Hardtarget)

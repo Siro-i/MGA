@@ -24,12 +24,12 @@ class GenericClickAction(CustomAction):
     def click_target(context: Context, target: str,
                      wait_for_next: str = None,
                      fuzzy: bool = False,
-                     timeout: float = 4,
-                     interval: float = 0.5,
+                     timeout: float = 5,
+                     interval: float = 1,
                      roi=None) -> bool:
         """
         点击指定目标。
-        如果指定 wait_for_next，则点击后等待下一个目标出现。
+        如果指定 wait_for_next，则点击后等待下一个目标出现,默认等待时间为3s,间隔1s。
         """
         print(f"[通用点击动作] 调用识别模块：target='{target}', fuzzy={fuzzy}")
         image =UtilTools.get_image(context)
@@ -67,7 +67,7 @@ class GenericClickAction(CustomAction):
         return True
 
     @staticmethod
-    def _wait_for_next(context: Context, wait_target, timeout, interval, fuzzy=False):
+    def _wait_for_next(context: Context, wait_target, timeout,  interval,  fuzzy=False):
         """等待下一个目标出现"""
         print(f"[通用点击动作] 等待下一个目标 '{wait_target}'，最长 {timeout}s")
         start_time = time.time()

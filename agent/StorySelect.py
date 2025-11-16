@@ -19,12 +19,8 @@ class StorySelect(CustomAction):
             return True
         else:
             print(f"[故事选择] 未选择{Storytarget}")
-            GenericClickAction.click_target(context,target="主画面")
-            time.sleep(0.6)
-            GenericClickAction.click_target(context,target="关卡")
-            time.sleep(0.6)
-            GenericClickAction.click_target(context,target="主要关卡")
-            time.sleep(0.6)
+            targets = ['主画面','关卡','主要关卡']
+            UtilTools.click_wait(context,targets)
             StageSelect.select_story(context,"right",Storytarget)
             return True
 

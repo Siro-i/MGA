@@ -35,6 +35,16 @@ class UtilTools:
             识别结果字典
         """
         reco_result = GenericRecognition.analyze_target(context, image, target, fuzzy_match=fuzzy ,pipeline=pipeline)
+        # 添加对reco_result为None的检查
+        if reco_result is None:
+            print(f"[工具] 识别目标 '{target}' 失败，返回结果为 None")
+            return {
+                "found": False,
+                "roi": None,
+                "filterd_results": [],
+                "all_results": [],
+                "best_result": {}
+            }
         result = json.loads(reco_result.detail)
         return result
 
@@ -51,12 +61,13 @@ class UtilTools:
         for i, target in enumerate(targets):
                 next_target = targets[i+1] if i+1 < len(targets) else None
                 print(f" 尝试点击: {target}, 等待下一个: {next_target}")
-                success = GenericClickAction.GenericClickAction.click_target(context, target, wait_for_next=next_target, timeout=8, interval=0.5)
+                success = GenericClickAction.GenericClickAction.click_target(context, target, wait_for_next=next_target, timeout=5, interval=1)
+                time.sleep(1)
                 if not success:
                     print(f" 点击 {target} 或等待下一个目标失败")
                     retry_success = False
                     if target == "OK":
-                        for j in range(5):
+                        for j in range(3):
                             print(f"第 {j+1} 次重试点击 {target}")
                             if GenericClickAction.GenericClickAction.click_target(context, target):
                                 retry_success = True
@@ -68,7 +79,7 @@ class UtilTools:
                     
                     if not retry_success:
                         return False
-        return retry_success
+        return True
 
     @staticmethod
     def group_and_sort_by_count(tuples_list):
@@ -126,3 +137,24 @@ class UtilTools:
                 else:
                     return True
         return False
+    @staticmethod
+    def return_home(context:Context):
+            """
+            返回主界面
+            Args:
+                context: MAA上下文
+            Returns:
+                是否成功返回主界面
+            """
+            if GenericClickAction.GenericClickAction.click_target(context, "主画面", timeout=5):
+                return True
+            try:
+                if GenericClickAction.GenericClickAction.click_target(context, "关闭", timeout=5):
+                    return True
+            except Exception as e:
+                print(f"点击'关闭'时发生异常: {e}")
+            try:
+                return GenericClickAction.GenericClickAction.click_target(context, "返回", timeout=5)
+            except Exception as e:
+                print(f"返回主界面的所有尝试均失败: {e}")
+                return False
