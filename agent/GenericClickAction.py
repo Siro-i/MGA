@@ -1,3 +1,5 @@
+from email.mime import image
+from sre_constants import SUCCESS
 import time
 import json
 from maa.agent.agent_server import AgentServer
@@ -40,6 +42,14 @@ class GenericClickAction(CustomAction):
 
         roi = result["roi"]
         success = GenericClickAction.click_via_roi(context, target, roi)
+        if target == "主画面":
+            is_home = GenericClickAction.Check_home(context, target, roi)
+            if is_home:
+                print(f"[通用点击动作] 已返回主画面")
+                return True
+            else:
+                print(f"[通用点击动作] 未返回主画面")
+                UtilTools.return_home(context)
 
         if success and wait_for_next:
             return GenericClickAction._wait_for_next(
@@ -84,3 +94,10 @@ class GenericClickAction(CustomAction):
 
         print(f"[通用点击动作] 等待超时  '{wait_target}' 未出现")
         return False
+    @staticmethod
+    def Check_home(context: Context, target, roi):
+        """检查是否返回主界面"""
+        if target == "主画面":
+           image=UtilTools.get_image(context)
+           success = UtilTools.get_result(context, image, target)["found"]
+        return success

@@ -14,7 +14,7 @@ class StageSelect(CustomAction):
         Hardtarget =json.loads(argv.custom_action_param)["stage_target"]
         StageSelect.hard_battle(context,Hardtarget)
     @staticmethod
-    def select_hardstage(context: Context, target: str) -> bool:
+    def select_hardstage(context: Context, target: str,all=False) -> bool:
         """选择HARD关卡"""
         isfound=False
         GenericSwipeAction.right_reset(context)
@@ -72,8 +72,17 @@ class StageSelect(CustomAction):
     def select(context: Context,Stagetarget: str,Hardtarget: str, way: str = "right", ) -> bool:
         """选择主线和HARD关卡"""
         targets=['主画面','关卡','主要关卡']
-        UtilTools.click_wait(context,targets)
-        StageSelect.select_story(context,way,Stagetarget)
+        if Stagetarget in ["雷霆宙域","异端"]:
+            targets.append("历史关卡")
+            UtilTools.click_wait(context,targets)
+            image=UtilTools.get_image(context)
+            Result=UtilTools.get_result(context,image,Stagetarget,fuzzy=True)
+            GenericClickAction.click_target(context,target=Stagetarget)
+            time.sleep(0.6)
+            GenericClickAction.click_target(context,target=["前往关卡","关卡"])
+        else:
+            UtilTools.click_wait(context,targets)
+            StageSelect.select_story(context,way,Stagetarget)
         time.sleep(0.6)
         StageSelect.select_hardstage(context,Hardtarget)
 
@@ -88,7 +97,7 @@ class StageSelect(CustomAction):
     
     @staticmethod
     def hard_battle(context: Context,Hardtarget: str ) -> bool:
-        """选择并进行HARD战斗"""
+        """进行HARD战斗"""
         StageSelect.select_hardstage(context,Hardtarget)
         time.sleep(0.6)
         targets=['略过','执行','OK']

@@ -27,15 +27,6 @@
         "recognition": "TemplateMatch",
         "template": "支援人员培育.png"
     },
-    "关卡点击": {
-        "recognition": "Custom",
-        "custom_recognition_param": {
-            "target": "OK"
-        },
-        "custom_recognition": "通用识别动作",
-        "action": "Custom",
-        "custom_action": "通用点击动作"
-    },
     "关闭": {
         "recognition": "OCR",
         "expected": "关闭"
@@ -51,14 +42,6 @@
     "OK":{
         "recognition": "TemplateMatch",
         "template": "OK.png"
-    },
-    "自定义检测动作":{
-        "recognition": "Custom",
-        "custom_recognition": "通用识别动作"
-    },
-    "自定义点击动作":{
-        "action": "Custom",
-        "custom_action": "通用点击动作"
     },
     "养成材料":{
         "action": "Custom",
@@ -324,7 +307,37 @@
     "地球联邦":{
         "recognition": "OCR",
         "expected": "地球联邦"
+    },
+    "雷霆宙域":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "雷霆宙域.png"
     }
+    ,
+    "异端":{
+        "recognition": "FeatureMatch",
+        "count" : 50,
+        "template": "异端.png"
+    },
+    "历史关卡":{
+        "recognition": "OCR",
+        "expected": "历史关卡"
+    },
+    "前往关卡":{
+        "recognition": "OCR",
+        "expected": "前往关卡"
+    },
+    "综合攻略程度":{
+        "recognition": "OCR",
+        "expected": "综合攻略程度"
+    },
+    "故事关卡":{
+        "recognition":"TemplateMatch",
+        "template":"故事关卡.png"
+
+    }
+
+
 
 
     

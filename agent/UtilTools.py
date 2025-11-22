@@ -146,6 +146,7 @@ class UtilTools:
             Returns:
                 是否成功返回主界面
             """
+            time.sleep(1)
             if GenericClickAction.GenericClickAction.click_target(context, "主画面", timeout=5):
                 return True
             try:

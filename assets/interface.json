@@ -14,9 +14,9 @@
         }
     ],
     "agent": {
-        "child_exec": "./python/python.exe",
+        "child_exec": "python",
         "child_args": [
-            "./agent/main.py"
+            "../agent/main.py"
         ]
     },
     "task": [
@@ -43,7 +43,7 @@
                             "action": "Custom",
                             "custom_action": "困难关卡自动扫荡",
                             "custom_action_param": {
-                                "target": [["机动战士高达", "HARD1"],["机动战士Z高达", "HARD2"],["SEED", "HARD3"],["ZZ","HARD3"],["SEED", "HARD1"],["铁血的奥尔芬斯","HARD1"]]
+                                "target": [["机动战士高达", "HARD1"],["机动战士Z高达", "HARD2"],["SEED", "HARD3"],["ZZ","HARD3"],["SEED", "HARD1"],["雷霆宙域","HARD1"]]
                             }
                         }
             }
@@ -188,6 +188,24 @@
                         "story_select": {
                             "custom_action_param": {
                                 "story_target": "独角兽"
+                            }
+                        }
+                    }
+                },
+                {"name": "雷霆宙域",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "雷霆宙域"
+                            }
+                        }
+                    }
+                },
+                {"name": "异端",
+                    "pipeline_override": {
+                        "story_select": {
+                            "custom_action_param": {
+                                "story_target": "异端"
                             }
                         }
                     }

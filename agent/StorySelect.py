@@ -1,6 +1,7 @@
 import json
 import sys
 import time
+from turtle import left
 from GenericClickAction import GenericClickAction
 from GenericRecognition import GenericRecognition
 from maa.agent.agent_server import AgentServer
@@ -18,9 +19,20 @@ class StorySelect(CustomAction):
             print(f"[故事选择] 已选择{Storytarget}")
             return True
         else:
-            print(f"[故事选择] 未选择{Storytarget}")
-            targets = ['主画面','关卡','主要关卡']
-            UtilTools.click_wait(context,targets)
-            StageSelect.select_story(context,"right",Storytarget)
+            targets=['主画面','关卡','主要关卡']
+            if Storytarget in ["雷霆宙域","异端"]:
+                targets.append("历史关卡")
+                UtilTools.click_wait(context,targets)
+                image=UtilTools.get_image(context)
+                Result=UtilTools.get_result(context,image,Storytarget,fuzzy=True)
+                GenericClickAction.click_target(context,target=Storytarget)
+                time.sleep(0.6)
+                GenericClickAction.click_target(context,target="前往关卡")
+                time.sleep(1)
+                GenericClickAction.click_target(context,target="故事关卡")
+            else:
+                UtilTools.click_wait(context,targets)
+                StageSelect.select_story(context,left,Storytarget)
+            time.sleep(0.6)
             return True
 
