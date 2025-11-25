@@ -1,7 +1,6 @@
 import json
 import sys
 import time
-from turtle import left
 from GenericClickAction import GenericClickAction
 from GenericRecognition import GenericRecognition
 from maa.agent.agent_server import AgentServer
@@ -32,7 +31,7 @@ class StorySelect(CustomAction):
                 GenericClickAction.click_target(context,target="故事关卡")
             else:
                 UtilTools.click_wait(context,targets)
-                StageSelect.select_story(context,left,Storytarget)
+                StageSelect.select_story(context,way="left",Storytarget=Storytarget)
             time.sleep(0.6)
             return True
 

@@ -79,7 +79,9 @@ class StageSelect(CustomAction):
             Result=UtilTools.get_result(context,image,Stagetarget,fuzzy=True)
             GenericClickAction.click_target(context,target=Stagetarget)
             time.sleep(0.6)
-            GenericClickAction.click_target(context,target=["前往关卡","关卡"])
+            GenericClickAction.click_target(context,target="前往关卡")
+            time.sleep(1)
+            GenericClickAction.click_target(context,target="故事关卡")
         else:
             UtilTools.click_wait(context,targets)
             StageSelect.select_story(context,way,Stagetarget)

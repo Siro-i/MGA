@@ -49,6 +49,7 @@ class GenericClickAction(CustomAction):
                 return True
             else:
                 print(f"[通用点击动作] 未返回主画面")
+                time.sleep(1.5)
                 UtilTools.return_home(context)
 
         if success and wait_for_next:

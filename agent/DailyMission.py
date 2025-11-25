@@ -49,6 +49,7 @@ class DailyMission(CustomAction):
                         found_buy = result_buy["found"]
                         print(f"[每日任务] 免费识别结果: {found_free}")
                         print(f"[每日任务] 购买识别结果: {found_buy}")
+                        print(result_buy)
                     except Exception as e:
                         print(f"[每日任务] 解析购买识别结果失败: {e}")
 
@@ -56,8 +57,9 @@ class DailyMission(CustomAction):
                         print("[每日任务] 免费购买条件未满足，直接结束此任务组")
                         task_success = False
                         break
-                    for item in result_buy["filterd_results"]:
-                        all_buy.append(item)
+                    for item in result_buy["all_results"]:
+                        if "购买" in item["text"]:
+                            all_buy.append(item)
                         print(f"[每日任务] 购买按钮识别结果: {item}")
 
                     free_box = result_free["roi"]
