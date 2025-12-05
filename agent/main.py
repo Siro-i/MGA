@@ -1,25 +1,7 @@
-# 分发版本用: 强制使用嵌入式 Python，无论启动方式
-import sys, os, subprocess
 
+import sys
+import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
-python_dir = os.path.abspath(os.path.join(current_dir, "..", "python"))
-embedded_python = os.path.join(python_dir, "python.exe")
-
-# 强制让 PATH 优先使用内嵌 python
-os.environ["PATH"] = python_dir + os.pathsep + os.environ.get("PATH", "")
-
-# 如果当前不是嵌入式 Python，就重启自己
-if not os.path.exists(embedded_python):
-    print("[MGA] Embedded Python not found, exiting.")
-    sys.exit(1)
-
-# 判断是否为系统 Python
-if not os.path.samefile(sys.executable, embedded_python):
-    print(f"[MGA] Relaunching with embedded Python: {embedded_python}")
-    args = [embedded_python, os.path.abspath(__file__)] + sys.argv[1:]
-    os.execv(embedded_python, args)
-
-# 修正工作目录
 os.chdir(current_dir)
 sys.path.insert(0, current_dir)
 
@@ -32,9 +14,12 @@ import DailyMission
 import StageSelect
 import HardSkip
 import StorySelect
+from UtilTools import UtilTools
 
 
 def main():
+    pipeline_path = os.path.join(os.path.dirname(current_dir), "assets", "resource", "pipeline", "图片.json")
+    UtilTools.load_pipeline_nodes(pipeline_path)
     Toolkit.init_option("./")
     if len(sys.argv) < 2:
         print("Usage: python main.py <socket_id>")

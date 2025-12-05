@@ -1,127 +1,117 @@
 import json
+import difflib
+from typing import Tuple, Any
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
-import re
+
+# --- [核心修复点] 数据层 ---
+class RecognitionResult:
+    def __init__(self, found: bool, box: Tuple[int, int, int, int], text: str = "", score: float = 0.0, details: Any = None):
+        self.found = found
+        self.box = box if box is not None else (0, 0, 0, 0)
+        self.text = text
+        self.score = score
+        self.details = details
+
+    def to_dict(self):
+        return {
+            "found": self.found,
+            "roi": list(self.box), 
+            "text": self.text,
+            "score": self.score
+        }
 
 @AgentServer.custom_recognition("通用识别动作")
 class GenericRecognition(CustomRecognition):
-    """通用识别模块，可独立调用。支持 OCR、模板匹配、特征匹配。"""
-
+    
     def analyze(self, context: Context, argv: CustomRecognition.AnalyzeArg) -> CustomRecognition.AnalyzeResult:
-        return self.analyze_target(context, argv.image, "关卡", fuzzy_match = True )
+        result = self.analyze_target(context, argv.image, "关卡")
+        return CustomRecognition.AnalyzeResult(
+            box=tuple(result.box),
+            detail=json.dumps(result.to_dict(), ensure_ascii=False)
+        )
 
     @staticmethod
-    def analyze_target(context: Context, image, target: str, fuzzy_match: bool = True ,pipeline:dict = None):
-        roi = None
-        all_results = []
-        filterd_results = []
-        best_result = None
-        node_data = context.get_node_data(target)
-        if not node_data:
-            print(f"[通用识别动作] 未找到节点数据: '{target}'")
-            return GenericRecognition._make_result(False, roi, filterd_results, all_results,best_result)
+    def analyze_target(context: Context, image, target: str, 
+                       fuzzy_match: bool = True,
+                       roi: tuple = (0, 0, 0, 0),
+                       similarity_threshold: float = 0.75) -> RecognitionResult:
+        
+        from UtilTools import UtilTools  
 
-        recognition = node_data.get("recognition")
-        if not recognition:
-            print(f"[通用识别动作] 节点 '{target}' 缺少 recognition 字段")
-            return GenericRecognition._make_result(False, roi, filterd_results, all_results,best_result)
 
-        node_type = recognition.get("type")
-        print(f"[通用识别动作] 识别节点 '{target}' 类型: {node_type}")
-        if pipeline is None:
+        if UtilTools.is_node_defined(target):
+            return GenericRecognition._run_specific_node(context, image, target)
+        
+        return GenericRecognition._run_dynamic_ocr_search(
+            context, image, target, fuzzy_match, similarity_threshold
+        )
 
-            reco_detail = context.run_recognition(target, image)
-        else:
-            reco_detail = context.run_recognition(target, image, pipeline)
+    @staticmethod
+    def _run_specific_node(context: Context, image, node_name: str) -> RecognitionResult:
+        try:
+            reco_detail = context.run_recognition(node_name, image)
+        except Exception:
+            return RecognitionResult(False, (0, 0, 0, 0))
 
         if not reco_detail:
-            return GenericRecognition._make_result(False, roi, filterd_results, all_results,best_result)
-
-        found, roi, best_result,filterd_results, all_results = GenericRecognition._extract_detail(reco_detail)
-
-        # ---------- OCR ----------
-        if node_type == "OCR":
-            target_upper = target.replace(" ", "").upper()
-            
-            found_item = None
-            for item in all_results:
-                text = getattr(item, "text", "") or ""
-                text_upper = text.replace(" ", "").upper()
-                
-                if not text_upper:
-                    continue
-                
-                if fuzzy_match:
-                    if target_upper == text_upper:
-                        found_item = item
-                        break
-                    elif target_upper in text_upper:
-                        found_item = item
-                        break
-                else:
-                    if target_upper == text_upper:
-                        found_item = item
-                        break
-            if found : 
-                return GenericRecognition._make_result(True, roi, filterd_results, all_results,best_result)
-
-
-            if found_item:
-                print(f"[OCR匹配成功] {found_item}")
-                return GenericRecognition._make_result(True, roi, filterd_results, all_results,best_result)
-            else:
-                print(f"[OCR匹配失败] 未找到匹配项: '{target}'")
-
-        if node_type in ["TemplateMatch", "FeatureMatch"] :
-            if best_result:
-                return GenericRecognition._make_result(True, roi, filterd_results, all_results,best_result)
-            else:
-                print(f"[通用识别动作] '{target}' 无匹配结果")
-                return GenericRecognition._make_result(False, None, filterd_results, all_results,best_result)
-
-    @staticmethod
-    def _extract_detail(reco_detail):
-        """从 reco_detail 中提取 OCR 结果列表。"""
-        all_results = []
-        filterd_results = []
-        best_result = []
-        roi = None
-        found = False
+            return RecognitionResult(False, (0, 0, 0, 0))
+        box = getattr(reco_detail, "box", (0, 0, 0, 0))
+        best = getattr(reco_detail, "best_result", None)
+        is_found = (box is not None) and (box != (0, 0, 0, 0))
         
-        if reco_detail is None:
-            print("[通用识别动作] reco_detail 为 None")
-            return found, roi, best_result, filterd_results, all_results
-            
-        try:
-            all_results = getattr(reco_detail, "all_results", [])
-            filterd_results = getattr(reco_detail, "filterd_results", [])
-            best_result = getattr(reco_detail, "best_result", [])
-            box = getattr(reco_detail, "box", (0,0,0,0))
-            roi = list(box)
-            if roi != (0,0,0,0):
-                found = True
-        except Exception as e:
-            print(f"[通用识别动作] detail解析失败: {e}")
-        return found, roi, best_result, filterd_results, all_results
-                
+        return RecognitionResult(is_found, box, getattr(best, "text", ""), getattr(best, "score", 0), reco_detail)
+
     @staticmethod
-    def _make_result(found, roi, filterd_results, all_results,best_result):
-        def serialize(item):
-                
-                return {
-                    "text": getattr(item, "text", ""),
-                    "score": getattr(item, "score", ""),
-                    "box": getattr(item, "box", None)
-                }
-        detail = {
-            "found": found,
-            "roi": roi,
-            "filterd_results": [serialize(i) for i in (filterd_results or [])],
-            "all_results": [serialize(i) for i in (all_results or [])],
-            "best_result": serialize(best_result) if best_result else {}
+    def _run_dynamic_ocr_search(context: Context, image, target_text: str, roi: tuple = (0, 0, 0, 0),
+                                fuzzy: bool = True, threshold: float = 0.75) -> RecognitionResult:
+        
+        current_roi = roi
+        temp_pipeline = {
+            "Auto_Dynamic_OCR": {
+                "recognition": "OCR", 
+                "roi": roi,
+                "action": "DoNothing"
+            }
         }
-        return CustomRecognition.AnalyzeResult(
-            box=tuple(roi) if roi else (0, 0, 0, 0),
-            detail=json.dumps(detail, ensure_ascii=False)
-        )
+        
+        try:
+            reco_detail = context.run_recognition("Auto_Dynamic_OCR", image, temp_pipeline)
+        except Exception as e:
+            print(f"[识别] OCR 执行异常: {e}")
+            return RecognitionResult(False, (0, 0, 0, 0))
+
+        if not reco_detail:
+            return RecognitionResult(False, (0, 0, 0, 0))
+
+        all_results = getattr(reco_detail, "all_results", []) or []
+        target_clean = target_text.replace(" ", "").upper()
+        
+        best_item = None
+        max_score = -1.0
+
+        for item in all_results:
+            text = getattr(item, "text", "")
+            if not text: continue
+            
+            text_clean = text.replace(" ", "").upper()
+            current_score = 0.0
+            
+            if text_clean == target_clean:
+                current_score = 1.0
+            elif fuzzy and (target_clean in text_clean):
+                current_score = 0.9
+            elif fuzzy:
+                ratio = difflib.SequenceMatcher(None, target_clean, text_clean).ratio()
+                if ratio > threshold:
+                    current_score = ratio
+            
+            if current_score > max_score and current_score > 0:
+                max_score = current_score
+                best_item = item
+
+        if best_item and max_score > 0:
+            return RecognitionResult(True, getattr(best_item, "box", (0,0,0,0)), getattr(best_item, "text", ""), max_score, reco_detail)
+
+        return RecognitionResult(False, (0, 0, 0, 0), details=reco_detail)

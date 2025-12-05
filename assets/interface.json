@@ -7,16 +7,16 @@
     ],
     "resource": [
         {
-            "name": "官服",
+            "name": "国际服",
             "path": [
                 "{PROJECT_DIR}/resource"
             ]
         }
     ],
     "agent": {
-        "child_exec": "./python/python.exe",
+        "child_exec": "python",
         "child_args": [
-            "./agent/main.py"
+            "../agent/start_agent.py"
         ]
     },
     "task": [
@@ -24,6 +24,10 @@
             "name": "养成本",
             "entry": "养成材料"
             
+        },
+        {
+            "name": "识别测试",
+            "entry": "测试"
         },
 
         {

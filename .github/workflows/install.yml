@@ -148,7 +148,7 @@ jobs:
           echo "Running install.py for version ${{ needs.meta.outputs.tag }}"
           python ./install.py ${{ needs.meta.outputs.tag }}
           cp ./MFA/MFAWPF.exe ./install
-          jq --arg version_name "MGA" --arg url "https://github.com/283P/MGA" --arg version ${{ needs.meta.outputs.tag }} '. + {"name": $version_name, "url": $url,"version": $version}' ./assets/interface.json > ./install/interface.json
+          jq --arg version_name "MGA" --arg url "https://github.com/283P/MGA" --arg version ${{ needs.meta.outputs.tag }} '. + {"name": $version_name, "url": $url,"version": $version}' ./assets/interface.json > ./assets/interface.json
 
       - uses: actions/upload-artifact@v4
         with:

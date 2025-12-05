@@ -8,7 +8,7 @@ from UtilTools import UtilTools
 
 @AgentServer.custom_action("养成培育材料")
 class UPgradeMission(CustomAction):
-    def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
+   def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
         target1 = ['主画面', '关卡', '强化培育关卡', 'CAPITAL', '略过', '执行', 'OK']
         target2 = ['返回', '单位培育', '略过', '执行', 'OK']
         target3 = ['返回', '角色培育', '略过', '执行', 'OK']
@@ -27,8 +27,7 @@ class UPgradeMission(CustomAction):
 
         for task_name, targets in task_groups:
             print(f"[每日任务] 正在处理 {task_name}: {targets}")
-            task_success = True
-            UtilTools.click_wait(context, targets)
+            task_success = UtilTools.click_wait(context, targets)
             task_successes[task_name] = task_success
             
             if task_success:

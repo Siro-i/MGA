@@ -1,16 +1,9 @@
 {
-    "关卡": {
-        "recognition": "OCR",
-        "expected": "关卡"
-    },
     "强化培育关卡": {
         "recognition": "TemplateMatch",
         "template": "强化培育关卡.png"
     },
-    "主画面": {
-        "recognition": "OCR",
-        "expected": "主画面"
-    },
+
     "CAPITAL": {
         "recognition": "TemplateMatch",
         "template": "CAPITAL.png"
@@ -26,10 +19,6 @@
     "支援人员培育": {
         "recognition": "TemplateMatch",
         "template": "支援人员培育.png"
-    },
-    "关闭": {
-        "recognition": "OCR",
-        "expected": "关闭"
     },
     "略过": {
         "recognition": "TemplateMatch",
@@ -63,70 +52,18 @@
         "action": "Custom",
         "custom_action": "每日任务"
     },
-    "商店":{
-       "recognition": "OCR",
-       "expected": "商店"
-    },
-    "高级":{
-        "recognition": "OCR",
-        "expected": "高级"
-    },
-    "购买按钮":{
-        "recognition": "FeatureMatch",
-        "template": "购买按钮.png"
-    },
-    "购买":{
-        "recognition": "OCR",
-        "expected": "购买"
-    },
-    "开发":{
-        "recognition": "OCR",
-        "expected": "开发"
-    },
-    "全部开发":{
-        "recognition": "OCR",
-        "expected": "全部开发"
-    },
-    "执行开发":{
-        "recognition": "OCR",
-        "expected": "执行开发"
-    },
     "刚坦克":{
         "recognition": "TemplateMatch",
         "template": "刚坦克.png"
-    },
-    "TAP TO NEXT":{
-        "recognition": "OCR",
-        "expected": "TAP TO NEXT"
     },
     "返回":{
         "recognition": "TemplateMatch",
         "template": "返回.png"
     },
-    "个人基地":{
-        "recognition": "OCR",
-        "expected": "个人基地"
-    },
-    "战舰巡航":{
-        "recognition": "OCR",
-        "expected": "战舰巡航"
-    },
-    "全部回收":{
-        "recognition": "OCR",
-        "expected": "全部回收"
-    },
-    "主要关卡":{
-        "recognition": "OCR",
-        "expected": "主要关卡"
-    },
     "机动战士高达":{
         "recognition": "FeatureMatch",
         "count" : 50,
         "template": "机动战士高达.png"
-    },
-    "选择":{
-        "recognition": "OCR",
-        "expected": "选择"
     },
     "HARD3":{
         "recognition": "TemplateMatch",
@@ -135,22 +72,6 @@
     "材料本":{
         "action": "Custom",
         "custom_action": "养成培养材料"
-    },
-    "免费":{
-        "recognition": "OCR",
-        "expected": "免费"
-    },
-    "使命":{
-        "recognition": "OCR",
-        "expected": "使命"
-    },
-    "全部领取":{
-        "recognition": "OCR",
-        "expected": "全部领取"
-    },
-    "礼物":{
-        "recognition": "OCR",
-        "expected": "礼物"
     },
     "独角兽":{
         "recognition": "FeatureMatch",
@@ -168,10 +89,6 @@
     "HARD1":{
         "recognition": "TemplateMatch",
         "template": "HARD1.png"
-    },
-    "HARD":{
-        "recognition": "OCR",
-        "expected": "HARD"
     },
     "HARD4":{
         "recognition": "TemplateMatch",
@@ -300,14 +217,6 @@
         "expected": "",
         "roi":[676,73,603,47]
     },
-    "终极":{
-        "recognition": "OCR",
-        "expected": "终极"
-    },
-    "地球联邦":{
-        "recognition": "OCR",
-        "expected": "地球联邦"
-    },
     "雷霆宙域":{
         "recognition": "FeatureMatch",
         "count" : 50,
@@ -319,24 +228,15 @@
         "count" : 50,
         "template": "异端.png"
     },
-    "历史关卡":{
-        "recognition": "OCR",
-        "expected": "历史关卡"
-    },
-    "前往关卡":{
-        "recognition": "OCR",
-        "expected": "前往关卡"
-    },
-    "综合攻略程度":{
-        "recognition": "OCR",
-        "expected": "综合攻略程度"
-    },
     "故事关卡":{
         "recognition":"TemplateMatch",
         "template":"故事关卡.png"
 
+    },
+    "测试":{
+        "recognition": "Custom",
+        "custom_recognition": "通用识别动作"
     }
-
 
 
 
