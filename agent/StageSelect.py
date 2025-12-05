@@ -1,7 +1,6 @@
 import json
 import time
 from GenericClickAction import GenericClickAction
-from GenericRecognition import GenericRecognition
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
@@ -11,8 +10,14 @@ from GenericSwipeAction import GenericSwipeAction
 @AgentServer.custom_action("战斗关卡选择")
 class StageSelect(CustomAction):
     def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
-        Hardtarget =json.loads(argv.custom_action_param)["stage_target"]
-        StageSelect.hard_battle(context,Hardtarget)
+        param = json.loads(argv.custom_action_param)
+        Hardtarget = param.get("stage_target")
+        if not Hardtarget:
+            print("[战斗关卡选择] 未指定 stage_target")
+            return False
+            
+        return StageSelect.hard_battle(context, Hardtarget)
+
     @staticmethod
     def select_hardstage(context: Context, target: str,all=False) -> bool:
         """选择HARD关卡"""
@@ -52,56 +57,66 @@ class StageSelect(CustomAction):
     @staticmethod
     def select_story(context: Context, way: str, target: str) -> bool:
         """选择主线"""
-        isfound=False
+        isfound = False
         GenericSwipeAction.story_reset(context)
+        
         for i in range(7):
             if "机动战士高达" == target:
-                GenericClickAction.click_target(context,target)
-                result={"found":True}
-            else :
-                result=GenericSwipeAction.swipe_and_reco(context,way,target)
+                if GenericClickAction.click_target(context, target):
+                     result = {"found": True}
+                else:
+                     result = {"found": False}
+            else:
+                result = GenericSwipeAction.swipe_and_reco(context, way, target)
             if result["found"]:
-                GenericClickAction.click_target(context,target)
-                GenericClickAction.click_target(context,target="选择")
-                isfound=True
+                GenericClickAction.click_target(context, target)
+                time.sleep(0.5)
+                GenericClickAction.click_target(context, target="选择")
+                isfound = True
                 return isfound
+        
         time.sleep(0.6)
         return isfound
     
     @staticmethod
-    def select(context: Context,Stagetarget: str,Hardtarget: str, way: str = "right", ) -> bool:
+    def select(context: Context, Stagetarget: str, Hardtarget: str, way: str = "left") -> bool:
         """选择主线和HARD关卡"""
-        targets=['主画面','关卡','主要关卡']
-        if Stagetarget in ["雷霆宙域","异端"]:
+        targets = ['主画面', '关卡', '主要关卡']
+        
+        if Stagetarget in ["雷霆宙域", "异端"]:
             targets.append("历史关卡")
-            UtilTools.click_wait(context,targets)
-            image=UtilTools.get_image(context)
-            Result=UtilTools.get_result(context,image,Stagetarget,fuzzy=True)
-            GenericClickAction.click_target(context,target=Stagetarget)
-            time.sleep(0.6)
-            GenericClickAction.click_target(context,target="前往关卡")
-            time.sleep(1)
-            GenericClickAction.click_target(context,target="故事关卡")
+            UtilTools.click_wait(context, targets)
+            image = UtilTools.get_image(context)
+            if UtilTools.get_result(context, image, Stagetarget, fuzzy=True)["found"]:
+                GenericClickAction.click_target(context, target=Stagetarget)
+                time.sleep(0.6)
+                GenericClickAction.click_target(context, target="前往关卡")
+                time.sleep(1)
+                GenericClickAction.click_target(context, target="故事关卡")
         else:
-            UtilTools.click_wait(context,targets)
-            StageSelect.select_story(context,way,Stagetarget)
+            UtilTools.click_wait(context, targets)
+            StageSelect.select_story(context, way, Stagetarget)
+            
         time.sleep(0.6)
-        StageSelect.select_hardstage(context,Hardtarget)
+        StageSelect.select_hardstage(context, Hardtarget)
+        return True
 
     @staticmethod
-    def select_battle(context: Context,Stagetarget: str,Hardtarget: str, way: str = "right", ) -> bool:
+    def select_battle(context: Context, Stagetarget: str, Hardtarget: str, way: str = "left") -> bool:
         """选择并进行战斗"""
-        StageSelect.select(context,Stagetarget,Hardtarget,way)
+        StageSelect.select(context, Stagetarget, Hardtarget, way)
         time.sleep(0.6)
-        targets=['略过','执行','OK']
-        UtilTools.click_wait(context,targets)
+        targets = ['略过', '执行', 'OK']
+        UtilTools.click_wait(context, targets)
         time.sleep(0.5)
+        return True
     
     @staticmethod
-    def hard_battle(context: Context,Hardtarget: str ) -> bool:
+    def hard_battle(context: Context, Hardtarget: str) -> bool:
         """进行HARD战斗"""
-        StageSelect.select_hardstage(context,Hardtarget)
+        StageSelect.select_hardstage(context, Hardtarget)
         time.sleep(0.6)
-        targets=['略过','执行','OK']
-        UtilTools.click_wait(context,targets)
+        targets = ['略过', '执行', 'OK']
+        UtilTools.click_wait(context, targets)
         time.sleep(0.5)
+        return True

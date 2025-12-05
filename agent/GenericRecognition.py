@@ -1,26 +1,50 @@
 import json
 import difflib
+import re
 from typing import Tuple, Any
 from maa.agent.agent_server import AgentServer
 from maa.custom_recognition import CustomRecognition
 from maa.context import Context
 
-# --- [核心修复点] 数据层 ---
 class RecognitionResult:
-    def __init__(self, found: bool, box: Tuple[int, int, int, int], text: str = "", score: float = 0.0, details: Any = None):
+    def __init__(self, found: bool, box: Tuple[int, int, int, int], text: str = "", score: float = 0.0, details: Any = None,filtered_results: list = None):
         self.found = found
         self.box = box if box is not None else (0, 0, 0, 0)
         self.text = text
         self.score = score
         self.details = details
+        self.filtered_results = filtered_results if filtered_results is not None else []
 
     def to_dict(self):
-        return {
+        data = {
             "found": self.found,
-            "roi": list(self.box), 
+            "roi": list(self.box),
             "text": self.text,
-            "score": self.score
+            "score": self.score,
         }
+        if self.filtered_results:
+            data["all_results"] = [
+                {
+                    "text": getattr(item, "text", ""), 
+                    "box": getattr(item, "box", (0,0,0,0)), 
+                    "score": getattr(item, "score", 0.0)
+                } 
+                for item in self.filtered_results
+            ]
+        else:
+            raw_all = getattr(self.details, "all_results", []) or []
+            data["all_results"] = [
+                {
+                    "text": getattr(i, "text", ""), 
+                    "box": getattr(i, "box", (0,0,0,0)), 
+                    "score": getattr(i, "score", 0)
+                } 
+                for i in raw_all
+            ]
+            
+        return data
+    
+    
 
 @AgentServer.custom_recognition("通用识别动作")
 class GenericRecognition(CustomRecognition):
@@ -87,31 +111,52 @@ class GenericRecognition(CustomRecognition):
 
         all_results = getattr(reco_detail, "all_results", []) or []
         target_clean = target_text.replace(" ", "").upper()
-        
+        target_digits = re.findall(r'\d+', target_clean)
+        valid_candidates = []
         best_item = None
         max_score = -1.0
 
         for item in all_results:
             text = getattr(item, "text", "")
             if not text: continue
-            
             text_clean = text.replace(" ", "").upper()
-            current_score = 0.0
             
+            if target_digits:
+                text_digits = re.findall(r'\d+', text_clean)
+                if target_digits != text_digits:
+                    continue
+            current_score = 0.0
+            # 1. 精确匹配
             if text_clean == target_clean:
                 current_score = 1.0
-            elif fuzzy and (target_clean in text_clean):
-                current_score = 0.9
+            
+            # 2. 包含匹配 
+            elif fuzzy and (target_clean in text_clean or text_clean in target_clean):
+                 current_score = 0.95
+            
+            # 3. 相似度匹配
             elif fuzzy:
                 ratio = difflib.SequenceMatcher(None, target_clean, text_clean).ratio()
                 if ratio > threshold:
                     current_score = ratio
             
-            if current_score > max_score and current_score > 0:
-                max_score = current_score
-                best_item = item
+            if current_score > 0:
+                setattr(item, "score", current_score) 
+                valid_candidates.append(item)
+                
+                if current_score > max_score:
+                    max_score = current_score
+                    best_item = item
 
-        if best_item and max_score > 0:
-            return RecognitionResult(True, getattr(best_item, "box", (0,0,0,0)), getattr(best_item, "text", ""), max_score, reco_detail)
+        if best_item:
+            print(f"[OCR] 智能命中: '{target_text}' ≈ '{best_item.text}' (分值: {max_score:.2f})")
+            return RecognitionResult(
+                True, 
+                getattr(best_item, "box", (0,0,0,0)), 
+                getattr(best_item, "text", ""), 
+                max_score, 
+                reco_detail, 
+                filtered_results=valid_candidates 
+            )
 
         return RecognitionResult(False, (0, 0, 0, 0), details=reco_detail)

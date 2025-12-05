@@ -65,10 +65,6 @@
         "count" : 50,
         "template": "机动战士高达.png"
     },
-    "HARD3":{
-        "recognition": "TemplateMatch",
-        "template": "HARD3.png"
-    },
     "材料本":{
         "action": "Custom",
         "custom_action": "养成培养材料"
@@ -93,6 +89,10 @@
     "HARD4":{
         "recognition": "TemplateMatch",
         "template": "HARD4.png"
+    },
+    "HARD3":{
+        "recognition": "TemplateMatch",
+        "template": "HARD3.png"
     },
     "HARD2_OCR":{
         "recognition": "OCR",

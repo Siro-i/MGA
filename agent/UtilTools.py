@@ -70,7 +70,7 @@ class UtilTools:
                 print(f" 点击 {target} 或等待下一个目标失败")
                 retry_success = False
                 if target == "OK":
-                    for j in range(3):
+                    for j in range(5):
                         print(f"第 {j+1} 次重试点击 {target}")
                         if GenericClickAction.GenericClickAction.click_target(context, target):
                             retry_success = True
