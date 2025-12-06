@@ -227,7 +227,7 @@ jobs:
 
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
-    needs: [meta, windows, ubuntu, macos, android]
+    needs: [meta, build, android]
     runs-on: ubuntu-latest
     permissions:
       contents: write
