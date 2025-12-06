@@ -6,7 +6,7 @@ import os
 import subprocess
 import platform
 
-
+# === 路径修正逻辑 ===
 current_script_dir = Path(__file__).resolve().parent
 project_root = current_script_dir.parent.parent
 sys.path.append(str(current_script_dir))
@@ -15,16 +15,17 @@ try:
     from configure import configure_ocr_model
 except ImportError:
     print("Warning: Could not import configure_ocr_model.")
-    def configure_ocr_model(): pass
+    def configure_ocr_model(root): pass
 
 install_path = project_root / "install"
+# 获取 tag 版本号，如果没有传参则默认为 v0.0.1
 version = len(sys.argv) > 1 and sys.argv[1] or "v0.0.1"
 
 def install_deps():
     """复制 MaaFramework 二进制到 install 目录"""
     deps_path = project_root / "deps"
     if not (deps_path / "bin").exists():
-        print(f"Error: MaaFramework not found at {deps_path}. Please check download steps.")
+        print(f"Error: MaaFramework not found at {deps_path}.")
         sys.exit(1)
 
     print("Copying MaaFramework binaries...")
@@ -46,12 +47,14 @@ def install_deps():
     )
 
 def install_resource():
-    """复制资源文件并配置 OCR 模型，同时动态修改 interface.json"""
+    """复制资源文件并配置 OCR，同时修改 interface.json"""
     print("Installing resources...")
     try:
         configure_ocr_model(project_root) 
     except Exception as e:
         print("configure_ocr_model() failed:", e)
+
+    # 复制 resource 文件夹
     if (project_root / "assets" / "resource").exists():
         resource_src = project_root / "assets" / "resource"
     else:
@@ -62,36 +65,47 @@ def install_resource():
         install_path / "resource",
         dirs_exist_ok=True,
     )
+
+    # === 处理 interface.json ===
+    # 优先找根目录，其次找 assets 目录
     interface_src = project_root / "interface.json"
-    
     if not interface_src.exists():
-        print(f"[Error] interface.json not found at {interface_src}")
         if (project_root / "assets" / "interface.json").exists():
-            print("Found interface.json in assets folder, using that instead.")
             interface_src = project_root / "assets" / "interface.json"
         else:
-            sys.exit(1) 
+            print(f"[Error] interface.json not found!")
+            sys.exit(1)
 
-    print(f"Copying interface.json from {interface_src}...")
-    shutil.copy2(interface_src, install_path)
-
-    # 修改 interface.json
-    json_path = install_path / "interface.json"
-    with open(json_path, "r", encoding="utf-8") as f:
+    print(f"Processing interface.json from {interface_src}...")
+    
+    # 读取原始 JSON
+    with open(interface_src, "r", encoding="utf-8") as f:
         interface = json.load(f)
 
-    # 针对 Windows 使用内嵌 Python 路径
+    # === [核心修复] 在 Python 中直接修改字段，替代不稳定的 jq ===
+    
+    # 1. 设置版本信息
+    interface["version"] = version
+    
+    # 2. 设置 MGA 更新所需的字段 (仅 Windows 或全部写入，多写通常无害)
+    # 如果你只希望 Windows 版有这些字段，可以加 if platform.system() == "Windows":
+    interface["name"] = "MGA"
+    interface["url"] = "https://github.com/283P/MGA"
+
+    # 3. 设置 agent 启动路径
     if platform.system() == "Windows":
-        print("[Config] Detecting Windows build: Pointing agent to embedded Python.")
+        print("[Config] Windows: Pointing agent to embedded Python.")
+        # 使用正斜杠 / 在 JSON 中是合法的，且避免了转义问题
         interface["agent"]["child_exec"] = "./python/python.exe"
     else:
-        print("[Config] Detecting Non-Windows build: Using system python3.")
+        print("[Config] Non-Windows: Using system python3.")
         interface["agent"]["child_exec"] = "python3"
 
-    interface["version"] = version
-
+    # 4. 写入文件 (ensure_ascii=False 防止中文乱码)
+    json_path = install_path / "interface.json"
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(interface, f, ensure_ascii=False, indent=4)
+        print(f"interface.json saved successfully.")
 
 def install_chores():
     print("Copying docs...")
@@ -113,16 +127,9 @@ if __name__ == "__main__":
     print(f"Project Root: {project_root}")
     print(f"Installing to: {install_path}")
 
-    print("Step 1: Installing MaaFramework files...")
     install_deps()
-
-    print("Step 2: Installing resources...")
     install_resource()
-
-    print("Step 3: Copying misc files...")
     install_chores()
-
-    print("Step 4: Installing agent scripts...")
     install_agent()
 
-    print(f"Installation completed successfully to {install_path}")
+    print(f"Installation completed successfully.")

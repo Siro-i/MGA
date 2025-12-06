@@ -149,35 +149,38 @@ jobs:
       - name: Run Installer Script
         shell: bash
         run: |
-          # 1. 运行安装脚本
+          # 1. 运行 Python 安装脚本 (生成目录、资源、配置好的 interface.json)
           echo "Running install.py for version ${{ needs.meta.outputs.tag }}"
           python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
           
-          # 2. 移动 MFA 可执行文件 (根据存在的文件自动判断)
-          if [ -f "./MFA/MFA.exe" ]; then
-            cp ./MFA/MFA.exe ./install/
-          elif [ -f "./MFA/MFAWPF.exe" ]; then
-            cp ./MFA/MFAWPF.exe ./install/
-          elif [ -f "./MFA/MFA" ]; then
-            cp ./MFA/MFA ./install/
+          # 2. [关键修改] 查找 MFA 并重命名为 MGA
+          echo "Copying and Renaming MFA executable..."
+          
+          # 调试：先看一眼下载下来的文件结构，以防万一
+          ls -R MFA
+
+          # === Windows 处理 ===
+          # 在 MFA 目录下查找 MFA.exe，找到后复制到 install 目录并重命名为 MGA.exe
+          find ./MFA -name "MFA.exe" -exec cp {} ./install/MGA.exe \;
+
+          # === Linux/macOS 处理 ===
+          # 在 MFA 目录下查找名为 MFA 的文件(排除目录)，找到后复制到 install 目录并重命名为 MGA
+          find ./MFA -name "MFA" -type f -exec cp {} ./install/MGA \;
+          
+          # Linux/Mac 需要赋予可执行权限 (MFA 默认可能没有 x 权限)
+          if [ -f "./install/MGA" ]; then
+            chmod +x ./install/MGA
+          fi
+
+          # 3. 最终检查
+          if [ -f "./install/MGA.exe" ]; then
+             echo "Success: MGA.exe created successfully."
+          elif [ -f "./install/MGA" ]; then
+             echo "Success: MGA binary created successfully."
           else
-            echo "Warning: No MFA executable found to copy."
+             echo "Error: Failed to create MGA executable! Source file not found in ./MFA/"
+             exit 1 
           fi
-
-          # 3. 生成 MGA 更新配置 
-          if [ "${{ runner.os }}" == "Windows" ]; then
-             echo "Generating MGA config for Windows..."
-             jq --arg version_name "MGA" \
-                --arg url "https://github.com/283P/MGA" \
-                --arg version "${{ needs.meta.outputs.tag }}" \
-                '. + {"name": $version_name, "url": $url, "version": $version}' \
-                ./install/interface.json > ./install/interface_tmp.json && mv ./install/interface_tmp.json ./install/interface.json
-          fi
-      - uses: actions/upload-artifact@v4
-        with:
-          name: MGA-${{ matrix.maa_os }}-${{ matrix.arch }}
-          path: "install"
-
   changelog:
     name: Generate changelog
     runs-on: ubuntu-latest
