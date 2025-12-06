@@ -173,6 +173,10 @@ jobs:
              echo "Could not find 'MFA', 'MFA.exe', 'MFAAvalonia', or 'MFAAvalonia.exe' in ./MFA/"
              exit 1 
           fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MGA-${{ matrix.maa_os }}-${{ matrix.arch }}
+          path: "install"
   changelog:
     name: Generate changelog
     runs-on: ubuntu-latest
@@ -208,11 +212,9 @@ jobs:
       - name: Zip Artifacts
         run: |
           cd assets
-          # 遍历 assets 下的所有文件夹 (避免处理已经是文件的项)
           for f in *; do
             if [ -d "$f" ]; then
               echo "Zipping artifact: $f"
-              # 进入目录压缩，这样解压出来直接就是内容，而不是多一层文件夹
               (cd "$f" && zip -r "../$f-${{ needs.meta.outputs.tag }}.zip" .)
             fi
           done
