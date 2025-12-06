@@ -3,13 +3,10 @@ import shutil
 import sys
 import json
 import os
-import subprocess
 import platform
 
-# === 路径修正逻辑 ===
-current_script_dir = Path(__file__).resolve().parent
-project_root = current_script_dir.parent.parent
-sys.path.append(str(current_script_dir))
+script_dir = Path(__file__).resolve().parent
+sys.path.append(str(script_dir))
 
 try:
     from configure import configure_ocr_model
@@ -17,20 +14,21 @@ except ImportError:
     print("Warning: Could not import configure_ocr_model.")
     def configure_ocr_model(root): pass
 
-install_path = project_root / "install"
-# 获取 tag 版本号，如果没有传参则默认为 v0.0.1
+working_dir = script_dir.parent.parent
+install_path = working_dir / "install"
 version = len(sys.argv) > 1 and sys.argv[1] or "v0.0.1"
 
 def install_deps():
-    """复制 MaaFramework 二进制到 install 目录"""
-    deps_path = project_root / "deps"
-    if not (deps_path / "bin").exists():
-        print(f"Error: MaaFramework not found at {deps_path}.")
-        sys.exit(1)
+    """安装 MAA 核心库 (从 deps 目录)"""
+    print("Installing MaaFramework dependencies...")
+    deps_bin = working_dir / "deps" / "bin"
+    
+    if not deps_bin.exists():
+        print(f"[Warning] Deps binary not found at {deps_bin}")
+        return
 
-    print("Copying MaaFramework binaries...")
     shutil.copytree(
-        deps_path / "bin",
+        deps_bin,
         install_path,
         ignore=shutil.ignore_patterns(
             "*MaaDbgControlUnit*",
@@ -40,96 +38,98 @@ def install_deps():
         ),
         dirs_exist_ok=True,
     )
-    shutil.copytree(
-        deps_path / "share" / "MaaAgentBinary",
-        install_path / "MaaAgentBinary",
-        dirs_exist_ok=True,
-    )
+    
+    # 复制 MaaAgentBinary (如果存在)
+    agent_binary = working_dir / "deps" / "share" / "MaaAgentBinary"
+    if agent_binary.exists():
+        shutil.copytree(
+            agent_binary,
+            install_path / "MaaAgentBinary",
+            dirs_exist_ok=True,
+        )
 
 def install_resource():
-    """复制资源文件并配置 OCR，同时修改 interface.json"""
-    print("Installing resources...")
+    """安装资源并配置 interface.json"""
+    print("Installing resources and configuring interface...")
+    
+    # 1. 配置 OCR 模型
     try:
-        configure_ocr_model(project_root) 
+        configure_ocr_model(working_dir)
     except Exception as e:
-        print("configure_ocr_model() failed:", e)
+        print(f"[Warning] configure_ocr_model failed: {e}")
 
-    # 复制 resource 文件夹
-    if (project_root / "assets" / "resource").exists():
-        resource_src = project_root / "assets" / "resource"
-    else:
-        resource_src = project_root / "resource"
+    # 2. 复制资源文件夹
+    resource_src = working_dir / "assets" / "resource"
+    if not resource_src.exists():
+        resource_src = working_dir / "resource" # 备选路径
+    
+    if resource_src.exists():
+        shutil.copytree(
+            resource_src,
+            install_path / "resource",
+            dirs_exist_ok=True,
+        )
 
-    shutil.copytree(
-        resource_src,
-        install_path / "resource",
-        dirs_exist_ok=True,
-    )
-
-    # === 处理 interface.json ===
-    # 优先找根目录，其次找 assets 目录
-    interface_src = project_root / "interface.json"
+    # 3. 处理 interface.json
+    # 优先使用 assets 下的，其次根目录下的
+    interface_src = working_dir / "assets" / "interface.json"
     if not interface_src.exists():
-        if (project_root / "assets" / "interface.json").exists():
-            interface_src = project_root / "assets" / "interface.json"
+        interface_src = working_dir / "interface.json"
+    
+    if interface_src.exists():
+        shutil.copy2(interface_src, install_path)
+        
+        # 读取并修改
+        json_path = install_path / "interface.json"
+        with open(json_path, "r", encoding="utf-8") as f:
+            interface = json.load(f)
+
+        # === 修改配置 ===
+        interface["version"] = version
+        interface["custom_title"] = f"MGA {version}"
+        interface["name"] = "MGA"
+        interface["url"] = "https://github.com/283P/MGA"
+
+        # === 自动设置 Agent 启动路径 ===
+        # Windows 使用内嵌 Python，其他系统使用 python3
+        if sys.platform.startswith("win"):
+            interface["agent"]["child_exec"] = r"./python/python.exe"
         else:
-            print(f"[Error] interface.json not found!")
-            sys.exit(1)
+            interface["agent"]["child_exec"] = "python3"
+        
+        # 确保启动参数正确
+        # interface["agent"]["child_args"] = ["./agent/start_agent.py"] 
 
-    print(f"Processing interface.json from {interface_src}...")
-    
-    # 读取原始 JSON
-    with open(interface_src, "r", encoding="utf-8") as f:
-        interface = json.load(f)
-
-    # === [核心修复] 在 Python 中直接修改字段，替代不稳定的 jq ===
-    
-    # 1. 设置版本信息
-    interface["version"] = version
-    
-    # 2. 设置 MGA 更新所需的字段 (仅 Windows 或全部写入，多写通常无害)
-    # 如果你只希望 Windows 版有这些字段，可以加 if platform.system() == "Windows":
-    interface["name"] = "MGA"
-    interface["url"] = "https://github.com/283P/MGA"
-
-    # 3. 设置 agent 启动路径
-    if platform.system() == "Windows":
-        print("[Config] Windows: Pointing agent to embedded Python.")
-        # 使用正斜杠 / 在 JSON 中是合法的，且避免了转义问题
-        interface["agent"]["child_exec"] = "./python/python.exe"
-    else:
-        print("[Config] Non-Windows: Using system python3.")
-        interface["agent"]["child_exec"] = "python3"
-
-    # 4. 写入文件 (ensure_ascii=False 防止中文乱码)
-    json_path = install_path / "interface.json"
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(interface, f, ensure_ascii=False, indent=4)
-        print(f"interface.json saved successfully.")
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump(interface, f, ensure_ascii=False, indent=4)
+            print("interface.json configured successfully.")
 
 def install_chores():
+    """复制杂项文件"""
     print("Copying docs...")
-    for fname in ["README.md", "LICENSE"]:
-        src = project_root / fname
+    for file in ["README.md", "LICENSE"]:
+        src = working_dir / file
         if src.exists():
             shutil.copy2(src, install_path)
 
 def install_agent():
+    """复制 Agent 脚本"""
     print("Copying agent scripts...")
-    shutil.copytree(
-        project_root / "agent",
-        install_path / "agent",
-        dirs_exist_ok=True,
-    )
+    agent_src = working_dir / "agent"
+    if agent_src.exists():
+        shutil.copytree(
+            agent_src,
+            install_path / "agent",
+            dirs_exist_ok=True,
+        )
 
 if __name__ == "__main__":
-    install_path.mkdir(exist_ok=True)
-    print(f"Project Root: {project_root}")
-    print(f"Installing to: {install_path}")
-
+    install_path.mkdir(parents=True, exist_ok=True)
+    print(f"Installing to {install_path}")
+    
     install_deps()
     install_resource()
     install_chores()
     install_agent()
-
-    print(f"Installation completed successfully.")
+    
+    print("Installation script finished.")
