@@ -74,149 +74,101 @@ jobs:
           name: update
           path: "update"
 
-  windows:
+  build:
     needs: meta
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
     strategy:
-      matrix:
-        arch: [x86_64]
       fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            os_key: win
+            arch: x86_64
+            mfa_arch: x64
+            maa_os: win
+          - os: ubuntu-latest
+            os_key: linux
+            arch: x86_64
+            mfa_arch: x64
+            maa_os: linux
+          - os: ubuntu-latest
+            os_key: linux
+            arch: aarch64
+            mfa_arch: arm64
+            maa_os: linux
+          - os: macos-latest
+            os_key: osx    
+            arch: x86_64
+            mfa_arch: x64
+            maa_os: macos
+          - os: macos-latest
+            os_key: osx
+            arch: aarch64
+            mfa_arch: arm64
+            maa_os: macos
 
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: true
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' 
+
       - name: Download MaaFramework
         uses: robinraju/release-downloader@v1
         with:
           repository: MaaXYZ/MaaFramework
-          fileName: "MAA-win-${{ matrix.arch }}*"
+          fileName: "MAA-${{ matrix.maa_os }}-${{ matrix.arch }}*"
           latest: true
           out-file-path: "deps"
           extract: true
 
-      - name: Download MFAWPF
+      - name: Download MFAAvalonia
+        id: download_mfa
         uses: robinraju/release-downloader@v1
         with:
-          repository: SweetSmellFox/MFAWPF
-          filename: MFAWPF*
+          repository: SweetSmellFox/MFAAvalonia
+          fileName: "MFAAvalonia-*-${{ matrix.os_key }}-${{ matrix.mfa_arch }}*"
           latest: true
-          out-file-path: MFA
+          out-file-path: "MFA"
           extract: true
 
-      - name: Setup Embedded Python with maafw
+      - name: Clean up MFAAvalonia archive
         shell: bash
         run: |
-          echo "=== Downloading embedded Python 3.11.9 ==="
-          curl -L -o python-embed.zip https://www.python.org/ftp/python/3.11.9/python-3.11.9-embed-amd64.zip
-          mkdir -p ./install/python
-          unzip -q python-embed.zip -d ./install/python
+          ARCHIVE_FILE_PATH="${{ fromJson(steps.download_mfa.outputs.downloaded_files)[0] }}"
+          rm -f "${ARCHIVE_FILE_PATH}"
 
-          echo "=== Installing pip ==="
-          curl -L -o get-pip.py https://bootstrap.pypa.io/get-pip.py
-          ./install/python/python.exe get-pip.py
-
-          echo "=== Fixing python311._pth to enable site-packages ==="
-          {
-            echo "python311.zip"
-            echo "."
-            echo "Lib/site-packages"
-            echo "import site"
-          } > ./install/python/python311._pth
-
-          echo "=== Upgrading pip and installing dependencies ==="
-          ./install/python/python.exe -m pip install --upgrade pip wheel setuptools
-          ./install/python/python.exe -m pip install numpy maafw
-          echo "补齐标准库（从 actions 环境的 Python 复制 Lib）..."
-          FULL_PYTHON_PATH=$(where python | head -n 1 | tr -d '\r')
-          if [ -d "$FULL_PYTHON_PATH" ]; then
-            echo "Detected Python at $FULL_PYTHON_PATH"
-          fi
-
-          # 自动定位 Actions 自带的 Python 3.11 路径
-          PY_LIB=$(dirname $(dirname $FULL_PYTHON_PATH))/Lib
-
-          echo "复制标准库文件夹到嵌入式 Python..."
-          cp -r "$PY_LIB" ./install/python/ || echo "标准库复制完成或已存在"
-
-
+      - name: Setup Embedded Python (Windows only)
+        if: runner.os == 'Windows'
+        run: |
+          python ./tools/CI/setup_embed_python.py
 
       - name: Run Installer Script
         shell: bash
         run: |
-          echo "Running install.py for version ${{ needs.meta.outputs.tag }}"
           python ./install.py ${{ needs.meta.outputs.tag }}
-          cp ./MFA/MFAWPF.exe ./install
-          jq --arg version_name "MGA" --arg url "https://github.com/283P/MGA" --arg version ${{ needs.meta.outputs.tag }} '. + {"name": $version_name, "url": $url,"version": $version}' ./assets/interface.json > ./assets/interface.json
+          
+          # 移动前端可执行文件 (兼容不同平台)
+          # Windows 是 .exe, Linux/Mac 是无后缀二进制
+          if [ -f "./MFA/MFA.exe" ]; then
+            cp ./MFA/MFA.exe ./install
+          elif [ -f "./MFA/MFAWPF.exe" ]; then
+            cp ./MFA/MFAWPF.exe ./install
+          elif [ -f "./MFA/MFA" ]; then
+             cp ./MFA/MFA ./install
+          fi
+          
+
+
+          jq --arg version_name "MGA" --arg url "https://github.com/283P/MGA" --arg version ${{ needs.meta.outputs.tag }} '. + {"name": $version_name, "url": $url,"version": $version}' 
+          fi
 
       - uses: actions/upload-artifact@v4
         with:
-          name: MGA-win-${{ matrix.arch }}
-          path: "install"
-
-  ubuntu:
-    needs: meta
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch: [aarch64, x86_64]
-      fail-fast: false
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-
-      - name: Download MaaFramework
-        uses: robinraju/release-downloader@v1
-        with:
-          repository: MaaXYZ/MaaFramework
-          fileName: "MAA-linux-${{ matrix.arch }}*"
-          latest: true
-          out-file-path: "deps"
-          extract: true
-
-      - name: Install
-        shell: bash
-        run: |
-          python ./install.py ${{ needs.meta.outputs.tag }}
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: MGA-linux-${{ matrix.arch }}
-          path: "install"
-
-  macos:
-    needs: meta
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        arch: [aarch64, x86_64]
-      fail-fast: false
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: true
-
-      - name: Download MaaFramework
-        uses: robinraju/release-downloader@v1
-        with:
-          repository: MaaXYZ/MaaFramework
-          fileName: "MAA-macos-${{ matrix.arch }}*"
-          latest: true
-          out-file-path: "deps"
-          extract: true
-
-      - name: Install
-        shell: bash
-        run: |
-          python ./install.py ${{ needs.meta.outputs.tag }}
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: MGA-macos-${{ matrix.arch }}
+          name: MGA-${{ matrix.maa_os }}-${{ matrix.arch }}
           path: "install"
 
   android:
@@ -251,6 +203,27 @@ jobs:
         with:
           name: MGA-android-${{ matrix.arch }}
           path: "install"
+
+  changelog:
+    name: Generate changelog
+    runs-on: ubuntu-latest
+    outputs:
+      release_body: ${{ steps.git-cliff.outputs.content }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: .github/cliff.toml
+          args: -vv --latest --strip header
+        env:
+          OUTPUT: CHANGES.md
+          GITHUB_REPO: ${{ github.repository }}
 
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
