@@ -49,19 +49,31 @@ def install_resource():
     """复制资源文件并配置 OCR 模型，同时动态修改 interface.json"""
     print("Installing resources...")
     try:
-        # 传入 project_root 确保 configure 能找到 assets
         configure_ocr_model(project_root) 
     except Exception as e:
         print("configure_ocr_model() failed:", e)
+    if (project_root / "assets" / "resource").exists():
+        resource_src = project_root / "assets" / "resource"
+    else:
+        resource_src = project_root / "resource"
 
-    # 复制资源
     shutil.copytree(
-        project_root / "assets" / "resource",
+        resource_src,
         install_path / "resource",
         dirs_exist_ok=True,
     )
-    # 复制 interface.json
-    shutil.copy2(project_root / "assets" / "interface.json", install_path)
+    interface_src = project_root / "interface.json"
+    
+    if not interface_src.exists():
+        print(f"[Error] interface.json not found at {interface_src}")
+        if (project_root / "assets" / "interface.json").exists():
+            print("Found interface.json in assets folder, using that instead.")
+            interface_src = project_root / "assets" / "interface.json"
+        else:
+            sys.exit(1) 
+
+    print(f"Copying interface.json from {interface_src}...")
+    shutil.copy2(interface_src, install_path)
 
     # 修改 interface.json
     json_path = install_path / "interface.json"
