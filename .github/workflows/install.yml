@@ -149,28 +149,62 @@ jobs:
       - name: Run Installer Script
         shell: bash
         run: |
+          # 1. 运行 Python 安装脚本 (生成基础目录和配置)
           echo "Running install.py for version ${{ needs.meta.outputs.tag }}"
           python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
           
-          echo "Copying and Renaming executable..."
-
-          ls -R MFA
-          find ./MFA -name "MFA.exe" -exec cp {} ./install/MGA.exe \;
-          find ./MFA -name "MFAAvalonia.exe" -exec cp {} ./install/MGA.exe \;
-          find ./MFA -name "MFA" -type f -exec cp {} ./install/MGA \;
-          find ./MFA -name "MFAAvalonia" -type f -exec cp {} ./install/MGA \;
+          echo "Copying MFA dependencies and executable..."
           
-          # 赋予可执行权限 
-          if [ -f "./install/MGA" ]; then
-            chmod +x ./install/MGA
+          # 调试：查看原始解压目录
+          ls -R MFA
+
+          # === 核心修复逻辑 ===
+          # 1. 寻找主程序文件路径 (覆盖 Windows/Linux/MacOS 的常见命名)
+          # 使用 -print -quit 确保只找到第一个匹配项就停止，防止多重复制
+          EXE_PATH=$(find ./MFA -name "MFA.exe" -o -name "MFAAvalonia.exe" -o -name "MFA" -o -name "MFAAvalonia" | head -n 1)
+
+          if [ -z "$EXE_PATH" ]; then
+            echo "Error: Could not find MFA executable in ./MFA/"
+            exit 1
           fi
+
+          echo "Found executable at: $EXE_PATH"
+
+          # 2. 获取该文件所在的目录
+          SOURCE_DIR=$(dirname "$EXE_PATH")
+          echo "Source directory is: $SOURCE_DIR"
+
+          # 3. [关键步骤] 复制该目录下 ALL files 到 ./install/
+          # 使用 cp -r -f 强制覆盖 (防止 install.py 生成的文件被误操作，虽然通常互补)
+          cp -r -f "$SOURCE_DIR"/* ./install/
+          
+          # 4. 重命名主程序为 MGA / MGA.exe
+          # Windows
+          if [ -f "./install/MFAAvalonia.exe" ]; then
+            mv "./install/MFAAvalonia.exe" "./install/MGA.exe"
+          elif [ -f "./install/MFA.exe" ]; then
+            mv "./install/MFA.exe" "./install/MGA.exe"
+          fi
+          
+          # Linux/macOS
+          if [ -f "./install/MFAAvalonia" ]; then
+            mv "./install/MFAAvalonia" "./install/MGA"
+          elif [ -f "./install/MFA" ]; then
+            mv "./install/MFA" "./install/MGA"
+          fi
+
+          # 5. 赋予权限 (Linux/Mac)
+          if [ -f "./install/MGA" ]; then
+            chmod +x "./install/MGA"
+          fi
+
+          # 6. 验证结果
           if [ -f "./install/MGA.exe" ]; then
-             echo "Success: MGA.exe created successfully (Windows)."
+             echo "Success: MGA.exe created with dependencies."
           elif [ -f "./install/MGA" ]; then
-             echo "Success: MGA binary created successfully (Linux/macOS)."
+             echo "Success: MGA binary created with dependencies."
           else
-             echo "Error: Failed to create MGA executable!"
-             echo "Could not find 'MFA', 'MFA.exe', 'MFAAvalonia', or 'MFAAvalonia.exe' in ./MFA/"
+             echo "Error: MGA executable missing after copy!"
              exit 1 
           fi
       - uses: actions/upload-artifact@v4
