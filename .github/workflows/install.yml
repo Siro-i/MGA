@@ -149,23 +149,15 @@ jobs:
       - name: Run Installer Script
         shell: bash
         run: |
-          # 1. 先运行 Python 安装脚本
-          # 这会生成 install 目录，放入 MAA 核心、资源、Agent 代码和配置好的 interface.json
-          echo "Running install.py for version ${{ needs.meta.outputs.tag }}"
-          
-          # 根据平台选择 python 解释器 (Windows 用内嵌的，其他用系统的)
-          if [ "${{ runner.os }}" == "Windows" ]; then
-             ./install/python/python.exe ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
-          else
-             python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
-          fi
-          
-          echo "=== Copying MFA Frontend files ==="
-          # 调试：看一眼 MFA 目录
-          ls -R MFA
 
-          # 2. 智能查找前端所在目录 (解决目录嵌套问题)
-          # 找到包含 MFA.exe 或 MFAAvalonia 等文件的那个目录
+          echo "Preparing install directory..."
+          mkdir -p install
+
+
+          echo "Locating MFA frontend files..."
+          ls -R MFA
+          
+
           FRONTEND_SRC=$(find ./MFA -type f \( -name "MFA.exe" -o -name "MFAAvalonia.exe" -o -name "MFA" -o -name "MFAAvalonia" \) | head -n 1 | xargs dirname)
 
           if [ -z "$FRONTEND_SRC" ]; then
@@ -175,19 +167,20 @@ jobs:
           
           echo "Frontend source found at: $FRONTEND_SRC"
 
-          # 3. 复制前端文件到 install 目录
-          # -r: 递归
-          # -p: 保留属性
-          # -v: 显示过程
-          # -n: (关键) 不覆盖已存在的文件。这样可以保护 install.py 生成的 interface.json 不被 MFA 自带的覆盖
-          # 注意：如果 MFA 依赖的 dll 版本和 install_deps 里的不一致，这里可能需要权衡。
-          # 通常我们希望前端的 dll 优先，但 interface.json 我们要保留自己的。
-          # 所以策略是：先删除 install 中可能冲突的 dll (可选)，或者反过来，先拷 MFA 再跑 py。
-          # 这里采用 M9A 参考逻辑：cp -n，保护 interface.json
+
+          echo "Copying frontend files..."
+          cp -Rf "$FRONTEND_SRC"/. install/
           
-          cp -rpvn "$FRONTEND_SRC"/. install/
+
+          echo "Running install.py config..."
           
-          # 4. 重命名主程序 (MGA)
+          if [ "${{ runner.os }}" == "Windows" ]; then
+             python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
+          else
+             python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
+          fi
+
+
           echo "Renaming executable to MGA..."
           
           # Windows
@@ -198,7 +191,7 @@ jobs:
           [ -f "./install/MFA" ] && mv "./install/MFA" "./install/MGA"
           [ -f "./install/MFAAvalonia" ] && mv "./install/MFAAvalonia" "./install/MGA"
           
-          # 5. 赋予权限 & 最终检查
+
           if [ -f "./install/MGA" ]; then
             chmod +x "./install/MGA"
           fi
@@ -206,7 +199,8 @@ jobs:
           if [ -f "./install/MGA.exe" ] || [ -f "./install/MGA" ]; then
              echo "Build success! Artifacts are ready in ./install"
           else
-             echo "Error: MGA executable missing!"
+             echo "Error: MGA executable missing in ./install!"
+             ls -la install/
              exit 1
           fi
       - uses: actions/upload-artifact@v4

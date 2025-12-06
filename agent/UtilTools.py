@@ -3,11 +3,11 @@ from multiprocessing import process
 import re
 import time
 from tokenize import Special
-from GenericRecognition import GenericRecognition
 from maa.context import Context
 from collections import Counter, defaultdict
 
-import GenericClickAction
+
+
 class UtilTools:
     
     @staticmethod
@@ -21,6 +21,8 @@ class UtilTools:
         """
         全能识别入口：自动适配节点识别或动态文本搜索
         """
+        from GenericRecognition import GenericRecognition
+
         result_obj = GenericRecognition.analyze_target(
             context, image, target, 
             fuzzy_match=fuzzy,
@@ -48,11 +50,6 @@ class UtilTools:
     def click_wait(context: Context, targets: list):
         """
         点击并等待下一个目标出现
-        Args:
-            context: MAA上下文
-            targets: 目标列表，每个元素为目标名称或坐标
-        Returns:
-            是否成功点击并等待所有目标
         """
         import GenericClickAction 
         
@@ -89,12 +86,6 @@ class UtilTools:
     def group_and_sort_by_count(tuples_list):
         """
         将相同第一元的元素聚集在一起，并按照第一元数量排序
-        
-        Args:
-            tuples_list: 包含二元组的列表
-            
-        Returns:
-            按照第一元数量排序后的列表，相同第一元的元素聚集在一起
         """
         first_element_counts = Counter([item[0] for item in tuples_list])
         
@@ -108,16 +99,11 @@ class UtilTools:
             result.extend(group_items)
         
         return result
+
     @staticmethod
     def check_stage(context:Context,target:str):
         """
         检查当前场景是否为目标场景
-        Args:
-            context: MAA上下文
-            image: 当前屏幕截图
-            target: 目标场景名称
-        Returns:
-            是否为目标场景
         """
         import re
         
@@ -141,15 +127,14 @@ class UtilTools:
                 else:
                     return True
         return False
+
     @staticmethod
     def return_home(context:Context):
             """
             返回主画面
-            Args:
-                context: MAA上下文
-            Returns:
-                是否成功返回主画面
             """
+            import GenericClickAction
+
             time.sleep(1)
             if GenericClickAction.GenericClickAction.click_target(context, "主画面", timeout=5):
                 time.sleep(3)
@@ -164,6 +149,7 @@ class UtilTools:
             except Exception as e:
                 print(f"返回主界面的所有尝试均失败: {e}")
                 return False
+                
     _pipeline_node_cache = set()
 
     @staticmethod

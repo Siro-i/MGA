@@ -11,7 +11,6 @@ PYTHON_VERSION = "3.11.9"
 EMBED_URL = f"https://www.python.org/ftp/python/{PYTHON_VERSION}/python-{PYTHON_VERSION}-embed-amd64.zip"
 PIP_URL = "https://bootstrap.pypa.io/get-pip.py"
 
-# 定义路径
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 INSTALL_DIR = PROJECT_ROOT / "install"
 PYTHON_DIR = INSTALL_DIR / "python"
@@ -33,7 +32,6 @@ def setup_embed_python():
 
     print(f"=== Setting up Embedded Python {PYTHON_VERSION} ===")
     
-    # 准备目录
     if not PYTHON_DIR.exists():
         PYTHON_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -47,10 +45,9 @@ def setup_embed_python():
     os.remove(zip_path)
 
     # 3. 修正 ._pth 文件 (开启 site-packages 支持)
-    # [修复] 3.11.9 去掉点是 3119，我们需要前3位 (311)，而不是前2位
-    ver_tag = PYTHON_VERSION.replace('.', '')[:3] # 结果: "311"
+    ver_tag = PYTHON_VERSION.replace('.', '')[:3] 
     
-    pth_file = PYTHON_DIR / f"python{ver_tag}._pth" # python311._pth
+    pth_file = PYTHON_DIR / f"python{ver_tag}._pth" 
     
     # 如果通过名称算出来的文件不存在，尝试找一下实际存在的 ._pth 文件
     if not pth_file.exists():
@@ -61,7 +58,6 @@ def setup_embed_python():
 
     if pth_file.exists():
         print(f"Patching {pth_file.name} to enable site-packages...")
-        # 必须确保 ._pth 里的 zip 文件名也正确，例如 python311.zip
         zip_name = f"python{ver_tag}.zip" 
         
         with open(pth_file, "w", encoding="utf-8") as f:
@@ -88,7 +84,6 @@ def setup_embed_python():
     subprocess.check_call([str(PYTHON_EXE), "-m", "pip", "install", "maafw", "numpy"])
 
     # 6. 补齐标准库 (从宿主环境复制 Lib)
-    # GitHub Actions Windows Runner 的 Python 路径通常在 sys.executable 附近
     host_python_lib = Path(sys.executable).parent / "Lib"
     target_lib = PYTHON_DIR / "Lib"
     
