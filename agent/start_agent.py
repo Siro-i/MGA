@@ -6,15 +6,12 @@ import subprocess
 
 def find_python_executable():
     """查找最佳 Python 解释器（优先嵌入式）"""
-    # 假设当前脚本在 agent/ 目录下，向上两级找到项目根目录
     current_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(current_dir) 
     
     embedded_python = os.path.join(project_root, "python", "python.exe")
     
     if os.path.exists(embedded_python):
-        # 简单检查：如果当前运行的已经是嵌入式 Python，则不需要切换
-        # 注意：Windows下路径可能大小写不一致，建议规范化比较
         try:
             if os.path.samefile(sys.executable, embedded_python):
                 return None  # 已经是正确环境，返回 None 表示无需重启
