@@ -149,36 +149,28 @@ jobs:
       - name: Run Installer Script
         shell: bash
         run: |
-          # 1. 运行 Python 安装脚本 (生成目录、资源、配置好的 interface.json)
           echo "Running install.py for version ${{ needs.meta.outputs.tag }}"
           python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
           
-          # 2. [关键修改] 查找 MFA 并重命名为 MGA
-          echo "Copying and Renaming MFA executable..."
-          
-          # 调试：先看一眼下载下来的文件结构，以防万一
+          echo "Copying and Renaming executable..."
+
           ls -R MFA
-
-          # === Windows 处理 ===
-          # 在 MFA 目录下查找 MFA.exe，找到后复制到 install 目录并重命名为 MGA.exe
           find ./MFA -name "MFA.exe" -exec cp {} ./install/MGA.exe \;
-
-          # === Linux/macOS 处理 ===
-          # 在 MFA 目录下查找名为 MFA 的文件(排除目录)，找到后复制到 install 目录并重命名为 MGA
+          find ./MFA -name "MFAAvalonia.exe" -exec cp {} ./install/MGA.exe \;
           find ./MFA -name "MFA" -type f -exec cp {} ./install/MGA \;
+          find ./MFA -name "MFAAvalonia" -type f -exec cp {} ./install/MGA \;
           
-          # Linux/Mac 需要赋予可执行权限 (MFA 默认可能没有 x 权限)
+          # 赋予可执行权限 
           if [ -f "./install/MGA" ]; then
             chmod +x ./install/MGA
           fi
-
-          # 3. 最终检查
           if [ -f "./install/MGA.exe" ]; then
-             echo "Success: MGA.exe created successfully."
+             echo "Success: MGA.exe created successfully (Windows)."
           elif [ -f "./install/MGA" ]; then
-             echo "Success: MGA binary created successfully."
+             echo "Success: MGA binary created successfully (Linux/macOS)."
           else
-             echo "Error: Failed to create MGA executable! Source file not found in ./MFA/"
+             echo "Error: Failed to create MGA executable!"
+             echo "Could not find 'MFA', 'MFA.exe', 'MFAAvalonia', or 'MFAAvalonia.exe' in ./MFA/"
              exit 1 
           fi
   changelog:
