@@ -170,7 +170,7 @@ jobs:
           name: MGA-${{ matrix.maa_os }}-${{ matrix.arch }}
           path: "install"
 
-changelog:
+  changelog:
     name: Generate changelog
     runs-on: ubuntu-latest
     outputs:
@@ -191,7 +191,7 @@ changelog:
           OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
 
-release:
+  release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
     needs: [meta, build]
     runs-on: ubuntu-latest
