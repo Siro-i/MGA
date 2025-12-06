@@ -149,26 +149,30 @@ jobs:
       - name: Run Installer Script
         shell: bash
         run: |
+          # 1. 运行安装脚本
           echo "Running install.py for version ${{ needs.meta.outputs.tag }}"
-          
           python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
           
-          # 移动 MFA 可执行文件 (保持不变，因为 MFA 文件夹还在根目录)
+          # 2. 移动 MFA 可执行文件 (根据存在的文件自动判断)
           if [ -f "./MFA/MFA.exe" ]; then
-            cp ./MFA/MFA.exe ./install
+            cp ./MFA/MFA.exe ./install/
           elif [ -f "./MFA/MFAWPF.exe" ]; then
-            cp ./MFA/MFAWPF.exe ./install
+            cp ./MFA/MFAWPF.exe ./install/
           elif [ -f "./MFA/MFA" ]; then
-             cp ./MFA/MFA ./install
+            cp ./MFA/MFA ./install/
+          else
+            echo "Warning: No MFA executable found to copy."
           fi
 
-          jq --arg version_name "MGA" --arg url "https://github.com/283P/MGA" --arg version ${{ needs.meta.outputs.tag }} '. + {"name": $version_name, "url": $url,"version": $version}' 
+          # 3. 生成 MGA 更新配置 
+          if [ "${{ runner.os }}" == "Windows" ]; then
+             echo "Generating MGA config for Windows..."
+             jq --arg version_name "MGA" \
+                --arg url "https://github.com/283P/MGA" \
+                --arg version "${{ needs.meta.outputs.tag }}" \
+                '. + {"name": $version_name, "url": $url, "version": $version}' \
+                ./install/interface.json > ./install/interface_tmp.json && mv ./install/interface_tmp.json ./install/interface.json
           fi
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: MGA-${{ matrix.maa_os }}-${{ matrix.arch }}
-          path: "install"
 
   changelog:
     name: Generate changelog
