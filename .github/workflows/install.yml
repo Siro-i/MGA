@@ -173,6 +173,10 @@ jobs:
                 '. + {"name": $version_name, "url": $url, "version": $version}' \
                 ./install/interface.json > ./install/interface_tmp.json && mv ./install/interface_tmp.json ./install/interface.json
           fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MGA-${{ matrix.maa_os }}-${{ matrix.arch }}
+          path: "install"
 
   changelog:
     name: Generate changelog
@@ -197,7 +201,7 @@ jobs:
 
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
-    needs: [meta, build]
+    needs: [meta, build, update] 
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -206,12 +210,19 @@ jobs:
         with:
           path: assets
 
-      - run: |
+      - name: Zip Artifacts
+        run: |
           cd assets
+          # 遍历 assets 下的所有文件夹 (避免处理已经是文件的项)
           for f in *; do
-            (cd $f && zip -r ../$f-${{ needs.meta.outputs.tag }}.zip .)
+            if [ -d "$f" ]; then
+              echo "Zipping artifact: $f"
+              # 进入目录压缩，这样解压出来直接就是内容，而不是多一层文件夹
+              (cd "$f" && zip -r "../$f-${{ needs.meta.outputs.tag }}.zip" .)
+            fi
           done
+
       - uses: softprops/action-gh-release@v2
         with:
-          files: assets/*
+          files: assets/*.zip
           tag_name: ${{ needs.meta.outputs.tag }}
