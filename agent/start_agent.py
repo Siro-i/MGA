@@ -38,32 +38,16 @@ def run_agent_logic(socket_id):
     try:
         from maa.agent.agent_server import AgentServer
         from maa.toolkit import Toolkit
-        from UtilTools import UtilTools
-        import GenericClickAction
-        import UPgradeMission
-        import GenericRecognition
-        import DailyMission
-        import StageSelect
-        import HardSkip
-        import StorySelect
+        import SmartShopBuy
+        import ReturnHome
         
     except ImportError as e:
         print(f"[MGA Error] Failed to import dependencies: {e}")
         print("[MGA Hint] This usually happens if dependencies are not installed in the current Python environment.")
         sys.exit(1)
-
-    # 3. 加载 Pipeline 和初始化
-    project_root = os.path.dirname(current_dir)
-    pipeline_path = os.path.join(project_root, "assets", "resource", "pipeline", "图片.json")
-    
-    print(f"[MGA] Loading pipeline from: {pipeline_path}")
-    if not os.path.exists(pipeline_path):
-        print(f"[MGA Warning] Pipeline file not found at {pipeline_path}")
-    
-    UtilTools.load_pipeline_nodes(pipeline_path)
     Toolkit.init_option("./")
 
-    # 4. 启动服务
+    #  启动服务
     AgentServer.start_up(socket_id)
     print("[MGA] Agent Server started, waiting for commands...")
     AgentServer.join()
