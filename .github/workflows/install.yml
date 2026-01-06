@@ -1,0 +1,255 @@
+name: install
+
+on:
+  push:
+    tags:
+      - "v*"
+    branches:
+      - "**"
+    paths:
+      - ".github/workflows/install.yml"
+      - "assets/**"
+      - "**.py"
+  pull_request:
+    branches:
+      - "**"
+    paths:
+      - ".github/workflows/install.yml"
+      - "assets/**"
+      - "**.py"
+  workflow_dispatch:
+
+jobs:
+  meta:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: set_tag
+        run: |
+          is_release=${{ startsWith(github.ref, 'refs/tags/v') }}
+          tag=$(git describe --tags --match "v*" ${{ github.ref }} || true)
+          if [[ $tag != v* ]]; then
+            tag=$(curl -sX GET "https://api.github.com/repos/${{ github.repository }}/releases/latest" --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' | awk '/tag_name/{print $4}' FS='["]')
+            if [[ $tag != v* ]]; then
+              tag="v0.0.0"
+            fi
+            tag=$(date "+$tag-%y%m%d-$(git rev-parse --short HEAD)")
+          fi
+          if ! $($is_release) ; then
+            prefix=${tag%-*-*}
+            suffix=${tag#$prefix-}
+            tag="$prefix-ci.$suffix"
+          fi
+
+          echo tag=$tag | tee -a $GITHUB_OUTPUT
+          echo is_release=$is_release | tee -a $GITHUB_OUTPUT
+    outputs:
+      tag: ${{ steps.set_tag.outputs.tag }}
+      is_release: ${{ steps.set_tag.outputs.is_release }}
+
+  update:
+    needs: meta
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: update
+        shell: bash
+        run: |
+          mkdir -p ./update
+          rsync -av --exclude='MaaCommonAssets' ./assets/ ./update/
+
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: update
+          path: "update"
+
+  build:
+    needs: meta
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            os_key: win
+            arch: x86_64
+            mfa_arch: x64
+            maa_os: win
+          - os: ubuntu-latest
+            os_key: linux
+            arch: x86_64
+            mfa_arch: x64
+            maa_os: linux
+          - os: ubuntu-latest
+            os_key: linux
+            arch: aarch64
+            mfa_arch: arm64
+            maa_os: linux
+          - os: macos-latest
+            os_key: osx    
+            arch: x86_64
+            mfa_arch: x64
+            maa_os: macos
+          - os: macos-latest
+            os_key: osx
+            arch: aarch64
+            mfa_arch: arm64
+            maa_os: macos
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11' 
+
+      - name: Download MaaFramework
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: MaaXYZ/MaaFramework
+          fileName: "MAA-${{ matrix.maa_os }}-${{ matrix.arch }}*"
+          latest: true
+          out-file-path: "deps"
+          extract: true
+
+      - name: Download MFAAvalonia
+        id: download_mfa
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: SweetSmellFox/MFAAvalonia
+          fileName: "MFAAvalonia-*-${{ matrix.os_key }}-${{ matrix.mfa_arch }}*"
+          latest: true
+          out-file-path: "MFA"
+          extract: true
+
+      - name: Clean up MFAAvalonia archive
+        shell: bash
+        run: |
+          ARCHIVE_FILE_PATH="${{ fromJson(steps.download_mfa.outputs.downloaded_files)[0] }}"
+          rm -f "${ARCHIVE_FILE_PATH}"
+
+      - name: Setup Embedded Python (Windows only)
+        if: runner.os == 'Windows'
+        run: |
+          python ./tools/CI/setup_embed_python.py
+
+      - name: Run Installer Script
+        shell: bash
+        run: |
+
+          echo "Preparing install directory..."
+          mkdir -p install
+
+
+          echo "Locating MFA frontend files..."
+          ls -R MFA
+          
+
+          FRONTEND_SRC=$(find ./MFA -type f \( -name "MFA.exe" -o -name "MFAAvalonia.exe" -o -name "MFA" -o -name "MFAAvalonia" \) | head -n 1 | xargs dirname)
+
+          if [ -z "$FRONTEND_SRC" ]; then
+             echo "Error: Could not find MFA frontend files!"
+             exit 1
+          fi
+          
+          echo "Frontend source found at: $FRONTEND_SRC"
+
+
+          echo "Copying frontend files..."
+          cp -Rf "$FRONTEND_SRC"/. install/
+          
+
+          echo "Running install.py config..."
+          
+          if [ "${{ runner.os }}" == "Windows" ]; then
+             python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
+          else
+             python ./tools/CI/install.py ${{ needs.meta.outputs.tag }}
+          fi
+
+
+          echo "Renaming executable to MGA..."
+          
+          # Windows
+          [ -f "./install/MFA.exe" ] && mv "./install/MFA.exe" "./install/MGA.exe"
+          [ -f "./install/MFAAvalonia.exe" ] && mv "./install/MFAAvalonia.exe" "./install/MGA.exe"
+          
+          # Linux/macOS
+          [ -f "./install/MFA" ] && mv "./install/MFA" "./install/MGA"
+          [ -f "./install/MFAAvalonia" ] && mv "./install/MFAAvalonia" "./install/MGA"
+          
+
+          if [ -f "./install/MGA" ]; then
+            chmod +x "./install/MGA"
+          fi
+
+          if [ -f "./install/MGA.exe" ] || [ -f "./install/MGA" ]; then
+             echo "Build success! Artifacts are ready in ./install"
+          else
+             echo "Error: MGA executable missing in ./install!"
+             ls -la install/
+             exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MGA-${{ matrix.maa_os }}-${{ matrix.arch }}
+          path: "install"
+  changelog:
+    name: Generate changelog
+    runs-on: ubuntu-latest
+    outputs:
+      release_body: ${{ steps.git-cliff.outputs.content }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: .github/cliff.toml
+          args: -vv --latest --strip header
+        env:
+          OUTPUT: CHANGES.md
+          GITHUB_REPO: ${{ github.repository }}
+
+  release:
+    if: ${{ needs.meta.outputs.is_release == 'true' }}
+    needs: [meta, build, update] 
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: assets
+
+      - name: Zip Artifacts
+        run: |
+          cd assets
+          for f in *; do
+            if [ -d "$f" ]; then
+              echo "Zipping artifact: $f"
+              (cd "$f" && zip -r "../$f-${{ needs.meta.outputs.tag }}.zip" .)
+            fi
+          done
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: assets/*.zip
+          tag_name: ${{ needs.meta.outputs.tag }}
