@@ -22,9 +22,527 @@
     "task": [
         {
             "name": "日常",
-            "entry": "主画面检测"
-        }
-    
-    ]
-    
+            "entry": "每日任务入口"
+        },
+        {
+            "name": "材料本",
+            "entry": "材料本入口"
+        },
+        {
+            "name": "战斗",
+            "entry": "战斗入口",
+            "option":["故事选择","关卡选择","是否开启自动战斗","自动战斗次数"]
+            
+            
+        }],
+        "option": {
+        "故事选择": {
+            "cases": [
+                {
+                    "name": "机动战士高达",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"机动战士高达.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "SEED",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"SEED.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "X",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"新机动世纪高达X.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "W","pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"新机动战记高达W.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "机动武斗传G高达",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"机动武斗传G高达.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "机动战士Z高达",
+                    "pipeline_override": {
+                       "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"机动战士Z高达.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "00",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"机动战士高达00.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "水星的魔女",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"水星的魔女.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "DESTINY",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"DESTINY.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "Recollection",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"Recollection.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "铁血的奥尔芬斯",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"铁血的奥尔芬斯.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "ZZ",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"机动战士高达ZZ.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {
+                    "name": "逆袭的夏亚",
+                    "pipeline_override": {
+                       "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"逆袭的夏亚.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {"name": "独角兽",
+                    "pipeline_override": {
+                        "寻找目标故事":{
+                            "recognition": {
+                            "param": {"template":"独角兽.png"},
+                            "type": "TemplateMatch"
+                            }
+                            
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                    
+                },
+                {"name": "闪光的哈撒韦",
+                    "pipeline_override": {
+                        "寻找目标故事":{
+                            "recognition": {
+                            "param": {"template":"闪哈.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                    
+                },
+                {"name": "雷霆宙域",
+                    "pipeline_override": {
+                        "寻找目标历史关卡": {
+                            "recognition": {
+                            "param": {"template":"雷霆宙域.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史关卡":
+                            {
+                                "enabled":true
+                            },
+                        "主线左复位":{
+                            "enabled":false
+                        }
+                        
+                    }
+                },
+                {"name": "异端",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"异端.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史关卡":
+                            {
+                                "enabled":true
+                            },
+                        "主线左复位":{
+                            "enabled":false
+                        }
+                    }
+                },
+                {"name":"0083",
+                    "pipeline_override":{
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"0083.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史关卡":
+                            {
+                                "enabled":true
+                            },
+                        "主线左复位":{
+                            "enabled":false
+                        }
+                    }},
+                {
+                    "name":"月钢",
+                        "pipeline_override":{
+                            "寻找目标故事": {
+                                "recognition": {
+                                "param": {"template":"月钢.png"},
+                                "type": "TemplateMatch"
+                                }
+                            },
+                        "进入历史关卡":
+                            {
+                                "enabled":true
+                            },
+                        "主线左复位":{
+                            "enabled":false
+                        }
+
+                        }
+                }
+
+            ]
+        },
+        "关卡选择": {
+            "cases": [
+                {
+                    "name": "HARD1",
+                    "pipeline_override": {
+                        "关卡匹配": {
+                        "action": {
+                        "param": {
+                            "custom_action": "StageSelect",
+                            "custom_action_param": {
+                            "stage_target": "HARD1"
+                            }
+                        },
+                        "type": "Custom"
+                        }
+                    }
+                    }
+                },
+                {
+                    "name": "HARD2",
+                    "pipeline_override": {
+                        "关卡匹配": {
+                        "action": {
+                        "param": {
+                            "custom_action": "StageSelect",
+                            "custom_action_param": {
+                            "stage_target": "HARD2"
+                            }
+                        },
+                        "type": "Custom"
+                        }
+                    }
+                    }
+                },
+                {
+                    "name": "HARD3",
+                    "pipeline_override": {
+                        "关卡匹配": {
+                        "action": {
+                        "param": {
+                            "custom_action": "StageSelect",
+                            "custom_action_param": {
+                            "stage_target": "HARD3"
+                            }
+                        },
+                        "type": "Custom"
+                        }
+                    }
+                    }
+                },
+                {
+                    "name": "HARD4",
+                    "pipeline_override": {
+                        "关卡匹配": {
+                        "action": {
+                        "param": {
+                            "custom_action": "StageSelect",
+                            "custom_action_param": {
+                            "stage_target": "HARD4"
+                            }
+                        },
+                        "type": "Custom"
+                        }
+                    }
+                    }
+                },
+                {
+                    "name": "HARD5",
+                    "pipeline_override": {
+                        "关卡匹配": {
+                        "action": {
+                        "param": {
+                            "custom_action": "StageSelect",
+                            "custom_action_param": {
+                            "stage_target": "HARD5"
+                            }
+                        },
+                        "type": "Custom"
+                        }
+                    }
+                    }
+                }
+            ]
+        },
+        "是否开启自动战斗":{
+            "cases": [{
+                "name":"是",
+                "pipeline_override":{
+                    "略过关卡":{
+                        "enabled": false
+                    },
+                    "进入出击准备":{
+                        "enabled": true
+                    }
+                }
+
+
+            },
+            {
+                "name":"否",
+                "pipeline_override":{
+                    "略过关卡":{
+                        "enabled": true
+                    },
+                    "进入出击准备":{
+                        "enabled": false
+                    }
+                }
+
+
+            }
+            ]
+
+        },
+        "自动战斗次数":{
+            "cases": [
+                {
+                    "name":"1",
+                    "pipeline_override":{
+                        "再次出击": {
+                               
+                                "enabled": true,
+                                "max_hit": 0
+                            }     
+                        } 
+
+                            
+                },
+                {
+                    "name":"2",
+                    "pipeline_override":{
+                        "再次出击": {
+                               
+                                "enabled": true,
+                                "max_hit": 1
+                            }     
+                        }
+                },
+                {
+                    "name":"3",
+                    "pipeline_override":{
+                        "再次出击": {
+                               
+                                "enabled": true,
+                                "max_hit": 2
+                            }     
+                        }
+                },
+                {
+                    "name":"4",
+                    "pipeline_override":{
+                        "再次出击": {
+                               
+                                "enabled": true,
+                                "max_hit": 3
+                            }     
+                        }
+                },
+                {
+                    "name":"5",
+                    "pipeline_override":{
+                        "再次出击": {
+                            "enabled": true,
+                            "max_hit": 4
+                        }
 }
+                    }
+                
+
+            ]
+        }
+
+    }
+}
+            
+  
+
+    
+    
+    

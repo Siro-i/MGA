@@ -30,7 +30,7 @@ def run_agent_logic(socket_id):
     
     # 1. 设置工作目录和导入路径
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    os.chdir(current_dir) # 确保工作目录在 agent/ 下
+    os.chdir(current_dir) 
     if current_dir not in sys.path:
         sys.path.insert(0, current_dir)
 
@@ -40,6 +40,8 @@ def run_agent_logic(socket_id):
         from maa.toolkit import Toolkit
         import SmartShopBuy
         import ReturnHome
+        import StageSelect
+        import DailyBattle
         
     except ImportError as e:
         print(f"[MGA Error] Failed to import dependencies: {e}")
@@ -51,6 +53,7 @@ def run_agent_logic(socket_id):
     AgentServer.start_up(socket_id)
     print("[MGA] Agent Server started, waiting for commands...")
     AgentServer.join()
+    print("[MGA]服务启动完毕")
     AgentServer.shut_down()
 
 
@@ -61,7 +64,7 @@ def main():
         print("Usage: python start_agent.py <socket_id>")
         sys.exit(1)
         
-    socket_id = sys.argv[-1] # 获取最后一个参数作为 socket_id
+    socket_id = sys.argv[-1] 
 
     # 2. 检查环境并决定是否重启
     target_python = find_python_executable()
