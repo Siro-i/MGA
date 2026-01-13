@@ -1,0 +1,82 @@
+{
+  "$__mpe_config_自动刷金币": {
+    "$__mpe_code": {
+      "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline/自动刷金币.json",
+      "filename": "自动刷金币",
+      "prefix": "",
+      "savedViewport": {
+        "x": 701,
+        "y": 725,
+        "zoom": 0.63
+      },
+      "version": "v0.14.2"
+    }
+  },
+  "新建节点3": {
+    "$__mpe_code": {
+      "position": {
+        "x": 30,
+        "y": -115
+      }
+    },
+    "action": {
+      "param": {
+        "custom_action": "强制返回主页"
+      },
+      "type": "Custom"
+    },
+    "focus": {
+      "Node.Action.Failed": "强制返回主页失败"
+    },
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    },
+    "timeout": 5000
+  },
+  "画面检测": {
+    "$__mpe_code": {
+      "position": {
+        "x": 23,
+        "y": -396
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "recognition": {
+      "param": {
+        "expected": [
+          "RANK"
+        ]
+      },
+      "type": "OCR"
+    },
+    "timeout": 5000
+  },
+  "金币任务入口": {
+    "$__mpe_code": {
+      "position": {
+        "x": -439,
+        "y": -401
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "next": [
+      "画面检测",
+      {
+        "jump_back": true,
+        "name": "新建节点3"
+      }
+    ],
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    },
+    "timeout": 5000
+  }
+}

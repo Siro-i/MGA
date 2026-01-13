@@ -1,0 +1,361 @@
+{
+  "$__mpe_config_材料本": {
+    "$__mpe_code": {
+      "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline/材料本.json",
+      "filename": "材料本",
+      "lastSyncTime": 1767776411361,
+      "prefix": "",
+      "savedViewport": {
+        "x": 583,
+        "y": 447,
+        "zoom": 0.76
+      },
+      "version": "v0.14.2"
+    }
+  },
+  "主页面检测": {
+    "$__mpe_code": {
+      "position": {
+        "x": -126,
+        "y": 276
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "next": [
+      "进入关卡"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "RANK"
+        ]
+      },
+      "type": "OCR"
+    },
+    "timeout": 5000
+  },
+  "任务结束出口": {
+    "$__mpe_code": {
+      "position": {
+        "x": 2011,
+        "y": 411
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "StopTask"
+    },
+    "focus": {
+      "Node.Action.Succeeded": "材料任务结束"
+    },
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    }
+  },
+  "执行略过": {
+    "$__mpe_code": {
+      "position": {
+        "x": 1474,
+        "y": 61
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "focus": {
+      "Node.Recognition.Failed": "当前任务已完成"
+    },
+    "next": [
+      "确认略过"
+    ],
+    "on_error": [
+      "返回上级",
+      "任务结束出口"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "略过"
+        ]
+      },
+      "type": "OCR"
+    },
+    "timeout": 2000
+  },
+  "新建节点5": {
+    "$__mpe_code": {
+      "position": {
+        "x": -108,
+        "y": 575
+      }
+    },
+    "action": {
+      "param": {
+        "custom_action": "强制返回主页"
+      },
+      "type": "Custom"
+    },
+    "focus": {
+      "Node.Action.Failed": "强制返回主页失败"
+    },
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    },
+    "timeout": 5000
+  },
+  "材料本入口": {
+    "$__mpe_code": {
+      "position": {
+        "x": -553,
+        "y": 412
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "next": [
+      "主页面检测",
+      {
+        "jump_back": true,
+        "name": "新建节点5"
+      }
+    ],
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    },
+    "timeout": 5000
+  },
+  "确认略过": {
+    "$__mpe_code": {
+      "position": {
+        "x": 1776,
+        "y": 63
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "next": [
+      "领取奖励"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "执行"
+        ]
+      },
+      "type": "OCR"
+    }
+  },
+  "返回上级": {
+    "$__mpe_code": {
+      "position": {
+        "x": 2427,
+        "y": 73
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "max_hit": 3,
+    "recognition": {
+      "param": {
+        "template": [
+          "返回.png"
+        ]
+      },
+      "type": "TemplateMatch"
+    }
+  },
+  "进入CAPITAL材料": {
+    "$__mpe_code": {
+      "position": {
+        "x": 1003,
+        "y": 303
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "max_hit": 1,
+    "next": [
+      "执行略过"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "CAPITAL"
+        ]
+      },
+      "type": "OCR"
+    }
+  },
+  "进入关卡": {
+    "$__mpe_code": {
+      "position": {
+        "x": 290,
+        "y": 260
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "next": [
+      "进入强化培育关卡"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "关卡"
+        ]
+      },
+      "type": "OCR"
+    }
+  },
+  "进入单位材料": {
+    "$__mpe_code": {
+      "position": {
+        "x": 991,
+        "y": 67
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "max_hit": 1,
+    "next": [
+      "执行略过"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "单位"
+        ]
+      },
+      "type": "OCR"
+    }
+  },
+  "进入强化培育关卡": {
+    "$__mpe_code": {
+      "position": {
+        "x": 608,
+        "y": 252
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "next": [
+      {
+        "jump_back": true,
+        "name": "进入CAPITAL材料"
+      },
+      {
+        "jump_back": true,
+        "name": "进入单位材料"
+      },
+      {
+        "jump_back": true,
+        "name": "进入角色材料"
+      },
+      {
+        "jump_back": true,
+        "name": "进入支援人员材料"
+      }
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "强化培育"
+        ]
+      },
+      "type": "OCR"
+    }
+  },
+  "进入支援人员材料": {
+    "$__mpe_code": {
+      "position": {
+        "x": 995,
+        "y": -361
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "max_hit": 1,
+    "next": [
+      "执行略过"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "支援人员"
+        ]
+      },
+      "type": "OCR"
+    }
+  },
+  "进入角色材料": {
+    "$__mpe_code": {
+      "position": {
+        "x": 1006,
+        "y": -154
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "max_hit": 1,
+    "next": [
+      "执行略过"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "角色"
+        ]
+      },
+      "type": "OCR"
+    }
+  },
+  "领取奖励": {
+    "$__mpe_code": {
+      "position": {
+        "x": 2084,
+        "y": 69
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "next": [
+      "返回上级",
+      "任务结束出口"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "OK"
+        ]
+      },
+      "type": "OCR"
+    }
+  }
+}

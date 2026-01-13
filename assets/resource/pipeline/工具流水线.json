@@ -1,0 +1,168 @@
+{
+  "$__mpe_config_工具流水线": {
+    "$__mpe_code": {
+      "filename": "工具流水线",
+      "prefix": "",
+      "savedViewport": {
+        "x": 813,
+        "y": -212,
+        "zoom": 0.91
+      },
+      "version": "v0.14.2"
+    }
+  },
+  "点击主画面": {
+    "$__mpe_code": {
+      "position": {
+        "x": 941,
+        "y": 641
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "next": [
+      "结果检测"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "主画面"
+        ]
+      },
+      "type": "OCR"
+    },
+    "timeout": 5000
+  },
+  "点击关闭/取消": {
+    "$__mpe_code": {
+      "position": {
+        "x": 75,
+        "y": 618
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "next": [
+      "点击主画面"
+    ],
+    "on_error": [
+      "点击返回"
+    ],
+    "recognition": {
+      "param": {
+        "expected": [
+          "取消",
+          "关闭"
+        ]
+      },
+      "type": "OCR"
+    },
+    "timeout": 5000
+  },
+  "点击返回": {
+    "$__mpe_code": {
+      "position": {
+        "x": 548,
+        "y": 818
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "next": [
+      "点击主画面"
+    ],
+    "recognition": {
+      "param": {
+        "template": [
+          "返回.png"
+        ]
+      },
+      "type": "TemplateMatch"
+    }
+  },
+  "结果检测": {
+    "$__mpe_code": {
+      "position": {
+        "x": 1315,
+        "y": 714
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "recognition": {
+      "param": {
+        "expected": [
+          "RANK"
+        ]
+      },
+      "type": "OCR"
+    },
+    "timeout": 5000
+  },
+  "返回主画面入口": {
+    "$__mpe_code": {
+      "position": {
+        "x": -569,
+        "y": 703
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "next": [
+      "点击关闭/取消",
+      "点击主画面",
+      "点击返回"
+    ],
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    },
+    "timeout": 2000
+  },
+  "HARD2":{
+        "recognition": "TemplateMatch",
+        "template": "HARD2.png"
+    },
+    "HARD1":{
+        "recognition": "TemplateMatch",
+        "template": "HARD1.png"
+    },
+    "HARD4":{
+        "recognition": "TemplateMatch",
+        "template": "HARD4.png"
+    },
+    "HARD3":{
+        "recognition": "TemplateMatch",
+        "template": "HARD3.png"
+    },
+    "HARD2_OCR":{
+        "recognition": "OCR",
+        "expected": "2",
+        "roi":[676,73,603,47]
+    },
+    "HARD3_OCR":{
+        "recognition": "OCR",
+        "expected": "3",
+        "roi":[676,73,603,47]
+    },
+    "HARD4_OCR":{
+        "recognition": "OCR",
+        "expected": "4",
+        "roi":[676,73,603,47]
+    },
+    "HARD1_OCR":{
+        "recognition": "OCR",
+        "expected": "1",
+        "roi":[676,73,603,47]
+    }
+}
