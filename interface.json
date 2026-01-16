@@ -34,7 +34,12 @@
             "option":["故事选择","关卡选择","是否开启自动战斗","自动战斗次数"]
             
             
-        }],
+        },
+        {
+            "name":"测试",
+            "entry":"开始战斗"       
+        }
+    ],
         "option": {
         "故事选择": {
             "cases": [
@@ -313,7 +318,7 @@
                 },
                 {"name": "异端",
                     "pipeline_override": {
-                        "寻找目标故事": {
+                        "寻找目标历史关卡": {
                             "recognition": {
                             "param": {"template":"异端.png"},
                             "type": "TemplateMatch"
@@ -330,7 +335,7 @@
                 },
                 {"name":"0083",
                     "pipeline_override":{
-                        "寻找目标故事": {
+                        "寻找目标历史关卡": {
                             "recognition": {
                             "param": {"template":"0083.png"},
                             "type": "TemplateMatch"
@@ -347,7 +352,7 @@
                 {
                     "name":"月钢",
                         "pipeline_override":{
-                            "寻找目标故事": {
+                            "寻找目标历史关卡": {
                                 "recognition": {
                                 "param": {"template":"月钢.png"},
                                 "type": "TemplateMatch"

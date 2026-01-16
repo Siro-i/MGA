@@ -3,14 +3,14 @@
     "$__mpe_code": {
       "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\每日任务.json",
       "filename": "日常",
-      "lastSyncTime": 1768272544595,
+      "lastSyncTime": 1768272639754,
       "prefix": "",
       "savedViewport": {
-        "x": 693,
-        "y": 1074,
-        "zoom": 0.76
+        "x": 174,
+        "y": 1080,
+        "zoom": 1
       },
-      "version": "v0.15.2"
+      "version": "v0.15.3"
     }
   },
   "AP消耗": {
@@ -436,7 +436,14 @@
       }
     },
     "action": {
-      "param": {},
+      "param": {
+        "target_offset": [
+          0,
+          100,
+          0,
+          0
+        ]
+      },
       "type": "Click"
     },
     "next": [

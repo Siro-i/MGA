@@ -64,9 +64,10 @@ def install_resource():
         resource_src = working_dir / "resource" # 备选路径
     
     if resource_src.exists():
+        target_resource_dir = install_path / "assets" / "resource"
         shutil.copytree(
             resource_src,
-            install_path / "resource",
+            target_resource_dir, 
             dirs_exist_ok=True,
         )
 

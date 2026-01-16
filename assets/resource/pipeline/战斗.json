@@ -3,21 +3,21 @@
     "$__mpe_code": {
       "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\战斗.json",
       "filename": "战斗",
-      "lastSyncTime": 1768271976177,
+      "lastSyncTime": 1768557097822,
       "prefix": "",
       "savedViewport": {
-        "x": 1337,
-        "y": 877,
-        "zoom": 0.91
+        "x": -563,
+        "y": 764,
+        "zoom": 0.79
       },
-      "version": "v0.15.2"
+      "version": "v0.15.3"
     }
   },
   "BOSS等待": {
     "$__mpe_code": {
       "position": {
-        "x": 3797,
-        "y": -598
+        "x": 3749,
+        "y": -564
       }
     },
     "action": {
@@ -25,11 +25,12 @@
       "type": "Click"
     },
     "next": [
-      "关卡结算"
+      "关卡结算前置"
     ],
     "on_error": [
       "意外失败"
     ],
+    "rate_limit": 10000,
     "recognition": {
       "param": {
         "expected": [
@@ -44,46 +45,42 @@
       },
       "type": "OCR"
     },
-    "timeout": 500000
+    "timeout": 300000
   },
   "auto检查": {
     "$__mpe_code": {
       "position": {
-        "x": 3025,
-        "y": -1025
+        "x": 3520,
+        "y": -1492
       }
     },
     "action": {
       "param": {},
       "type": "Click"
     },
-    "next": [
-      "倍速检查"
-    ],
-    "on_error": [
-      "开始战斗"
-    ],
     "pre_delay": 1000,
+    "pre_wait_freezes": 20,
     "recognition": {
       "param": {
         "lower": [
           [
-            12,
-            21,
-            37
+            0,
+            0,
+            0
           ]
         ],
+        "method": 4,
         "roi": [
-          1037,
-          27,
-          15,
-          22
+          1038,
+          22,
+          14,
+          27
         ],
         "upper": [
           [
-            36,
-            46,
-            70
+            90,
+            95,
+            101
           ]
         ]
       },
@@ -102,6 +99,9 @@
       "type": "DoNothing"
     },
     "enabled": true,
+    "focus": {
+      "Node.Recognition.Succeeded": "左复位成功"
+    },
     "next": [
       "寻找目标故事"
     ],
@@ -140,8 +140,8 @@
   "体力不够退出": {
     "$__mpe_code": {
       "position": {
-        "x": 3041,
-        "y": -233
+        "x": 3054,
+        "y": -241
       }
     },
     "action": {
@@ -160,38 +160,35 @@
   "倍速检查": {
     "$__mpe_code": {
       "position": {
-        "x": 3335,
-        "y": -1049
+        "x": 3531,
+        "y": -1021
       }
     },
     "action": {
       "param": {},
       "type": "Click"
     },
-    "next": [
-      "开始战斗"
-    ],
     "pre_delay": 1000,
     "recognition": {
       "param": {
         "lower": [
           [
-            12,
-            21,
-            37
+            0,
+            0,
+            0
           ]
         ],
         "roi": [
-          1166,
-          26,
-          20,
-          22
+          1105,
+          17,
+          66,
+          36
         ],
         "upper": [
           [
-            38,
-            47,
-            56
+            54,
+            59,
+            65
           ]
         ]
       },
@@ -219,7 +216,8 @@
       "进入出击准备"
     ],
     "on_error": [
-      "战斗任务意外终止"
+      "尝试左滑动",
+      "战斗寻找错误退出"
     ],
     "recognition": {
       "param": {},
@@ -230,8 +228,8 @@
   "关卡结算": {
     "$__mpe_code": {
       "position": {
-        "x": 4123,
-        "y": -593
+        "x": 4264,
+        "y": -591
       }
     },
     "action": {
@@ -239,9 +237,47 @@
       "type": "Click"
     },
     "next": [
-      "经验结算"
+      "经验结算前置"
     ],
-    "post_delay": 1500,
+    "recognition": {
+      "param": {
+        "lower": [
+          [
+            42,
+            137,
+            255
+          ]
+        ],
+        "roi": [
+          1021,
+          626,
+          184,
+          63
+        ],
+        "upper": [
+          255,
+          255,
+          255
+        ]
+      },
+      "type": "ColorMatch"
+    }
+  },
+  "关卡结算前置": {
+    "$__mpe_code": {
+      "position": {
+        "x": 4037,
+        "y": -579
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "next": [
+      "关卡结算"
+    ],
+    "post_wait_freezes": 1000,
     "recognition": {
       "param": {
         "expected": [
@@ -254,8 +290,8 @@
   "再次出击": {
     "$__mpe_code": {
       "position": {
-        "x": 4846,
-        "y": -757
+        "x": 5103,
+        "y": -774
       }
     },
     "action": {
@@ -267,6 +303,7 @@
     "next": [
       "开始战斗"
     ],
+    "pre_wait_freezes": 1000,
     "recognition": {
       "param": {
         "expected": [
@@ -279,8 +316,8 @@
   "出击任务": {
     "$__mpe_code": {
       "position": {
-        "x": 2728,
-        "y": -840
+        "x": 2375,
+        "y": -933
       }
     },
     "action": {
@@ -288,12 +325,24 @@
       "type": "Click"
     },
     "next": [
-      "auto检查"
+      {
+        "jump_back": true,
+        "name": "资源下载"
+      },
+      {
+        "jump_back": true,
+        "name": "进入auto检查"
+      },
+      {
+        "jump_back": true,
+        "name": "进入倍速检查"
+      }
     ],
     "on_error": [
-      "开始战斗"
+      "开始战斗",
+      "BOSS等待"
     ],
-    "post_delay": 10000,
+    "post_wait_freezes": 3500,
     "recognition": {
       "param": {
         "expected": [
@@ -319,7 +368,7 @@
     },
     "action": {
       "param": {},
-      "type": "Click"
+      "type": "DoNothing"
     },
     "next": [
       "关卡匹配"
@@ -336,10 +385,10 @@
           "HARD"
         ],
         "roi": [
-          6,
-          185,
-          668,
-          462
+          5,
+          56,
+          672,
+          596
         ]
       },
       "type": "OCR"
@@ -363,10 +412,10 @@
     "recognition": {
       "param": {
         "template": [
-          ""
+          "0083.png"
         ],
         "threshold": [
-          0.6
+          0.4
         ]
       },
       "type": "TemplateMatch"
@@ -383,37 +432,80 @@
       "param": {},
       "type": "Click"
     },
+    "focus": {
+      "Node.Recognition.Succeeded": "成功识别到目标"
+    },
     "next": [
       "进入目标故事"
     ],
-    "pre_delay": 500,
+    "pre_wait_freezes": 200,
     "recognition": {
       "param": {
         "template": [
           "机动战士高达.png"
+        ],
+        "threshold": [
+          0.5
         ]
       },
       "type": "TemplateMatch"
     }
   },
+  "尝试左滑动": {
+    "$__mpe_code": {
+      "position": {
+        "x": 2132,
+        "y": -336
+      }
+    },
+    "action": {
+      "param": {
+        "begin": [
+          325,
+          297,
+          63,
+          14
+        ],
+        "end": [
+          [
+            433,
+            303,
+            38,
+            10
+          ]
+        ]
+      },
+      "type": "Swipe"
+    },
+    "max_hit": 3,
+    "next": [
+      "关卡匹配"
+    ],
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    }
+  },
   "开始战斗": {
     "$__mpe_code": {
       "position": {
-        "x": 3498,
-        "y": -599
+        "x": 3478,
+        "y": -617
       }
     },
     "action": {
       "param": {},
       "type": "Click"
     },
+    "focus": {
+      "Node.Recognition.Succeeded": "开始战斗任务，进入等待"
+    },
     "next": [
       "BOSS等待",
-      "关卡结算"
+      "关卡结算前置"
     ],
-    "on_error": [
-      "意外失败"
-    ],
+    "pre_wait_freezes": 20,
+    "rate_limit": 10000,
     "recognition": {
       "param": {
         "expected": [
@@ -466,25 +558,6 @@
       "type": "DirectHit"
     }
   },
-  "战斗任务意外终止": {
-    "$__mpe_code": {
-      "position": {
-        "x": 2394,
-        "y": -299
-      }
-    },
-    "action": {
-      "param": {},
-      "type": "StopTask"
-    },
-    "focus": {
-      "Node.Recognition.Succeeded": "战斗任务意外终止"
-    },
-    "recognition": {
-      "param": {},
-      "type": "DirectHit"
-    }
-  },
   "战斗入口": {
     "$__mpe_code": {
       "position": {
@@ -509,6 +582,25 @@
     },
     "timeout": 5000
   },
+  "战斗寻找错误退出": {
+    "$__mpe_code": {
+      "position": {
+        "x": 2077,
+        "y": -102
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "StopTask"
+    },
+    "focus": {
+      "Node.Action.Succeeded": "战斗寻找意外错误"
+    },
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    }
+  },
   "战斗检测主画面": {
     "$__mpe_code": {
       "position": {
@@ -519,6 +611,9 @@
     "action": {
       "param": {},
       "type": "DoNothing"
+    },
+    "focus": {
+      "Node.Recognition.Succeeded": "检测到当前为主画面"
     },
     "next": [
       "开始进入关卡"
@@ -556,11 +651,57 @@
       "type": "OCR"
     }
   },
+  "点击auto": {
+    "$__mpe_code": {
+      "position": {
+        "x": 3527,
+        "y": -1195
+      }
+    },
+    "action": {
+      "param": {
+        "target": [
+          969,
+          22,
+          76,
+          30
+        ]
+      },
+      "type": "Click"
+    },
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    }
+  },
+  "点击倍速": {
+    "$__mpe_code": {
+      "position": {
+        "x": 3525,
+        "y": -745
+      }
+    },
+    "action": {
+      "param": {
+        "target": [
+          1099,
+          17,
+          79,
+          38
+        ]
+      },
+      "type": "Click"
+    },
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    }
+  },
   "略过关卡": {
     "$__mpe_code": {
       "position": {
-        "x": 2386,
-        "y": -537
+        "x": 2218,
+        "y": -566
       }
     },
     "action": {
@@ -606,6 +747,7 @@
       },
       "type": "Swipe"
     },
+    "max_hit": 20,
     "recognition": {
       "param": {},
       "type": "DirectHit"
@@ -614,8 +756,8 @@
   "目标故事滑动": {
     "$__mpe_code": {
       "position": {
-        "x": 835,
-        "y": -188
+        "x": 741,
+        "y": -184
       }
     },
     "action": {
@@ -628,15 +770,16 @@
         ],
         "end": [
           [
-            348,
-            349,
-            102,
-            25
+            238,
+            347,
+            90,
+            22
           ]
         ]
       },
       "type": "Swipe"
     },
+    "post_wait_freezes": 20,
     "recognition": {
       "param": {},
       "type": "DirectHit"
@@ -665,8 +808,8 @@
   "经验结算": {
     "$__mpe_code": {
       "position": {
-        "x": 4453,
-        "y": -597
+        "x": 4792,
+        "y": -583
       }
     },
     "action": {
@@ -677,11 +820,81 @@
       "再次出击",
       "退出关卡"
     ],
-    "post_delay": 4000,
+    "post_wait_freezes": 1000,
+    "recognition": {
+      "param": {
+        "lower": [
+          [
+            45,
+            134,
+            255
+          ]
+        ],
+        "roi": [
+          1031,
+          625,
+          176,
+          68
+        ],
+        "upper": [
+          255,
+          255,
+          255
+        ]
+      },
+      "type": "ColorMatch"
+    }
+  },
+  "经验结算前置": {
+    "$__mpe_code": {
+      "position": {
+        "x": 4497,
+        "y": -589
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "next": [
+      "经验结算"
+    ],
+    "post_wait_freezes": 1000,
     "recognition": {
       "param": {
         "expected": [
           "继续"
+        ]
+      },
+      "type": "OCR"
+    }
+  },
+  "资源下载": {
+    "$__mpe_code": {
+      "position": {
+        "x": 3207,
+        "y": -1761
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "Click"
+    },
+    "focus": {
+      "Node.Recognition.Succeeded": "检测到资源未下载，开始下载"
+    },
+    "max_hit": 1,
+    "post_wait_freezes": 20,
+    "recognition": {
+      "param": {
+        "expected": [
+          "下载"
+        ],
+        "roi": [
+          687,
+          544,
+          152,
+          44
         ]
       },
       "type": "OCR"
@@ -718,6 +931,33 @@
       "type": "DirectHit"
     }
   },
+  "进入auto检查": {
+    "$__mpe_code": {
+      "position": {
+        "x": 3160,
+        "y": -1256
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "max_hit": 1,
+    "next": [
+      "auto检查"
+    ],
+    "on_error": [
+      {
+        "jump_back": true,
+        "name": "点击auto"
+      }
+    ],
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    },
+    "timeout": 2000
+  },
   "进入主要关卡": {
     "$__mpe_code": {
       "position": {
@@ -749,11 +989,38 @@
     },
     "timeout": 200
   },
+  "进入倍速检查": {
+    "$__mpe_code": {
+      "position": {
+        "x": 3066,
+        "y": -938
+      }
+    },
+    "action": {
+      "param": {},
+      "type": "DoNothing"
+    },
+    "max_hit": 1,
+    "next": [
+      "倍速检查"
+    ],
+    "on_error": [
+      {
+        "jump_back": true,
+        "name": "点击倍速"
+      }
+    ],
+    "recognition": {
+      "param": {},
+      "type": "DirectHit"
+    },
+    "timeout": 2000
+  },
   "进入出击准备": {
     "$__mpe_code": {
       "position": {
-        "x": 2368,
-        "y": -787
+        "x": 2115,
+        "y": -853
       }
     },
     "action": {
@@ -765,6 +1032,7 @@
       "出击任务"
     ],
     "post_delay": 400,
+    "pre_wait_freezes": 200,
     "recognition": {
       "param": {
         "expected": [
@@ -881,7 +1149,8 @@
         "name": "目标关卡滑动"
       }
     ],
-    "post_delay": 2000,
+    "post_wait_freezes": 200,
+    "pre_wait_freezes": 20,
     "recognition": {
       "param": {
         "expected": [
@@ -895,14 +1164,18 @@
   "退出关卡": {
     "$__mpe_code": {
       "position": {
-        "x": 4836,
-        "y": -462
+        "x": 5202,
+        "y": -445
       }
     },
     "action": {
       "param": {},
       "type": "Click"
     },
+    "focus": {
+      "Node.Action.Succeeded": "战斗任务成功"
+    },
+    "pre_wait_freezes": 1000,
     "recognition": {
       "param": {
         "expected": [

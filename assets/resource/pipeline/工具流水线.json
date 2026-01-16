@@ -145,6 +145,10 @@
         "recognition": "TemplateMatch",
         "template": "HARD3.png"
     },
+    "HARD5":{
+        "recognition": "TemplateMatch",
+        "template": "HARD5.png"
+    },
     "HARD2_OCR":{
         "recognition": "OCR",
         "expected": "2",
@@ -164,5 +168,10 @@
         "recognition": "OCR",
         "expected": "1",
         "roi":[676,73,603,47]
-    }
+    },
+    "HARD5_OCR":{
+        "recognition": "OCR",
+        "expected": "5",
+        "roi":[676,73,603,47]
+    },
 }
