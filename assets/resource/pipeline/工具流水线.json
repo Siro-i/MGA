@@ -1,177 +1,294 @@
 {
-  "$__mpe_config_工具流水线": {
-    "$__mpe_code": {
-      "filename": "工具流水线",
-      "prefix": "",
-      "savedViewport": {
-        "x": 813,
-        "y": -212,
-        "zoom": 0.91
-      },
-      "version": "v0.14.2"
+    "$__mpe_config_工具流水线": {
+        "$__mpe_code": {
+            "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\工具流水线.json",
+            "filename": "工具流水线",
+            "isModifiedExternally": false,
+            "lastSyncTime": 1771912545665,
+            "prefix": "",
+            "savedViewport": {
+                "x": 685,
+                "y": -29,
+                "zoom": 0.76
+            },
+            "version": "v1.2.0"
+        }
+    },
+    "HARD1": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "template": "HARD1.png"
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "HARD1_OCR": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "expected": "1",
+                "roi": [
+                    676,
+                    73,
+                    603,
+                    47
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "HARD2": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "template": "HARD2.png"
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "HARD2_OCR": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "expected": "2",
+                "roi": [
+                    676,
+                    73,
+                    603,
+                    47
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "HARD3": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "template": "HARD3.png"
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "HARD3_OCR": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "expected": "3",
+                "roi": [
+                    676,
+                    73,
+                    603,
+                    47
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "HARD4": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "template": "HARD4.png"
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "HARD4_OCR": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "expected": "4",
+                "roi": [
+                    676,
+                    73,
+                    603,
+                    47
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "HARD5": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "template": "HARD5.png"
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "HARD5_OCR": {
+        "$__mpe_code": {
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        "recognition": {
+            "param": {
+                "expected": "5",
+                "roi": [
+                    676,
+                    73,
+                    603,
+                    47
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "点击主画面": {
+        "$__mpe_code": {
+            "position": {
+                "x": 941,
+                "y": 641
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "结果检测"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "主画面"
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 2000
+    },
+    "点击关闭/取消": {
+        "$__mpe_code": {
+            "position": {
+                "x": 75,
+                "y": 618
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "点击主画面"
+        ],
+        "on_error": [
+            "点击返回"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "取消",
+                    "关闭"
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 2000
+    },
+    "点击返回": {
+        "$__mpe_code": {
+            "position": {
+                "x": 548,
+                "y": 818
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "点击主画面"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "返回.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 2000
+    },
+    "结果检测": {
+        "$__mpe_code": {
+            "position": {
+                "x": 1315,
+                "y": 714
+            }
+        },
+        "recognition": {
+            "param": {
+                "expected": [
+                    "RANK"
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 2000
+    },
+    "返回主画面入口": {
+        "$__mpe_code": {
+            "position": {
+                "x": -569,
+                "y": 703
+            }
+        },
+        "next": [
+            "点击关闭/取消",
+            "点击主画面",
+            "点击返回"
+        ],
+        "timeout": 2000
     }
-  },
-  "点击主画面": {
-    "$__mpe_code": {
-      "position": {
-        "x": 941,
-        "y": 641
-      }
-    },
-    "action": {
-      "param": {},
-      "type": "Click"
-    },
-    "next": [
-      "结果检测"
-    ],
-    "recognition": {
-      "param": {
-        "expected": [
-          "主画面"
-        ]
-      },
-      "type": "OCR"
-    },
-    "timeout": 5000
-  },
-  "点击关闭/取消": {
-    "$__mpe_code": {
-      "position": {
-        "x": 75,
-        "y": 618
-      }
-    },
-    "action": {
-      "param": {},
-      "type": "Click"
-    },
-    "next": [
-      "点击主画面"
-    ],
-    "on_error": [
-      "点击返回"
-    ],
-    "recognition": {
-      "param": {
-        "expected": [
-          "取消",
-          "关闭"
-        ]
-      },
-      "type": "OCR"
-    },
-    "timeout": 5000
-  },
-  "点击返回": {
-    "$__mpe_code": {
-      "position": {
-        "x": 548,
-        "y": 818
-      }
-    },
-    "action": {
-      "param": {},
-      "type": "Click"
-    },
-    "next": [
-      "点击主画面"
-    ],
-    "recognition": {
-      "param": {
-        "template": [
-          "返回.png"
-        ]
-      },
-      "type": "TemplateMatch"
-    }
-  },
-  "结果检测": {
-    "$__mpe_code": {
-      "position": {
-        "x": 1315,
-        "y": 714
-      }
-    },
-    "action": {
-      "param": {},
-      "type": "DoNothing"
-    },
-    "recognition": {
-      "param": {
-        "expected": [
-          "RANK"
-        ]
-      },
-      "type": "OCR"
-    },
-    "timeout": 5000
-  },
-  "返回主画面入口": {
-    "$__mpe_code": {
-      "position": {
-        "x": -569,
-        "y": 703
-      }
-    },
-    "action": {
-      "param": {},
-      "type": "DoNothing"
-    },
-    "next": [
-      "点击关闭/取消",
-      "点击主画面",
-      "点击返回"
-    ],
-    "recognition": {
-      "param": {},
-      "type": "DirectHit"
-    },
-    "timeout": 2000
-  },
-  "HARD2":{
-        "recognition": "TemplateMatch",
-        "template": "HARD2.png"
-    },
-    "HARD1":{
-        "recognition": "TemplateMatch",
-        "template": "HARD1.png"
-    },
-    "HARD4":{
-        "recognition": "TemplateMatch",
-        "template": "HARD4.png"
-    },
-    "HARD3":{
-        "recognition": "TemplateMatch",
-        "template": "HARD3.png"
-    },
-    "HARD5":{
-        "recognition": "TemplateMatch",
-        "template": "HARD5.png"
-    },
-    "HARD2_OCR":{
-        "recognition": "OCR",
-        "expected": "2",
-        "roi":[676,73,603,47]
-    },
-    "HARD3_OCR":{
-        "recognition": "OCR",
-        "expected": "3",
-        "roi":[676,73,603,47]
-    },
-    "HARD4_OCR":{
-        "recognition": "OCR",
-        "expected": "4",
-        "roi":[676,73,603,47]
-    },
-    "HARD1_OCR":{
-        "recognition": "OCR",
-        "expected": "1",
-        "roi":[676,73,603,47]
-    },
-    "HARD5_OCR":{
-        "recognition": "OCR",
-        "expected": "5",
-        "roi":[676,73,603,47]
-    },
 }

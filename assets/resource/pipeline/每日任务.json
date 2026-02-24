@@ -3,14 +3,14 @@
     "$__mpe_code": {
       "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\每日任务.json",
       "filename": "日常",
-      "lastSyncTime": 1768272639754,
+      "lastSyncTime": 1768698909619,
       "prefix": "",
       "savedViewport": {
-        "x": 174,
-        "y": 1080,
-        "zoom": 1
+        "x": 730,
+        "y": 983,
+        "zoom": 0.91
       },
-      "version": "v0.15.3"
+      "version": "v0.16.0"
     }
   },
   "AP消耗": {
@@ -25,6 +25,9 @@
         "custom_action": "DailyBattle"
       },
       "type": "Custom"
+    },
+    "focus": {
+      "Node.Recognition.Succeeded": "进入每日AP消耗任务"
     },
     "max_hit": 1,
     "recognition": {
@@ -174,6 +177,9 @@
       "param": {},
       "type": "Click"
     },
+    "focus": {
+      "Node.Recognition.Succeeded": "开始执行开发强化任务"
+    },
     "max_hit": 1,
     "next": [
       "点击00799"
@@ -201,7 +207,7 @@
     "next": [
       "等待画面"
     ],
-    "pre_delay": 1000,
+    "pre_delay": 500,
     "recognition": {
       "param": {
         "expected": [
@@ -231,6 +237,7 @@
     "next": [
       "执行"
     ],
+    "pre_wait_freezes": 200,
     "recognition": {
       "param": {
         "expected": [
@@ -250,6 +257,9 @@
     "action": {
       "param": {},
       "type": "Click"
+    },
+    "focus": {
+      "Node.Recognition.Succeeded": "进入日常奖励领取"
     },
     "max_hit": 1,
     "next": [
@@ -348,6 +358,7 @@
     "next": [
       "执行开发"
     ],
+    "pre_wait_freezes": 200,
     "recognition": {
       "param": {
         "expected": [
@@ -371,7 +382,7 @@
     "next": [
       "点击全部开发"
     ],
-    "pre_delay": 1000,
+    "pre_wait_freezes": 500,
     "recognition": {
       "param": {
         "template": [
@@ -391,6 +402,9 @@
     "action": {
       "param": {},
       "type": "Click"
+    },
+    "focus": {
+      "Node.Recognition.Succeeded": "开始执行商店购买任务"
     },
     "max_hit": 1,
     "next": [
@@ -521,6 +535,9 @@
       "param": {},
       "type": "Click"
     },
+    "focus": {
+      "Node.Recognition.Succeeded": "开始领取登录体力"
+    },
     "max_hit": 1,
     "next": [
       "领取体力"
@@ -575,6 +592,10 @@
       "param": {},
       "type": "Click"
     },
+    "focus": {
+      "Node.Action.Succeeded": "战舰体力领取成功",
+      "Node.Recognition.Failed": "未领取成功"
+    },
     "recognition": {
       "param": {
         "expected": [
@@ -594,6 +615,9 @@
     "action": {
       "param": {},
       "type": "Click"
+    },
+    "focus": {
+      "Node.Recognition.Succeeded": "日常奖励领取成功"
     },
     "recognition": {
       "param": {
@@ -656,6 +680,9 @@
       "param": {},
       "type": "Click"
     },
+    "focus": {
+      "Node.Action.Succeeded": "开发强化任务成功"
+    },
     "post_wait_freezes": 100,
     "recognition": {
       "param": {
@@ -677,6 +704,9 @@
       "param": {},
       "type": "StopTask"
     },
+    "focus": {
+      "Node.Recognition.Starting": "任务结束"
+    },
     "recognition": {
       "param": {},
       "type": "DirectHit"
@@ -696,7 +726,7 @@
       "type": "Custom"
     },
     "focus": {
-      "Node.Action.Succeeded": "免费购买已完成"
+      "Node.Recognition.Starting": "免费购买已完成"
     },
     "post_delay": 200,
     "pre_delay": 200,
@@ -786,6 +816,9 @@
       "param": {},
       "type": "Click"
     },
+    "focus": {
+      "Node.Recognition.Succeeded": "开始领取战舰体力"
+    },
     "max_hit": 1,
     "next": [
       "点击战舰"
@@ -803,8 +836,8 @@
   "领取日常奖励": {
     "$__mpe_code": {
       "position": {
-        "x": 656,
-        "y": -951
+        "x": 646,
+        "y": -961
       }
     },
     "action": {
@@ -834,6 +867,9 @@
     "action": {
       "param": {},
       "type": "Click"
+    },
+    "focus": {
+      "Node.Recognition.Succeeded": "开始领取礼物"
     },
     "max_hit": 1,
     "next": [

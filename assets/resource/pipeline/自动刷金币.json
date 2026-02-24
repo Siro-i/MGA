@@ -1,82 +1,724 @@
 {
-  "$__mpe_config_自动刷金币": {
-    "$__mpe_code": {
-      "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline/自动刷金币.json",
-      "filename": "自动刷金币",
-      "prefix": "",
-      "savedViewport": {
-        "x": 701,
-        "y": 725,
-        "zoom": 0.63
-      },
-      "version": "v0.14.2"
-    }
-  },
-  "新建节点3": {
-    "$__mpe_code": {
-      "position": {
-        "x": 30,
-        "y": -115
-      }
+    "$__mpe_config_新建Pipeline2": {
+        "$__mpe_code": {
+            "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\自动刷金币.json",
+            "filename": "新建Pipeline2",
+            "isModifiedExternally": false,
+            "lastSyncTime": 1771912555893,
+            "prefix": "",
+            "savedViewport": {
+                "x": 577,
+                "y": 505,
+                "zoom": 0.69
+            },
+            "version": "v1.2.0"
+        }
     },
-    "action": {
-      "param": {
-        "custom_action": "强制返回主页"
-      },
-      "type": "Custom"
+    "GP识别": {
+        "$__mpe_code": {
+            "position": {
+                "x": 697,
+                "y": -410
+            }
+        },
+        "next": [
+            "GP识别结果"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    ""
+                ],
+                "roi": [
+                    1035,
+                    24,
+                    70,
+                    29
+                ]
+            },
+            "type": "OCR"
+        }
     },
-    "focus": {
-      "Node.Action.Failed": "强制返回主页失败"
-    },
-    "recognition": {
-      "param": {},
-      "type": "DirectHit"
-    },
-    "timeout": 5000
-  },
-  "画面检测": {
-    "$__mpe_code": {
-      "position": {
-        "x": 23,
-        "y": -396
-      }
-    },
-    "action": {
-      "param": {},
-      "type": "DoNothing"
-    },
-    "recognition": {
-      "param": {
-        "expected": [
-          "RANK"
+    "GP识别结果": {
+        "$__mpe_code": {
+            "position": {
+                "x": 960,
+                "y": -426
+            }
+        },
+        "action": {
+            "param": {
+                "custom_action": "GP",
+                "custom_action_param": {
+                    "GP_target": "62000"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            {
+                "jump_back": true,
+                "name": "点击自动解体"
+            }
+        ],
+        "on_error": [
+            "达到目标GP退出"
         ]
-      },
-      "type": "OCR"
     },
-    "timeout": 5000
-  },
-  "金币任务入口": {
-    "$__mpe_code": {
-      "position": {
-        "x": -439,
-        "y": -401
-      }
+    "下一步点击": {
+        "$__mpe_code": {
+            "position": {
+                "x": 4200,
+                "y": 113
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "post_wait_freezes": 1500,
+        "recognition": {
+            "param": {
+                "expected": [
+                    "TAP"
+                ]
+            },
+            "type": "OCR"
+        }
     },
-    "action": {
-      "param": {},
-      "type": "DoNothing"
+    "全部开发": {
+        "$__mpe_code": {
+            "position": {
+                "x": 3138,
+                "y": 114
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "点击最大值"
+        ],
+        "on_error": [
+            "金币任务入口"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "全部开发"
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
     },
-    "next": [
-      "画面检测",
-      {
-        "jump_back": true,
-        "name": "新建节点3"
-      }
-    ],
-    "recognition": {
-      "param": {},
-      "type": "DirectHit"
+    "勾选确认执行": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2923,
+                "y": -422
+            }
+        },
+        "action": {
+            "param": {
+                "target_offset": [
+                    -67,
+                    18,
+                    -4,
+                    -2
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "开始执行解体"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "真的"
+                ],
+                "roi": [
+                    432,
+                    540,
+                    48,
+                    34
+                ]
+            },
+            "type": "OCR"
+        }
     },
-    "timeout": 5000
-  }
+    "寻找开发目标": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2517,
+                "y": 97
+            }
+        },
+        "action": {
+            "param": {
+                "begin": [
+                    252,
+                    243,
+                    184,
+                    27
+                ],
+                "end": [
+                    [
+                        921,
+                        230,
+                        311,
+                        32
+                    ]
+                ]
+            },
+            "type": "Swipe"
+        },
+        "next": [
+            {
+                "jump_back": true,
+                "name": "点击61车"
+            }
+        ],
+        "repeat": 2
+    },
+    "开始执行解体": {
+        "$__mpe_code": {
+            "position": {
+                "x": 3181,
+                "y": -420
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "确认结果"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "执行"
+                ],
+                "roi": [
+                    716,
+                    646,
+                    97,
+                    35
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "执行解体": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2644,
+                "y": -424
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "勾选确认执行",
+            "确认结果"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "执行解体"
+                ],
+                "roi": [
+                    691,
+                    635,
+                    154,
+                    54
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "批量开发入口": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2009,
+                "y": 94
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "进入开发页面"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "开发"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "新建节点3": {
+        "$__mpe_code": {
+            "position": {
+                "x": -177,
+                "y": 80
+            }
+        },
+        "action": {
+            "param": {
+                "custom_action": "强制返回主页"
+            },
+            "type": "Custom"
+        },
+        "focus": {
+            "Node.Action.Failed": "强制返回主页失败"
+        },
+        "timeout": 5000
+    },
+    "点击61车": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2827,
+                "y": 114
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "全部开发"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "61车.png"
+                ],
+                "threshold": [
+                    0.9
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "点击强化": {
+        "$__mpe_code": {
+            "position": {
+                "x": 181,
+                "y": -399
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "进入解体页面"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "强化"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "点击执行开发": {
+        "$__mpe_code": {
+            "position": {
+                "x": 3658,
+                "y": 114
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "点击确认执行"
+        ],
+        "post_wait_freezes": 200,
+        "recognition": {
+            "param": {
+                "expected": [
+                    "执行开发"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "点击最大值": {
+        "$__mpe_code": {
+            "position": {
+                "x": 3398,
+                "y": 114
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "点击执行开发"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "最大值.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "点击确认执行": {
+        "$__mpe_code": {
+            "position": {
+                "x": 3919,
+                "y": 109
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "下一步点击"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "执行"
+                ],
+                "roi": [
+                    699,
+                    636,
+                    136,
+                    54
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "点击自动解体": {
+        "$__mpe_code": {
+            "position": {
+                "x": 1231,
+                "y": -452
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "点击重置"
+        ],
+        "post_wait_freezes": 200,
+        "recognition": {
+            "param": {
+                "expected": [
+                    "自动解体"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "点击重置": {
+        "$__mpe_code": {
+            "position": {
+                "x": 1483,
+                "y": -442
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "稀有度勾选"
+        ],
+        "post_wait_freezes": 200,
+        "recognition": {
+            "param": {
+                "expected": [
+                    "重置"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "画面检测": {
+        "$__mpe_code": {
+            "position": {
+                "x": -85,
+                "y": -416
+            }
+        },
+        "next": [
+            "点击强化"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "RANK"
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
+    },
+    "确定解体单位": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2309,
+                "y": -432
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "执行解体"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "解体"
+                ],
+                "roi": [
+                    1008,
+                    553,
+                    221,
+                    65
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "确认结果": {
+        "$__mpe_code": {
+            "position": {
+                "x": 3443,
+                "y": -422
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "recognition": {
+            "param": {
+                "expected": [
+                    "OK"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "稀有度勾选": {
+        "$__mpe_code": {
+            "position": {
+                "x": 1743,
+                "y": -442
+            }
+        },
+        "action": {
+            "param": {
+                "target_offset": [
+                    -108,
+                    -2,
+                    15,
+                    5
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "获得来源勾选"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "N"
+                ],
+                "roi": [
+                    186,
+                    209,
+                    33,
+                    38
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "自动解体配置确定": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2030,
+                "y": -210
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "确定解体单位",
+            "退出解体"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "确定"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "获得来源勾选": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2003,
+                "y": -455
+            }
+        },
+        "action": {
+            "param": {
+                "target_offset": [
+                    -57,
+                    -1,
+                    -52,
+                    -2
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "自动解体配置确定"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "开发单位"
+                ],
+                "roi": [
+                    130,
+                    464,
+                    112,
+                    33
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "达到目标GP退出": {
+        "$__mpe_code": {
+            "position": {
+                "x": 976,
+                "y": -77
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "StopTask"
+        },
+        "focus": {
+            "Node.Recognition.Starting": "完成目标GP"
+        }
+    },
+    "进入开发页面": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2257,
+                "y": 97
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "寻找开发目标"
+        ],
+        "recognition": {
+            "param": {
+                "template": [
+                    "0079.png"
+                ]
+            },
+            "type": "TemplateMatch"
+        }
+    },
+    "进入解体页面": {
+        "$__mpe_code": {
+            "position": {
+                "x": 445,
+                "y": -393
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "GP识别"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "解体"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "退出解体": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2364,
+                "y": -156
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "批量开发入口"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "OK"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "金币任务入口": {
+        "$__mpe_code": {
+            "position": {
+                "x": -439,
+                "y": -401
+            }
+        },
+        "next": [
+            "画面检测",
+            {
+                "jump_back": true,
+                "name": "新建节点3"
+            }
+        ],
+        "timeout": 5000
+    }
 }

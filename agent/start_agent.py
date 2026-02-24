@@ -42,6 +42,7 @@ def run_agent_logic(socket_id):
         import ReturnHome
         import StageSelect
         import DailyBattle
+        import GP
         
     except ImportError as e:
         print(f"[MGA Error] Failed to import dependencies: {e}")
