@@ -36,11 +36,30 @@
             
         },
         {
-            "name":"测试",
-            "entry":"金币任务入口"       
-        }
+            "name":"GP任务",
+            "entry":"金币任务入口",
+            "option":["GP输入"]
+            
+            }       
+        
     ],
         "option": {
+        "GP输入": {
+            "type": "input",
+            "description": "请输入GP数量",
+            "inputs": [
+               {"name": "GP",
+                "description": "用阿拉伯数字表示",
+                "default": "0"}
+            ],
+            "pipeline_override":{
+                "GP识别结果":{
+                    "custom_action_param":{"GP_target":"{GP}"}
+                }
+            }
+           
+
+        },
         "故事选择": {
             "cases": [
                 {
