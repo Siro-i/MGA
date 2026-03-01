@@ -4,11 +4,11 @@
             "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\工具流水线.json",
             "filename": "工具流水线",
             "isModifiedExternally": false,
-            "lastSyncTime": 1771912545665,
+            "lastSyncTime": 1771912552973,
             "prefix": "",
             "savedViewport": {
-                "x": 685,
-                "y": -29,
+                "x": 815,
+                "y": 323,
                 "zoom": 0.76
             },
             "version": "v1.2.0"
@@ -31,18 +31,18 @@
     "HARD1_OCR": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": -125,
+                "y": -203
             }
         },
         "recognition": {
             "param": {
                 "expected": "1",
                 "roi": [
-                    676,
-                    73,
-                    603,
-                    47
+                    693,
+                    79,
+                    568,
+                    63
                 ]
             },
             "type": "OCR"
@@ -51,8 +51,8 @@
     "HARD2": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": 634,
+                "y": -118
             }
         },
         "recognition": {
@@ -65,18 +65,18 @@
     "HARD2_OCR": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": 483,
+                "y": 147
             }
         },
         "recognition": {
             "param": {
                 "expected": "2",
                 "roi": [
-                    676,
-                    73,
-                    603,
-                    47
+                    693,
+                    79,
+                    568,
+                    63
                 ]
             },
             "type": "OCR"
@@ -85,8 +85,8 @@
     "HARD3": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": 376,
+                "y": 380
             }
         },
         "recognition": {
@@ -99,18 +99,18 @@
     "HARD3_OCR": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": 132,
+                "y": -186
             }
         },
         "recognition": {
             "param": {
                 "expected": "3",
                 "roi": [
-                    676,
-                    73,
-                    603,
-                    47
+                    693,
+                    79,
+                    568,
+                    63
                 ]
             },
             "type": "OCR"
@@ -119,8 +119,8 @@
     "HARD4": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": 108,
+                "y": 366
             }
         },
         "recognition": {
@@ -133,18 +133,18 @@
     "HARD4_OCR": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": -211,
+                "y": 186
             }
         },
         "recognition": {
             "param": {
                 "expected": "4",
                 "roi": [
-                    676,
-                    73,
-                    603,
-                    47
+                    693,
+                    79,
+                    568,
+                    63
                 ]
             },
             "type": "OCR"
@@ -153,8 +153,8 @@
     "HARD5": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": -317,
+                "y": -28
             }
         },
         "recognition": {
@@ -167,18 +167,18 @@
     "HARD5_OCR": {
         "$__mpe_code": {
             "position": {
-                "x": 0,
-                "y": 0
+                "x": 282,
+                "y": 3
             }
         },
         "recognition": {
             "param": {
                 "expected": "5",
                 "roi": [
-                    676,
-                    73,
-                    603,
-                    47
+                    693,
+                    79,
+                    568,
+                    63
                 ]
             },
             "type": "OCR"

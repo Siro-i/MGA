@@ -22,25 +22,34 @@
     "task": [
         {
             "name": "日常",
+            "description":"完成日常人物并领取礼物盒奖励,默认略过0079HARD1,HARD2",
             "entry": "每日任务入口"
         },
         {
             "name": "材料本",
+            "description":"略过每日材料本",
             "entry": "材料本入口"
         },
         {
             "name": "战斗",
             "entry": "战斗入口",
-            "option":["故事选择","关卡选择","是否开启自动战斗","自动战斗次数"]
+            "description":"选择故事和关卡进行战斗，支持历史关卡战斗",
+            "option":["故事选择","关卡选择","是否开启自动战斗","是否跳过隐藏boss战斗","自动战斗次数"]
             
             
         },
         {
             "name":"GP任务",
             "entry":"金币任务入口",
+            "description":"输入一个值后会自动刷取指定数量的GP",
             "option":["GP输入"]
             
-            }       
+        },
+        {
+            "name":"循环战斗",
+            "description": "循环战斗某一关卡（包含强敌来袭）直到体力清空（max:100)",
+            "entry":"出击任务"
+        }       
         
     ],
         "option": {
@@ -61,6 +70,7 @@
 
         },
         "故事选择": {
+            "description":"选择主线故事",
             "cases": [
                 {
                     "name": "机动战士高达",
@@ -317,6 +327,23 @@
                     }
                     
                 },
+                {
+                    "name": "AGE",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"AGE.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
                 {"name": "雷霆宙域",
                     "pipeline_override": {
                         "寻找目标历史关卡": {
@@ -391,6 +418,7 @@
             ]
         },
         "关卡选择": {
+            "description":"选择对应关卡，目前仅支持选择HARD关卡",
             "cases": [
                 {
                     "name": "HARD1",
@@ -475,6 +503,7 @@
             ]
         },
         "是否开启自动战斗":{
+            "description":"开启后将不使用略过，关闭则使用略过，达到略过次数上限后仍要刷取材料请打开自动战斗",
             "cases": [{
                 "name":"是",
                 "pipeline_override":{
@@ -505,6 +534,7 @@
 
         },
         "自动战斗次数":{
+            "description":"该选项仅在开启自动战斗后生效",
             "cases": [
                 {
                     "name":"1",
@@ -556,9 +586,62 @@
                             "max_hit": 4
                         }
 }
+                    },
+                {
+                    "name":"10",
+                    "pipeline_override":{
+                        "再次出击": {
+                            "enabled": true,
+                            "max_hit": 9
+                        }
+}
+                    },
+                {
+                    "name":"20",
+                    "pipeline_override":{
+                        "再次出击": {
+                            "enabled": true,
+                            "max_hit": 19
+                        }
+}
                     }
+
+                
+                
                 
 
+            ]
+        },
+        "是否跳过隐藏boss战斗":{
+            "description":"开启后会跳过隐藏boss战斗,默认不跳过",
+            "cases": [
+                {
+                    "name":"是",
+                    "pipeline_override":{
+                        "BOSS等待":{
+                                "expected": [
+                                    "不挑战"
+                                ],
+                                "roi": [459,629,111,48]
+                        }
+                    }
+                },
+                {
+                    "name":"否",
+                    "pipeline_override":{
+                        "BOSS等待":{                
+                                "expected": [
+                                    "挑战"
+                                ],
+                                "roi": [
+                                    738,
+                                    640,
+                                    50,
+                                    25
+                                ]
+                        }
+                    }
+                }
             ]
         }
 
