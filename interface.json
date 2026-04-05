@@ -22,8 +22,9 @@
     "task": [
         {
             "name": "日常",
-            "description":"完成日常人物并领取礼物盒奖励,默认略过0079HARD1,HARD2",
-            "entry": "每日任务入口"
+            "description":"包含商店、50AP消耗、战舰巡航、开发、强化任务",
+            "option":["可选日常"],
+            "entry": "日常任务入口"
         },
         {
             "name": "材料本",
@@ -49,6 +50,11 @@
             "name":"循环战斗",
             "description": "循环战斗某一关卡（包含强敌来袭）直到体力清空（max:100)",
             "entry":"出击任务"
+        },
+        {
+            "name":"游戏唤醒",
+            "description":"进入游戏主画面",
+            "entry":"开始唤醒"
         }       
         
     ],
@@ -643,8 +649,61 @@
                     }
                 }
             ]
-        }
+        },
+        "可选日常":{
+            "type":"checkbox",
+            "cases":[
+                {
+                    "name":"商店任务",
+                    "description":"购买商店每日免费道具",
+                    "pipeline_override":{
+                        "进入商店":
+                        {
+                            "enabled":true
+                        }
+                    }
+                },
+                {
+                    "name":"每日体力领取",
+                    "description":"领取每日登录体力",
+                    "pipeline_override":{
+                        "登录体力领取":
+                        {
+                            "enabled":true
+                        }
+                    }
+                },
+                {
+                    "name":"领取战舰巡航",
+                    "description":"领取战舰体力",
+                    "pipeline_override":{
+                        "领取战舰体力":
+                        {
+                            "enabled":true
+                        }
+                    }            
+                },
+                {
+                    "name":"开发与强化任务",
+                    "description":"默认一键开发一台刚坦克",
+                    "pipeline_override":{
+                        "开发任务":{
+                            "enabled":true
+                        }
+                    }
+                },
+                {
+                    "name":"领取每日任务奖励",
+                    "description":"进入使命中进行全部领取",
+                    "pipeline_override":{
+                        "日常奖励":{
+                            "enabled":true
+                        }
+                    }
+                }
+            ]
 
+        }
     }
 }
             

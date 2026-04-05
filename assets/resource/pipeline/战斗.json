@@ -4,14 +4,14 @@
             "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\战斗.json",
             "filename": "战斗",
             "isModifiedExternally": false,
-            "lastSyncTime": 1772358220567,
+            "lastSyncTime": 1772368942874,
             "prefix": "",
             "savedViewport": {
-                "x": -745,
-                "y": 1238,
-                "zoom": 0.6
+                "x": -2562,
+                "y": 1682,
+                "zoom": 0.87
             },
-            "version": "v1.2.0"
+            "version": "v1.3.1"
         }
     },
     "BOSS等待": {
@@ -40,7 +40,7 @@
         "recognition": {
             "param": {
                 "expected": [
-                    "挑战"
+                    "不挑战"
                 ],
                 "roi": [
                     738,
