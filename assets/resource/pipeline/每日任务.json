@@ -4,14 +4,22 @@
             "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\每日任务.json",
             "filename": "日常",
             "isModifiedExternally": false,
-            "lastSyncTime": 1775358494912,
+            "lastSyncTime": 1775358748440,
             "prefix": "",
             "savedViewport": {
-                "x": 601,
-                "y": 277,
-                "zoom": 0.4
+                "x": 1319,
+                "y": 123,
+                "zoom": 0.63
             },
             "version": "v1.4.0"
+        }
+    },
+    "$__mpe_external_返回主画面入口_日常": {
+        "$__mpe_code": {
+            "position": {
+                "x": -1276,
+                "y": 299
+            }
         }
     },
     "AP消耗": {
@@ -502,6 +510,17 @@
         },
         "post_delay": 200,
         "pre_delay": 200
+    },
+    "测试节点": {
+        "$__mpe_code": {
+            "position": {
+                "x": -1569,
+                "y": 310
+            }
+        },
+        "next": [
+            "返回主画面入口"
+        ]
     },
     "点击00799": {
         "$__mpe_code": {

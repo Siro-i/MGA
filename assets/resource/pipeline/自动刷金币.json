@@ -4,14 +4,14 @@
             "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\自动刷金币.json",
             "filename": "新建Pipeline2",
             "isModifiedExternally": false,
-            "lastSyncTime": 1771912591096,
+            "lastSyncTime": 1775379325624,
             "prefix": "",
             "savedViewport": {
-                "x": -945,
-                "y": 403,
-                "zoom": 0.69
+                "x": -772,
+                "y": 400,
+                "zoom": 0.57
             },
-            "version": "v1.2.0"
+            "version": "v1.4.0"
         }
     },
     "GP识别": {
@@ -492,6 +492,9 @@
         "next": [
             "执行解体"
         ],
+        "on_error": [
+            "批量开发入口"
+        ],
         "recognition": {
             "param": {
                 "expected": [
@@ -505,7 +508,8 @@
                 ]
             },
             "type": "OCR"
-        }
+        },
+        "timeout": 2000
     },
     "确认结果": {
         "$__mpe_code": {
@@ -575,9 +579,10 @@
             "type": "Click"
         },
         "next": [
-            "确定解体单位",
-            "退出解体"
+            "退出解体",
+            "确定解体单位"
         ],
+        "post_wait_freezes": 500,
         "recognition": {
             "param": {
                 "expected": [

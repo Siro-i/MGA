@@ -4,14 +4,14 @@
             "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\战斗.json",
             "filename": "战斗",
             "isModifiedExternally": false,
-            "lastSyncTime": 1772368942874,
+            "lastSyncTime": 1775370225040,
             "prefix": "",
             "savedViewport": {
-                "x": -2562,
-                "y": 1682,
-                "zoom": 0.87
+                "x": 1063,
+                "y": 548,
+                "zoom": 0.5
             },
-            "version": "v1.3.1"
+            "version": "v1.4.0"
         }
     },
     "BOSS等待": {
@@ -43,10 +43,10 @@
                     "不挑战"
                 ],
                 "roi": [
-                    738,
-                    640,
-                    50,
-                    25
+                    459,
+                    629,
+                    111,
+                    48
                 ]
             },
             "type": "OCR"
@@ -214,7 +214,8 @@
         },
         "next": [
             "略过关卡",
-            "进入出击准备"
+            "进入出击准备",
+            "次数上限退出"
         ],
         "on_error": [
             "尝试左滑动",
@@ -475,8 +476,8 @@
     "尝试左滑动": {
         "$__mpe_code": {
             "position": {
-                "x": 2135,
-                "y": -315
+                "x": 2044,
+                "y": -290
             }
         },
         "action": {
@@ -643,6 +644,29 @@
             "param": {
                 "expected": [
                     "执行"
+                ]
+            },
+            "type": "OCR"
+        }
+    },
+    "次数上限退出": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2266,
+                "y": -129
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "StopTask"
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "扫荡次数达到上限，退出任务"
+        },
+        "recognition": {
+            "param": {
+                "expected": [
+                    "次数上限"
                 ]
             },
             "type": "OCR"

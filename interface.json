@@ -55,7 +55,12 @@
             "name":"游戏唤醒",
             "description":"进入游戏主画面",
             "entry":"开始唤醒"
-        }       
+            
+        },
+        {
+            "name":"领取礼物盒",
+            "entry":"领取礼物"
+        }
         
     ],
         "option": {
@@ -339,6 +344,23 @@
                         "寻找目标故事": {
                             "recognition": {
                             "param": {"template":"AGE.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位":{
+                            "enabled":true
+                        },
+                        "进入历史关卡":{
+                            "enabled":false
+                        }
+                    }
+                },
+                                {
+                    "name": "EW",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                            "param": {"template":"EW.png"},
                             "type": "TemplateMatch"
                             }
                         },
@@ -700,6 +722,17 @@
                             "enabled":true
                         }
                     }
+                },
+                {
+                    "name":"50AP消耗任务",
+                    "description":"默认扫荡0079HARD1以及HARD3",
+                    "pipeline_override":
+                    {
+                        "AP消耗":{
+                            "enabled":true
+                        }
+                    }
+
                 }
             ]
 
