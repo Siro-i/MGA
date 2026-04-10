@@ -441,6 +441,24 @@
                         }
 
                         }
+                },
+                {"name": "苍蓝命运",
+                    "pipeline_override": {
+                        "寻找目标历史关卡": {
+                            "recognition": {
+                            "param": {"template":"BD.png"},
+                            "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史关卡":
+                            {
+                                "enabled":true
+                            },
+                        "主线左复位":{
+                            "enabled":false
+                        }
+                        
+                    }
                 }
 
             ]
