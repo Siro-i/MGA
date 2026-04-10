@@ -3,9 +3,9 @@
         "$__mpe_code": {
             "prefix": "",
             "savedViewport": {
-                "x": -583,
-                "y": 449,
-                "zoom": 0.57
+                "x": 700,
+                "y": 512,
+                "zoom": 0.35
             },
             "filename": "强敌来袭",
             "version": "v1.4.1"
@@ -234,8 +234,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 1200,
-                "y": -518
+                "x": 1366,
+                "y": -356
             }
         }
     },
@@ -266,8 +266,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 1138,
-                "y": -105
+                "x": 1073,
+                "y": -333
             }
         }
     },
@@ -302,12 +302,31 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 1280,
-                "y": -200
+                "x": 1366,
+                "y": -708
             }
         }
     },
     "寻找目标历史战斗": {
+        "timeout": 800,
+        "rate_limit": 150,
+        "next": [
+            "寻找目标历史战斗_匹配"
+        ],
+        "on_error": [
+            {
+                "name": "尝试下滑动",
+                "jump_back": true
+            }
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1650,
+                "y": -706
+            }
+        }
+    },
+    "寻找目标历史战斗_匹配": {
         "recognition": {
             "type": "TemplateMatch",
             "param": {
@@ -315,10 +334,11 @@
                     "强敌来袭/历史战斗/全装甲高达MK-III.png"
                 ],
                 "threshold": [
-                    0.65
+                    0.85
                 ]
             }
         },
+        "pre_wait_freezes": 200,
         "action": {
             "type": "Click",
             "param": {}
@@ -331,8 +351,37 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 1420,
-                "y": -350
+                "x": 1890,
+                "y": -706
+            }
+        }
+    },
+    "尝试下滑动": {
+        "max_hit": 3,
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    458,
+                    500,
+                    103,
+                    25
+                ],
+                "end": [
+                    [
+                        462,
+                        278,
+                        90,
+                        22
+                    ]
+                ]
+            }
+        },
+        "post_wait_freezes": 200,
+        "$__mpe_code": {
+            "position": {
+                "x": 1650,
+                "y": -560
             }
         }
     },
@@ -360,8 +409,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 1468,
-                "y": -292
+                "x": 1653,
+                "y": -334
             }
         }
     },
@@ -383,18 +432,14 @@
         "focus": {
             "Node.Recognition.Succeeded": "强敌目标进入成功：已识别「选择关卡」"
         },
-        "action": {
-            "type": "DoNothing",
-            "param": {}
-        },
         "next": [
             "略过关卡",
             "强敌来袭：进入出击准备"
         ],
         "$__mpe_code": {
             "position": {
-                "x": 1528,
-                "y": -340
+                "x": 1959,
+                "y": -512
             }
         }
     },
@@ -427,8 +472,24 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 1590,
-                "y": -420
+                "x": 2287,
+                "y": -561
+            }
+        }
+    },
+    "$__mpe_external_略过关卡_强敌来袭": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2298,
+                "y": -161
+            }
+        }
+    },
+    "$__mpe_external_出击任务_强敌来袭": {
+        "$__mpe_code": {
+            "position": {
+                "x": 2611,
+                "y": -482
             }
         }
     }

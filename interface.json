@@ -225,7 +225,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -249,7 +249,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -273,7 +273,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -297,7 +297,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -321,7 +321,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -345,7 +345,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -369,7 +369,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -393,7 +393,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -417,7 +417,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -441,7 +441,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -465,7 +465,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
@@ -489,7 +489,7 @@
                         "进入历史战斗": {
                             "enabled": true
                         },
-                        "寻找目标历史战斗": {
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
