@@ -1,0 +1,336 @@
+{
+    "$__mpe_config_强敌来袭": {
+        "$__mpe_code": {
+            "prefix": "",
+            "savedViewport": {
+                "x": -583,
+                "y": 449,
+                "zoom": 0.57
+            },
+            "filename": "强敌来袭",
+            "version": "v1.4.1"
+        }
+    },
+    "强敌来袭：入口": {
+        "timeout": 5000,
+        "next": [
+            "强敌来袭：检测主画面",
+            "[JumpBack]强敌来袭：主页返回"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -1188,
+                "y": -340
+            }
+        }
+    },
+    "强敌来袭：主页返回": {
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "强制返回主页"
+            }
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": -972,
+                "y": -113
+            }
+        }
+    },
+    "强敌来袭：检测主画面": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "RANK"
+                ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "检测到当前为主画面（强敌来袭）"
+        },
+        "next": [
+            "强敌来袭：开始进入关卡"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -770,
+                "y": -340
+            }
+        }
+    },
+    "强敌来袭：开始进入关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    0,
+                    630,
+                    1280,
+                    90
+                ],
+                "expected": [
+                    "关卡"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "进入关卡点击成功（强敌来袭）"
+        },
+        "next": [
+            "强敌来袭：进入事件关"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -414,
+                "y": -340
+            }
+        }
+    },
+    "强敌来袭：进入事件关": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    426,
+                    0,
+                    427,
+                    720
+                ],
+                "expected": [
+                    "事件"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "进入事件关点击成功"
+        },
+        "next": [
+            "强敌来袭：选择强敌来袭"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 6,
+                "y": -340
+            }
+        }
+    },
+    "强敌来袭：选择强敌来袭": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    256,
+                    720
+                ],
+                "expected": [
+                    "强敌来袭"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 3000,
+        "focus": {
+            "Node.Action.Succeeded": "选择强敌来袭成功"
+        },
+        "next": [
+            "强敌来袭：前往事件"
+        ],
+        "on_error": [
+            "[JumpBack]强敌来袭：选择强敌来袭重试"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 402,
+                "y": -340
+            }
+        }
+    },
+    "强敌来袭：选择强敌来袭重试": {
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_delay": 600,
+        "timeout": 3000,
+        "focus": {
+            "Node.Action.Succeeded": "未识别到强敌来袭入口，稍后单步重试"
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 660,
+                "y": -87
+            }
+        }
+    },
+    "强敌来袭：前往事件": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    360,
+                    1280,
+                    360
+                ],
+                "template": [
+                    "前往事件.PNG"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "前往事件点击成功"
+        },
+        "next": [
+            "强敌来袭：强敌界面检测"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 800,
+                "y": -340
+            }
+        }
+    },
+    "强敌来袭：选择机体": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "强敌来袭/斯德毕尔.PNG"
+                ],
+                "threshold": [
+                    0.65
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已点击机体选项"
+        },
+        "next": [
+            "强敌来袭：关卡选择"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1200,
+                "y": -518
+            }
+        }
+    },
+    "强敌来袭：强敌界面检测": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    320,
+                    90
+                ],
+                "expected": [
+                    "强敌来袭"
+                ]
+            }
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "进入强敌来袭界面成功"
+        },
+        "next": [
+            "强敌来袭：选择机体"
+        ],
+        "on_error": [
+            "[JumpBack]强敌来袭：选择机体"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1138,
+                "y": -105
+            }
+        }
+    },
+    "强敌来袭：关卡选择": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": [
+                    "强敌来袭/关卡选择.PNG"
+                ],
+                "threshold": [
+                    0.85
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "选择关卡点击成功"
+        },
+        "next": [
+            "略过关卡",
+            "强敌来袭：进入出击准备"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1468,
+                "y": -292
+            }
+        }
+    },
+    "强敌来袭：进入出击准备": {
+        "enabled": true,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    640,
+                    360,
+                    640,
+                    360
+                ],
+                "expected": [
+                    "挑战"
+                ]
+            }
+        },
+        "pre_wait_freezes": 200,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "强敌来袭：右下区识别「挑战」，接入战斗出击链"
+        },
+        "next": [
+            "出击任务"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1590,
+                "y": -420
+            }
+        }
+    }
+}
