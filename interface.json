@@ -156,6 +156,9 @@
                                 },
                                 "type": "TemplateMatch"
                             }
+                        },
+                        "进入历史战斗": {
+                            "enabled": false
                         }
                     }
                 },
@@ -171,6 +174,9 @@
                                 },
                                 "type": "TemplateMatch"
                             }
+                        },
+                        "进入历史战斗": {
+                            "enabled": false
                         }
                     }
                 },
@@ -186,6 +192,9 @@
                                 },
                                 "type": "TemplateMatch"
                             }
+                        },
+                        "进入历史战斗": {
+                            "enabled": false
                         }
                     }
                 },
@@ -197,6 +206,297 @@
                                 "param": {
                                     "template": [
                                         "强敌来袭/扎古战士（演唱会式样）.PNG"
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史战斗": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "全装甲百式改",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/全装甲百式改.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "全装甲高达MK-III",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/全装甲高达MK-III.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "命运型脉冲高达",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/命运型脉冲高达.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "奥伯隆（装甲形态）",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/奥伯隆（装甲形态）.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "拜亚兰改装型2号机",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/拜亚兰改装型2号机.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "指挥官高达",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/指挥官高达.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "武者顽驮无",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/武者顽驮无.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "泰坦尼亚",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/泰坦尼亚.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "端白星高达",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/端白星高达.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "红色高达（0085）",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/红色高达（0085）.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "闪光高达（超级模式）",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/闪光高达（超级模式）.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "骰子高达",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/骰子高达.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
                                     ]
                                 },
                                 "type": "TemplateMatch"
