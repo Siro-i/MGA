@@ -715,6 +715,12 @@
         "recognition": {
             "type": "OCR",
             "param": {
+                "roi": [
+                    640,
+                    360,
+                    640,
+                    360
+                ],
                 "expected": [
                     "略过"
                 ]
