@@ -21,6 +21,19 @@
     },
     "task": [
         {
+            "name": "启动游戏",
+            "description": "通过 ADB 执行 StartApp 拉起游戏包",
+            "entry": "启动游戏入口"
+        },
+        {
+            "name": "启动加速器",
+            "description": "通过 ADB 执行 StartApp 拉起加速器；在任务选项选择加速器类型",
+            "entry": "启动加速器入口",
+            "option": [
+                "加速器类型"
+            ]
+        },
+        {
             "name": "日常",
             "description": "包含商店、50AP消耗、战舰巡航、开发、强化任务",
             "option": [
@@ -74,6 +87,36 @@
         }
     ],
     "option": {
+        "加速器类型": {
+            "type": "select",
+            "label": "加速器",
+            "description": "当前提供网易UU加速器分支，会复写 StartApp 包名与「加速」按钮模板。",
+            "default_case": "网易UU",
+            "cases": [
+                {
+                    "name": "网易UU",
+                    "label": "网易UU加速器",
+                    "pipeline_override": {
+                        "启动加速器执行": {
+                            "action": {
+                                "param": {
+                                    "package": "com.netease.uu/.activity.LaunchActivity"
+                                },
+                                "type": "StartApp"
+                            }
+                        },
+                        "加速器原生_点加速": {
+                            "recognition": {
+                                "param": {
+                                    "template": "加速器/UU_Boost.PNG"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
         "GP输入": {
             "type": "input",
             "description": "请输入GP数量",
