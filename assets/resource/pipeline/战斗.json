@@ -3,15 +3,51 @@
         "$__mpe_code": {
             "prefix": "",
             "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\战斗.json",
-            "lastSyncTime": 1775811600740,
+            "lastSyncTime": 1776057514466,
             "isModifiedExternally": false,
             "savedViewport": {
-                "x": 63,
-                "y": 1055,
-                "zoom": 0.6
+                "x": -1632,
+                "y": 1405,
+                "zoom": 0.63
             },
             "filename": "战斗",
             "version": "v1.4.1"
+        }
+    },
+    "体力耗尽": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "关闭"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "退出关卡"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 5725,
+                "y": -1687
+            }
+        }
+    },
+    "战斗出口": {
+        "action": {
+            "type": "StopTask",
+            "param": {}
+        },
+        "focus": "战斗任务完成",
+        "$__mpe_code": {
+            "position": {
+                "x": 5799,
+                "y": -1308
+            }
         }
     },
     "BOSS等待": {
@@ -63,33 +99,21 @@
                     14,
                     27
                 ],
-                "method": 4,
+                "method": 6,
                 "lower": [
-                    [
-                        0,
-                        0,
-                        0
-                    ]
+                    80
                 ],
                 "upper": [
-                    [
-                        45,
-                        109,
-                        138
-                    ]
+                    129
                 ]
             }
         },
         "pre_wait_freezes": 20,
         "pre_delay": 1000,
-        "action": {
-            "type": "Click",
-            "param": {}
-        },
         "$__mpe_code": {
             "position": {
                 "x": 3207,
-                "y": -2023
+                "y": -2193
             }
         }
     },
@@ -168,27 +192,16 @@
                     66,
                     36
                 ],
+                "method": 6,
                 "lower": [
-                    [
-                        0,
-                        0,
-                        0
-                    ]
+                    80
                 ],
                 "upper": [
-                    [
-                        45,
-                        109,
-                        138
-                    ]
+                    129
                 ]
             }
         },
         "pre_delay": 1000,
-        "action": {
-            "type": "Click",
-            "param": {}
-        },
         "$__mpe_code": {
             "position": {
                 "x": 3218,
@@ -257,8 +270,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 4565,
-                "y": -1490
+                "x": 4616,
+                "y": -1499
             }
         }
     },
@@ -273,7 +286,8 @@
         },
         "post_wait_freezes": 200,
         "next": [
-            "关卡结算"
+            "关卡结算",
+            "升级"
         ],
         "$__mpe_code": {
             "position": {
@@ -302,12 +316,13 @@
             "Node.Recognition.Succeeded": "本次战斗完成，开始下一次战斗"
         },
         "next": [
-            "开始战斗"
+            "开始战斗",
+            "体力耗尽"
         ],
         "$__mpe_code": {
             "position": {
-                "x": 5404,
-                "y": -1673
+                "x": 5421,
+                "y": -1701
             }
         }
     },
@@ -715,12 +730,6 @@
         "recognition": {
             "type": "OCR",
             "param": {
-                "roi": [
-                    640,
-                    360,
-                    640,
-                    360
-                ],
                 "expected": [
                     "略过"
                 ]
@@ -874,8 +883,8 @@
         ],
         "$__mpe_code": {
             "position": {
-                "x": 4798,
-                "y": -1488
+                "x": 4837,
+                "y": -1486
             }
         }
     },
@@ -1194,8 +1203,11 @@
             "param": {}
         },
         "focus": {
-            "Node.Action.Succeeded": "战斗任务成功"
+            "Node.Action.Succeeded": "退出关卡"
         },
+        "next": [
+            "战斗出口"
+        ],
         "$__mpe_code": {
             "position": {
                 "x": 5503,
@@ -1223,6 +1235,29 @@
             "position": {
                 "x": 2278,
                 "y": -186
+            }
+        }
+    },
+    "升级": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "UP"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "关卡结算"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 4604,
+                "y": -1128
             }
         }
     }

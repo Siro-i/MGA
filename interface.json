@@ -14,7 +14,7 @@
         }
     ],
     "agent": {
-        "child_exec": "./python/python.exe",
+        "child_exec": "python",
         "child_args": [
             "./agent/start_agent.py"
         ]
@@ -35,19 +35,7 @@
         },
         {
             "name": "战斗",
-            "entry": "战斗入口",
-            "description": "选择故事和关卡进行战斗，支持历史关卡战斗",
-            "option": [
-                "故事选择",
-                "关卡选择",
-                "是否开启自动战斗",
-                "是否跳过隐藏boss战斗",
-                "自动战斗次数"
-            ]
-        },
-        {
-            "name": "战斗V2",
-            "label": "战斗V2",
+            "label": "战斗",
             "entry": "战斗入口",
             "description": "Interface V2 嵌套选项：先选战斗模式，再显示对应子项。主线沿用战斗管线；强敌模式将入口跳转到强敌来袭管线（需已加载 pipeline/强敌来袭.json）。",
             "option": [
@@ -108,18 +96,29 @@
             "type": "select",
             "label": "战斗模式",
             "description": "主线：故事 + HARD + 自动战斗 / 隐藏 Boss / 次数。强敌：机体 + 与主线相同的自动战斗选项；略过走战斗管线的略过关卡链。",
-            "default_case": "主线",
+            "default_case": "主线故事",
             "cases": [
                 {
-                    "name": "主线",
+                    "name": "主线故事",
                     "label": "主线战斗",
                     "option": [
-                        "故事选择",
+                        "主线故事选择",
                         "关卡选择",
                         "是否开启自动战斗",
                         "是否跳过隐藏boss战斗",
                         "自动战斗次数"
                     ]
+                },
+                {
+                    "name":"历史故事",
+                    "label": "历史关卡战斗",
+                    "option": [
+                        "历史故事选择",
+                        "关卡选择",
+                        "是否开启自动战斗",
+                        "自动战斗次数"
+                    ]
+                    
                 },
                 {
                     "name": "强敌来袭",
@@ -506,7 +505,7 @@
                 }
             ]
         },
-        "故事选择": {
+        "主线故事选择": {
             "description": "选择主线故事",
             "cases": [
                 {
@@ -831,7 +830,13 @@
                             "enabled": false
                         }
                     }
-                },
+                }
+            ]
+        },
+        "历史故事选择": {
+            "description": "选择主线故事",
+            "cases": [
+
                 {
                     "name": "雷霆宙域",
                     "pipeline_override": {
