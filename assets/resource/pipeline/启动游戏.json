@@ -1,0 +1,62 @@
+{
+    "$__mpe_config_启动游戏": {
+        "$__mpe_code": {
+            "filename": "启动游戏",
+            "prefix": "",
+            "version": "v1.3.0"
+        }
+    },
+    "启动游戏入口": {
+        "$__mpe_code": {
+            "position": {
+                "x": -200,
+                "y": 0
+            }
+        },
+        "next": [
+            "启动游戏执行"
+        ],
+        "timeout": 5000
+    },
+    "启动游戏执行": {
+        "$__mpe_code": {
+            "position": {
+                "x": -200,
+                "y": 0
+            }
+        },
+        "action": {
+            "param": {
+                "package": "com.bandainamcoent.gget_WW/com.unity3d.player.UnityPlayerActivity"
+            },
+            "type": "StartApp"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已执行启动游戏（StartApp）",
+            "Node.Action.Failed": "启动游戏失败，请检查 package 与设备连接"
+        },
+        "next": [
+            "启动游戏任务结束"
+        ],
+        "post_delay": 2000
+    },
+    "启动游戏任务结束": {
+        "$__mpe_code": {
+            "position": {
+                "x": -200,
+                "y": 0
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "StopTask"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "启动游戏任务已结束（仅拉起应用）"
+        },
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        }
+    }
+}
