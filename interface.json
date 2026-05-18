@@ -60,8 +60,11 @@
         },
         {
             "name": "循环战斗",
-            "description": "循环战斗某一关卡（包含强敌来袭）直到体力清空（max:100)",
-            "entry": "出击任务"
+            "description": "循环战斗某一关卡（包含强敌来袭）直到体力清空（max:100),使用入口为出击准备页面",
+            "entry": "出击任务",
+            "option":[
+                "是否跳过隐藏boss战斗"
+            ]
         },
         {
             "name": "游戏唤醒",
@@ -830,7 +833,27 @@
                             "enabled": false
                         }
                     }
-                }
+                },
+                {
+                    "name": "NT",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                                "param": {
+                                    "template": "NT.png"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位": {
+                            "enabled": true
+                        },
+                        "进入历史关卡": {
+                            "enabled": false
+                        }
+                    }
+                },
+                
             ]
         },
         "历史故事选择": {
