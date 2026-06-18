@@ -22,7 +22,7 @@
     "task": [
         {
             "name": "日常",
-            "description": "包含商店、50AP消耗、战舰巡航、开发、强化任务",
+            "description": "包含商店、战舰巡航、开发、强化任务",
             "option": [
                 "可选日常"
             ],
@@ -73,7 +73,21 @@
         },
         {
             "name": "领取礼物盒",
-            "entry": "领取礼物"
+            "entry": "日常任务入口",
+            "pipeline_override":{
+                "领取礼物":{
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "name":"领取每日任务奖励",
+            "entry": "日常任务入口",
+            "pipeline_override": {
+                        "日常奖励": {
+                            "enabled": true
+                        }
+                    }
         }
     ],
     "option": {
@@ -107,7 +121,7 @@
                     "option": [
                         "主线故事选择",
                         "关卡选择",
-                        "是否开启自动战斗",
+                        "是否略过",
                         "是否跳过隐藏boss战斗",
                         "自动战斗次数"
                     ]
@@ -118,7 +132,7 @@
                     "option": [
                         "历史故事选择",
                         "关卡选择",
-                        "是否开启自动战斗",
+                        "是否略过",
                         "自动战斗次数"
                     ]
                     
@@ -128,7 +142,7 @@
                     "label": "强敌来袭",
                     "option": [
                         "强敌来袭目标",
-                        "是否开启自动战斗",
+                        "是否略过",
                         "自动战斗次数"
                     ],
                     "pipeline_override": {
@@ -1041,14 +1055,15 @@
                 }
             ]
         },
-        "是否开启自动战斗": {
-            "description": "开启后将不使用略过，关闭则使用略过，达到略过次数上限后仍要刷取材料请打开自动战斗",
+        "是否略过": {
+            "description": "开启后将使用略过，关闭则进行自动战斗，达到略过次数上限后仍要刷取材料请使用自动战斗",
+            "default": "是",
             "cases": [
                 {
                     "name": "是",
                     "pipeline_override": {
                         "略过关卡": {
-                            "enabled": false
+                            "enabled": true
                         },
                         "进入出击准备": {
                             "enabled": true
@@ -1062,7 +1077,7 @@
                     "name": "否",
                     "pipeline_override": {
                         "略过关卡": {
-                            "enabled": true
+                            "enabled": false
                         },
                         "进入出击准备": {
                             "enabled": false
@@ -1075,7 +1090,7 @@
             ]
         },
         "自动战斗次数": {
-            "description": "该选项仅在开启自动战斗后生效",
+            "description": "该选项仅在不选择略过时生效",
             "cases": [
                 {
                     "name": "1",
@@ -1144,6 +1159,7 @@
         },
         "是否跳过隐藏boss战斗": {
             "description": "开启后会跳过隐藏boss战斗,默认不跳过",
+            "default": "否",
             "cases": [
                 {
                     "name": "是",
@@ -1223,15 +1239,6 @@
                     "description": "进入使命中进行全部领取",
                     "pipeline_override": {
                         "日常奖励": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "50AP消耗任务",
-                    "description": "默认扫荡0079HARD1以及HARD3",
-                    "pipeline_override": {
-                        "AP消耗": {
                             "enabled": true
                         }
                     }

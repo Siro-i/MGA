@@ -5,13 +5,14 @@
             "lastSyncTime": 1776047336373,
             "isModifiedExternally": false,
             "filePath": "D:\\code\\MGA - test\\assets\\resource\\pipeline\\强敌来袭.json",
+            "coordinateMode": "absolute-v1",
             "savedViewport": {
-                "x": 556,
-                "y": 768,
-                "zoom": 0.66
+                "x": 1828,
+                "y": 461,
+                "zoom": 0.65
             },
             "filename": "新建Pipeline2",
-            "version": "v1.4.1"
+            "version": "v1.6.1"
         }
     },
     "$__mpe_external_出击任务_新建Pipeline2": {
@@ -63,8 +64,7 @@
         },
         "pre_wait_freezes": 200,
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "已点击历史战斗列表机体"
@@ -151,8 +151,7 @@
             }
         },
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "选择关卡点击成功"
@@ -183,8 +182,7 @@
             }
         },
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "前往事件点击成功"
@@ -215,8 +213,7 @@
             }
         },
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "进入关卡点击成功（强敌来袭）"
@@ -333,8 +330,7 @@
             }
         },
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "进入事件关点击成功"
@@ -367,8 +363,7 @@
         },
         "pre_wait_freezes": 200,
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "强敌来袭：右下区识别「挑战」，接入战斗出击链"
@@ -399,8 +394,7 @@
             }
         },
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "timeout": 3000,
         "focus": {
@@ -424,8 +418,7 @@
     },
     "强敌来袭：选择强敌来袭重试": {
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "post_delay": 600,
         "timeout": 3000,
@@ -453,8 +446,7 @@
             }
         },
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "已点击机体选项"
@@ -489,8 +481,7 @@
             }
         },
         "action": {
-            "type": "Click",
-            "param": {}
+            "type": "Click"
         },
         "focus": {
             "Node.Action.Succeeded": "已进入历史战斗页签"

@@ -38,10 +38,7 @@ def run_agent_logic(socket_id):
     try:
         from maa.agent.agent_server import AgentServer
         from maa.toolkit import Toolkit
-        import SmartShopBuy
-        import ReturnHome
         import StageSelect
-        import DailyBattle
         import GP
         
     except ImportError as e:
