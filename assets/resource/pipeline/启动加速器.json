@@ -1,0 +1,109 @@
+{
+    "$__mpe_config_启动加速器": {
+        "$__mpe_code": {
+            "filename": "启动加速器",
+            "prefix": "",
+            "version": "v1.2.0"
+        }
+    },
+    "启动加速器入口": {
+        "$__mpe_code": {
+            "position": {
+                "x": -200,
+                "y": 0
+            }
+        },
+        "next": [
+            "启动加速器执行"
+        ],
+        "timeout": 5000
+    },
+    "启动加速器执行": {
+        "$__mpe_code": {
+            "position": {
+                "x": -200,
+                "y": 0
+            }
+        },
+        "action": {
+            "param": {
+                "package": "com.netease.uu/.activity.LaunchActivity"
+            },
+            "type": "StartApp"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已执行启动加速器（StartApp）",
+            "Node.Action.Failed": "启动加速器失败，请检查 package 与设备连接"
+        },
+        "next": [
+            "加速器原生_锚点图标"
+        ],
+        "post_delay": 2000
+    },
+    "加速器原生_锚点图标": {
+        "$__mpe_code": {
+            "position": {
+                "x": -200,
+                "y": 0
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "focus": {
+            "Node.Recognition.Failed": "未在画面中找到高达游戏图标（请检查模板/分辨率）"
+        },
+        "next": [
+            "加速器原生_点加速"
+        ],
+        "pre_delay": 1500,
+        "recognition": {
+            "param": {
+                "method": 5,
+                "template": "加速器/AccelGundamListIcon.PNG",
+                "threshold": [
+                    0.6
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 90000
+    },
+    "加速器原生_点加速": {
+        "$__mpe_code": {
+            "position": {
+                "x": -200,
+                "y": 0
+            }
+        },
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已点击该行加速按钮",
+            "Node.Recognition.Failed": "已找到图标，但右侧未匹配到加速按钮（可调 roi_offset、阈值或更换按钮裁图，参见技巧文档 8.8）"
+        },
+        "recognition": {
+            "param": {
+                "index": 0,
+                "method": 5,
+                "order_by": "Vertical",
+                "roi": "加速器原生_锚点图标",
+                "roi_offset": [
+                    0,
+                    -36,
+                    1480,
+                    112
+                ],
+                "template": "加速器/AccelBoostButton.PNG",
+                "threshold": [
+                    0.52
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 90000
+    }
+}
