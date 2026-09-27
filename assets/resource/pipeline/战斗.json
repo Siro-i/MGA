@@ -1229,5 +1229,1409 @@
                 "y": -1308
             }
         }
+    },
+    "故事开荒入口": {
+        "timeout": 5000,
+        "next": [
+            "故事开荒_寻找NEXT"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -1188,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_寻找NEXT": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    0,
+                    96,
+                    680,
+                    460
+                ],
+                "expected": [
+                    "NEXT"
+                ]
+            }
+        },
+        "pre_wait_freezes": 300,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 5000,
+        "next": [
+            "故事开荒_点击出击"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -838,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_点击出击": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    1060,
+                    560,
+                    150,
+                    45
+                ],
+                "expected": [
+                    "出击",
+                    "出击准备"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1065,
+                    565,
+                    135,
+                    35
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_出击后状态轮询"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -488,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_出击后状态轮询": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "执行",
+                    "下载",
+                    "出击",
+                    "出击次数",
+                    "MENU",
+                    "AUTO",
+                    "SKIP",
+                    "TAP",
+                    "BATTLE CLEAR",
+                    "达成胜利条件",
+                    "超一击",
+                    "敌军全灭",
+                    "REWARD",
+                    "继续",
+                    "故事",
+                    "选择关卡",
+                    "UP",
+                    "STAGE",
+                    "关卡",
+                    "Loading",
+                    "ロード"
+                ]
+            }
+        },
+        "timeout": 500000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_固定小队执行",
+            "故事开荒_资源下载",
+            "故事开荒_消耗次数出击",
+            "故事开荒_自选小队出击",
+            "故事开荒_点击出击",
+            "故事开荒_剧情Skip",
+            "故事开荒_寻找点击Menu",
+            "故事开荒_点击战斗说明",
+            "故事开荒_战斗结束过渡等待",
+            "故事开荒_进入auto检查",
+            "故事开荒_进入倍速检查",
+            "故事开荒_奖励回故事",
+            "故事开荒_奖励选关",
+            "故事开荒_BOSS等待",
+            "故事开荒_关卡结算前置",
+            "故事开荒_出击后状态轮询"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -138,
+                "y": -1048
+            }
+        }
+    },
+    "故事开荒_固定小队执行": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    640,
+                    520,
+                    270,
+                    95
+                ],
+                "expected": [
+                    "执行"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    645,
+                    528,
+                    250,
+                    78
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 1500,
+        "next": [
+            "故事开荒_出击后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -138,
+                "y": -1348
+            }
+        }
+    },
+    "故事开荒_消耗次数出击": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    640,
+                    560,
+                    260,
+                    90
+                ],
+                "expected": [
+                    "出击"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    645,
+                    565,
+                    245,
+                    78
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "timeout": 1500,
+        "next": [
+            "故事开荒_出击后状态轮询"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒消耗次数弹窗点击出击"
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 212,
+                "y": -1348
+            }
+        }
+    },
+    "故事开荒_自选小队出击": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    980,
+                    580,
+                    250,
+                    125
+                ],
+                "expected": [
+                    "出击"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    990,
+                    615,
+                    240,
+                    90
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "timeout": 1500,
+        "next": [
+            "故事开荒_出击后状态轮询"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒自选小队页点击出击"
+        },
+        "$__mpe_code": {
+            "position": {
+                "x": 212,
+                "y": -1548
+            }
+        }
+    },
+    "故事开荒_战斗说明检测": {
+        "enabled": false,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    360,
+                    1280,
+                    360
+                ],
+                "template": [
+                    "战斗说明TAP_TO_NEXT.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            }
+        },
+        "pre_wait_freezes": 300,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 500000,
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒无剧情，点击战斗说明 TAP TO NEXT"
+        },
+        "next": [
+            "故事开荒_进入auto检查",
+            "故事开荒_结算后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 562,
+                "y": -1548
+            }
+        }
+    },
+    "故事开荒_资源下载": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    687,
+                    544,
+                    152,
+                    44
+                ],
+                "expected": [
+                    "下载"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 500000,
+        "rate_limit": 1000,
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒检测到资源未下载，开始下载"
+        },
+        "next": [
+            "故事开荒_出击后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": -138,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_寻找点击Menu": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1040,
+                    0,
+                    240,
+                    120
+                ],
+                "template": [
+                    "剧情MENU.png",
+                    "剧情MENU_对话.png"
+                ],
+                "threshold": [
+                    0.75,
+                    0.75
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_delay": 300,
+        "timeout": 30000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_剧情Skip",
+            "故事开荒_剧情后状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_剧情后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 212,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_剧情Skip": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    1080,
+                    120,
+                    200,
+                    260
+                ],
+                "expected": [
+                    "SKIP"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_剧情后状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_剧情后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 562,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_点击战斗说明": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    360,
+                    1280,
+                    360
+                ],
+                "template": [
+                    "战斗说明TAP_TO_NEXT.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            }
+        },
+        "pre_wait_freezes": 300,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 500000,
+        "rate_limit": 10000,
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒点击战斗说明 TAP TO NEXT"
+        },
+        "next": [
+            "故事开荒_进入auto检查",
+            "故事开荒_结算后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 912,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_点击战斗说明OCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    380,
+                    560,
+                    520,
+                    120
+                ],
+                "expected": [
+                    "TAP",
+                    "NEXT"
+                ]
+            }
+        },
+        "pre_wait_freezes": 300,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 10000,
+        "rate_limit": 1000,
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒OCR点击战斗说明 TAP TO NEXT"
+        },
+        "next": [
+            "故事开荒_进入auto检查",
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1262,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_剧情后状态轮询": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "MENU",
+                    "AUTO",
+                    "SKIP",
+                    "TAP",
+                    "BATTLE CLEAR",
+                    "达成胜利条件",
+                    "超一击",
+                    "敌军全灭",
+                    "REWARD",
+                    "继续",
+                    "故事",
+                    "选择关卡",
+                    "UP",
+                    "TURN",
+                    "STAGE",
+                    "关卡"
+                ]
+            }
+        },
+        "timeout": 500000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_剧情Skip",
+            "故事开荒_寻找点击Menu",
+            "故事开荒_点击战斗说明",
+            "故事开荒_进入auto检查",
+            "故事开荒_进入倍速检查",
+            "故事开荒_奖励回故事",
+            "故事开荒_奖励选关",
+            "故事开荒_BOSS等待",
+            "故事开荒_关卡结算前置",
+            "故事开荒_剧情后状态轮询",
+            "故事开荒_战斗中状态轮询",
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 912,
+                "y": -1048
+            }
+        }
+    },
+    "故事开荒_战斗结束过渡等待": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "BATTLE CLEAR",
+                    "达成胜利条件"
+                ]
+            }
+        },
+        "timeout": 500000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_关卡结算前置",
+            "故事开荒_结算后状态轮询",
+            "故事开荒_战斗结束过渡等待"
+        ],
+        "on_error": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1262,
+                "y": -1048
+            }
+        }
+    },
+    "故事开荒_战斗中状态轮询": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "MENU",
+                    "AUTO",
+                    "SKIP",
+                    "TAP",
+                    "BATTLE CLEAR",
+                    "达成胜利条件",
+                    "超一击",
+                    "敌军全灭",
+                    "REWARD",
+                    "继续",
+                    "故事",
+                    "选择关卡",
+                    "UP",
+                    "TURN",
+                    "STAGE",
+                    "关卡"
+                ]
+            }
+        },
+        "timeout": 500000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_剧情Skip",
+            "故事开荒_寻找点击Menu",
+            "故事开荒_点击战斗说明",
+            "故事开荒_战斗结束过渡等待",
+            "故事开荒_奖励回故事",
+            "故事开荒_奖励选关",
+            "故事开荒_困难BOSS挑战",
+            "故事开荒_BOSS等待",
+            "故事开荒_关卡结算前置",
+            "故事开荒_结算后状态轮询",
+            "故事开荒_战斗中状态轮询"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1262,
+                "y": -878
+            }
+        }
+    },
+    "故事开荒_开始战斗": {
+        "enabled": false,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "TAP"
+                ]
+            }
+        },
+        "pre_wait_freezes": 150,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 500000,
+        "rate_limit": 10000,
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒进入战斗等待"
+        },
+        "next": [
+            "故事开荒_剧情后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1262,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_困难BOSS挑战": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "挑战"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 10000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": -1048
+            }
+        }
+    },
+    "故事开荒_BOSS等待": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    459,
+                    629,
+                    111,
+                    48
+                ],
+                "expected": [
+                    "不挑战"
+                ]
+            }
+        },
+        "pre_wait_freezes": 200,
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": {
+            "time": 1000,
+            "threshold": 0.98
+        },
+        "timeout": 500000,
+        "rate_limit": 10000,
+        "next": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "意外失败"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_奖励回故事": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    980,
+                    620,
+                    250,
+                    105
+                ],
+                "expected": [
+                    "故事"
+                ]
+            }
+        },
+        "pre_wait_freezes": 500,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    985,
+                    650,
+                    240,
+                    88
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒首通奖励页返回故事"
+        },
+        "next": [
+            "故事开荒_结算后状态轮询",
+            "故事开荒_回到关卡页"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1962,
+                "y": -1548
+            }
+        }
+    },
+    "故事开荒_奖励选关": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    980,
+                    620,
+                    250,
+                    105
+                ],
+                "expected": [
+                    "选择关卡"
+                ]
+            }
+        },
+        "pre_wait_freezes": 500,
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    985,
+                    650,
+                    240,
+                    88
+                ]
+            }
+        },
+        "post_wait_freezes": 500,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "focus": {
+            "Node.Recognition.Succeeded": "故事开荒奖励页选择关卡"
+        },
+        "next": [
+            "故事开荒_结算后状态轮询",
+            "故事开荒_回到关卡页"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1962,
+                "y": -1718
+            }
+        }
+    },
+    "故事开荒_奖励后剧情Menu": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1040,
+                    0,
+                    240,
+                    120
+                ],
+                "template": [
+                    "剧情MENU.png",
+                    "剧情MENU_对话.png"
+                ],
+                "threshold": [
+                    0.75,
+                    0.75
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_delay": 300,
+        "timeout": 30000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_奖励后剧情Skip",
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2312,
+                "y": -1548
+            }
+        }
+    },
+    "故事开荒_奖励后剧情Skip": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    1080,
+                    120,
+                    200,
+                    260
+                ],
+                "expected": [
+                    "SKIP"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 10000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_出击后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2662,
+                "y": -1548
+            }
+        }
+    },
+    "故事开荒_结算后状态轮询": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "故事",
+                    "选择关卡",
+                    "继续",
+                    "REWARD",
+                    "BATTLE CLEAR",
+                    "达成胜利条件",
+                    "MENU",
+                    "SKIP",
+                    "TAP",
+                    "NEXT",
+                    "STAGE",
+                    "事件关卡",
+                    "历史关卡",
+                    "Loading",
+                    "Louding",
+                    "ロード"
+                ]
+            }
+        },
+        "timeout": 500000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_奖励回故事",
+            "故事开荒_奖励选关",
+            "故事开荒_战斗结束过渡等待",
+            "故事开荒_关卡结算前置",
+            "故事开荒_结算明细等待",
+            "故事开荒_奖励后剧情Skip",
+            "故事开荒_奖励后剧情Menu",
+            "故事开荒_点击战斗说明OCR",
+            "故事开荒_点击战斗说明",
+            "故事开荒_回到关卡页"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 3012,
+                "y": -1548
+            }
+        }
+    },
+    "故事开荒_结算明细等待": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "完成关卡",
+                    "TOTAL SCORE",
+                    "HIGH SCORE",
+                    "损伤报告"
+                ]
+            }
+        },
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_关卡结算前置",
+            "故事开荒_结算明细等待",
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 3362,
+                "y": -1718
+            }
+        }
+    },
+    "故事开荒_回到关卡页": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    100,
+                    0,
+                    320,
+                    90
+                ],
+                "expected": [
+                    "选择关卡",
+                    "事件关卡",
+                    "历史关卡",
+                    "关卡"
+                ]
+            }
+        },
+        "timeout": 5000,
+        "next": [
+            "故事开荒_寻找NEXT"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 3362,
+                "y": -1548
+            }
+        }
+    },
+    "故事开荒_进入auto检查": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    930,
+                    0,
+                    170,
+                    90
+                ],
+                "expected": [
+                    "AUTO"
+                ]
+            }
+        },
+        "timeout": 500000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_auto检查",
+            "故事开荒_点击auto",
+            "故事开荒_进入倍速检查",
+            "故事开荒_战斗中状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1262,
+                "y": -1048
+            }
+        }
+    },
+    "故事开荒_auto检查": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    975,
+                    25,
+                    70,
+                    30
+                ],
+                "method": 4,
+                "lower": [
+                    90,
+                    180,
+                    190
+                ],
+                "upper": [
+                    200,
+                    255,
+                    255
+                ],
+                "count": 200
+            }
+        },
+        "pre_wait_freezes": 20,
+        "pre_delay": 1000,
+        "timeout": 1000,
+        "next": [
+            "故事开荒_进入倍速检查"
+        ],
+        "on_error": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1262,
+                "y": -878
+            }
+        }
+    },
+    "故事开荒_点击auto": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    930,
+                    0,
+                    170,
+                    90
+                ],
+                "expected": [
+                    "AUTO"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    946,
+                    10,
+                    120,
+                    60
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 1000,
+        "next": [
+            "故事开荒_auto检查",
+            "故事开荒_点击auto"
+        ],
+        "on_error": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": -878
+            }
+        }
+    },
+    "故事开荒_进入倍速检查": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1100,
+                    16,
+                    68,
+                    37
+                ],
+                "template": [
+                    "倍速.png"
+                ],
+                "threshold": [
+                    0.6
+                ]
+            }
+        },
+        "timeout": 500000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_倍速检查",
+            "故事开荒_点击倍速",
+            "故事开荒_战斗中状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1612,
+                "y": -1048
+            }
+        }
+    },
+    "故事开荒_倍速检查": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    1105,
+                    17,
+                    66,
+                    36
+                ],
+                "method": 4,
+                "lower": [
+                    90,
+                    180,
+                    190
+                ],
+                "upper": [
+                    200,
+                    255,
+                    255
+                ],
+                "count": 100
+            }
+        },
+        "pre_delay": 1000,
+        "timeout": 1000,
+        "next": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1962,
+                "y": -878
+            }
+        }
+    },
+    "故事开荒_点击倍速": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    1100,
+                    16,
+                    68,
+                    37
+                ],
+                "template": [
+                    "倍速.png"
+                ],
+                "threshold": [
+                    0.6
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1099,
+                    17,
+                    79,
+                    38
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 1000,
+        "next": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "on_error": [
+            "故事开荒_战斗中状态轮询"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2312,
+                "y": -878
+            }
+        }
+    },
+    "故事开荒_关卡结算前置": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    1002,
+                    624,
+                    220,
+                    68
+                ],
+                "expected": [
+                    "继续"
+                ]
+            }
+        },
+        "post_wait_freezes": 200,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_关卡结算",
+            "故事开荒_升级"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 1962,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_关卡结算": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    1002,
+                    624,
+                    220,
+                    68
+                ],
+                "expected": [
+                    "继续"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2312,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_经验结算前置": {
+        "enabled": false,
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "继续"
+                ]
+            }
+        },
+        "post_wait_freezes": 200,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_经验结算"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2662,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_经验结算": {
+        "enabled": false,
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    1031,
+                    625,
+                    176,
+                    68
+                ],
+                "lower": [
+                    [
+                        45,
+                        134,
+                        255
+                    ]
+                ],
+                "upper": [
+                    255,
+                    255,
+                    255
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 3012,
+                "y": -1198
+            }
+        }
+    },
+    "故事开荒_升级": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "UP"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 120000,
+        "rate_limit": 1000,
+        "next": [
+            "故事开荒_结算后状态轮询"
+        ],
+        "on_error": [
+            "战斗出口"
+        ],
+        "$__mpe_code": {
+            "position": {
+                "x": 2312,
+                "y": -1548
+            }
+        }
     }
 }
