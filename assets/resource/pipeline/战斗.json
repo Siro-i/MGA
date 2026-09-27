@@ -1230,37 +1230,6 @@
             }
         }
     },
-    "关卡结算_继续OCR": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    1002,
-                    624,
-                    220,
-                    68
-                ],
-                "expected": [
-                    "继续"
-                ]
-            }
-        }
-    },
-    "关卡结算_REWARD标题模板": {
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
-                "roi": [
-                    563,
-                    22,
-                    140,
-                    47
-                ],
-                "template": "REWARD标题.png",
-                "threshold": 0.8
-            }
-        }
-    },
     "故事开荒入口": {
         "timeout": 5000,
         "next": [
@@ -2532,14 +2501,17 @@
     },
     "故事开荒_关卡结算": {
         "recognition": {
-            "type": "And",
+            "type": "OCR",
             "param": {
-                "all_of": [
-                    "关卡结算_继续OCR",
-                    "关卡结算_REWARD标题模板"
+                "roi": [
+                    1002,
+                    624,
+                    220,
+                    68
                 ],
-                "sub_name": "关卡结算_继续OCR",
-                "box_index": 0
+                "expected": [
+                    "继续"
+                ]
             }
         },
         "action": {
