@@ -1230,6 +1230,37 @@
             }
         }
     },
+    "关卡结算_继续OCR": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    1002,
+                    624,
+                    220,
+                    68
+                ],
+                "expected": [
+                    "继续"
+                ]
+            }
+        }
+    },
+    "关卡结算_REWARD标题模板": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    563,
+                    22,
+                    140,
+                    47
+                ],
+                "template": "REWARD标题.png",
+                "threshold": 0.8
+            }
+        }
+    },
     "故事开荒入口": {
         "timeout": 5000,
         "next": [
@@ -2272,25 +2303,23 @@
             "type": "ColorMatch",
             "param": {
                 "roi": [
-                    950,
-                    10,
-                    120,
-                    60
+                    975,
+                    25,
+                    70,
+                    30
                 ],
+                "method": 4,
                 "lower": [
-                    [
-                        20,
-                        130,
-                        150
-                    ]
+                    90,
+                    180,
+                    190
                 ],
                 "upper": [
-                    [
-                        130,
-                        240,
-                        255
-                    ]
-                ]
+                    200,
+                    255,
+                    255
+                ],
+                "count": 200
             }
         },
         "pre_wait_freezes": 20,
@@ -2396,13 +2425,18 @@
                     66,
                     36
                 ],
-                "method": 6,
+                "method": 4,
                 "lower": [
-                    80
+                    90,
+                    180,
+                    190
                 ],
                 "upper": [
-                    129
-                ]
+                    200,
+                    255,
+                    255
+                ],
+                "count": 100
             }
         },
         "pre_delay": 1000,
@@ -2468,6 +2502,12 @@
         "recognition": {
             "type": "OCR",
             "param": {
+                "roi": [
+                    1002,
+                    624,
+                    220,
+                    68
+                ],
                 "expected": [
                     "继续"
                 ]
@@ -2492,26 +2532,14 @@
     },
     "故事开荒_关卡结算": {
         "recognition": {
-            "type": "ColorMatch",
+            "type": "And",
             "param": {
-                "roi": [
-                    1021,
-                    626,
-                    184,
-                    63
+                "all_of": [
+                    "关卡结算_继续OCR",
+                    "关卡结算_REWARD标题模板"
                 ],
-                "lower": [
-                    [
-                        42,
-                        137,
-                        255
-                    ]
-                ],
-                "upper": [
-                    255,
-                    255,
-                    255
-                ]
+                "sub_name": "关卡结算_继续OCR",
+                "box_index": 0
             }
         },
         "action": {
