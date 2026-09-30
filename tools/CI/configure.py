@@ -59,28 +59,42 @@ def download_and_extract(url, filename, extract_to):
         return False
 
 def configure_ocr_model(root_dir):
-    """配置 OCR 模型"""
-    assets_dir = root_dir / "assets"
-    assets_ocr_dir = assets_dir / "MaaCommonAssets" / "OCR"
-    
-    if not assets_ocr_dir.exists():
-        print(f"[Warning] MaaCommonAssets not found at {assets_ocr_dir}")
+    """Validate the default OCR model, or install a complete bundled model."""
+    assets_dir = Path(root_dir) / "assets"
+    ocr_dir = assets_dir / "resource" / "model" / "ocr"
+    required = ("det.onnx", "rec.onnx", "keys.txt")
+
+    def complete(directory):
+        return all(
+            (directory / name).is_file() and (directory / name).stat().st_size > 0
+            for name in required
+        )
+
+    if complete(ocr_dir):
+        print(f"OCR model verified: {ocr_dir}")
         return
 
-    ocr_dir = assets_dir / "resource" / "model" / "ocr"
-    if not ocr_dir.exists():
-        print("Copying default OCR model...")
-        try:
-            shutil.copytree(
-                assets_ocr_dir / "ppocr_v5" / "zh_cn",
-                ocr_dir,
-                dirs_exist_ok=True,
-            )
-            print("OCR model configured.")
-        except Exception as e:
-            print(f"[Error] Failed to copy OCR model: {e}")
-    else:
-        print("Found existing OCR directory, skipping copy.")
+    candidates = (
+        assets_dir / "MaaCommonAssets" / "OCR" / "ppocr_v5" / "zh_cn",
+        assets_dir / "resource" / "MaaCommonAssets" / "OCR" / "ppocr_v5" / "zh_cn",
+    )
+    model_src = next((path for path in candidates if complete(path)), None)
+    if model_src is None:
+        raise FileNotFoundError(
+            f"OCR model missing or incomplete at {ocr_dir}. "
+            f"Required nonempty files: {', '.join(required)}. "
+            f"Searched: {', '.join(str(path) for path in candidates)}"
+        )
+
+    print(f"Copying default OCR model from {model_src}...")
+    ocr_dir.mkdir(parents=True, exist_ok=True)
+    # Replace the whole model set to avoid mixing files from different versions.
+    for name in required:
+        shutil.copy2(model_src / name, ocr_dir / name)
+    if not complete(ocr_dir):
+        raise RuntimeError(f"OCR model validation failed after copying: {ocr_dir}")
+    print(f"OCR model configured and verified: {ocr_dir}")
+
 
 def main():
     parser = argparse.ArgumentParser()

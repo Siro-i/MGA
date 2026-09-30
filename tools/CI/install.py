@@ -8,11 +8,7 @@ import platform
 script_dir = Path(__file__).resolve().parent
 sys.path.append(str(script_dir))
 
-try:
-    from configure import configure_ocr_model
-except ImportError:
-    print("Warning: Could not import configure_ocr_model.")
-    def configure_ocr_model(root): pass
+from configure import configure_ocr_model
 
 working_dir = script_dir.parent.parent
 install_path = working_dir / "install"
@@ -53,10 +49,7 @@ def install_resource():
     print("Installing resources and configuring interface...")
     
     # 1. 配置 OCR 模型
-    try:
-        configure_ocr_model(working_dir)
-    except Exception as e:
-        print(f"[Warning] configure_ocr_model failed: {e}")
+    configure_ocr_model(working_dir)
 
     # 2. 复制资源文件夹
     resource_src = working_dir / "assets" / "resource"
