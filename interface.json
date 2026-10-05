@@ -21,6 +21,24 @@
     },
     "task": [
         {
+            "name": "启动加速器",
+            "description": "通过 ADB 执行 StartApp 拉起加速器；在任务选项选择加速器类型",
+            "entry": "启动加速器入口",
+            "option": [
+                "加速器类型"
+            ]
+        },
+        {
+            "name": "启动游戏",
+            "description": "通过 ADB 执行 StartApp 拉起游戏包",
+            "entry": "启动游戏入口"
+        },
+        {
+            "name": "游戏唤醒",
+            "description": "进入游戏主画面",
+            "entry": "开始唤醒"
+        },
+        {
             "name": "日常",
             "description": "包含商店、50AP消耗、战舰巡航、开发、强化任务及角色要求",
             "option": [
@@ -44,25 +62,22 @@
             ]
         },
         {
+            "name": "故事扫荡",
+            "label": "故事扫荡",
+            "entry": "故事扫荡入口",
+            "description": "进入一个故事后，按勾选的 HARD 关卡顺序连续扫荡；找不到的关卡会跳过。",
+            "option": [
+                "故事扫荡模式",
+                "体力不足时使用体力包"
+            ]
+        },
+        {
             "name": "故事开荒",
             "entry": "故事开荒入口",
             "description": "从当前故事/事件关卡页开始，连续推进 NEXT 关卡直到无下一关。",
             "option": [
                 "故事开荒体力包"
             ]
-        },
-        {
-            "name": "强敌来袭",
-            "entry": "强敌来袭：入口",
-            "description": "从主画面进入关卡页后，依次进入事件、选择强敌来袭并点击前往事件",
-            "option": [
-                "强敌来袭目标"
-            ],
-            "pipeline_override": {
-                "强敌来袭：略过合法性检测": {
-                    "enabled": false
-                }
-            }
         },
         {
             "name": "GP任务",
@@ -74,69 +89,72 @@
         },
         {
             "name": "循环战斗",
-            "description": "循环战斗某一关卡（包含强敌来袭）直到体力清空（max:100),使用入口为出击准备页面",
-            "entry": "出击任务",
-            "option": [
-                "是否跳过隐藏boss战斗"
-            ]
-        },
-        {
-            "name": "游戏唤醒",
-            "description": "进入游戏主画面",
-            "entry": "开始唤醒"
+            "description": "循环战斗某一关卡（包含强敌来袭）直到体力清空（max:100)",
+            "entry": "出击任务"
         },
         {
             "name": "领取礼物盒",
-            "entry": "日常任务入口",
+            "entry": "领取礼物",
             "pipeline_override": {
                 "领取礼物": {
                     "enabled": true
                 }
             }
-        },
-        {
-            "name": "领取每日任务奖励",
-            "entry": "日常任务入口",
-            "pipeline_override": {
-                "日常奖励": {
-                    "enabled": true
-                }
-            }
-        },
-        {
-            "name": "故事扫荡",
-            "label": "故事扫荡",
-            "entry": "故事扫荡入口",
-            "description": "进入一个故事后，按勾选的 HARD 关卡顺序连续扫荡；找不到的关卡会跳过。",
-            "option": [
-                "故事扫荡模式",
-                "体力不足时使用体力包"
-            ]
-        },
-        {
-            "name": "启动游戏",
-            "description": "通过 ADB 执行 StartApp 拉起游戏包",
-            "entry": "启动游戏入口"
-        },
-        {
-            "name": "启动加速器",
-            "description": "通过 ADB 执行 StartApp 拉起加速器；在任务选项选择加速器类型",
-            "entry": "启动加速器入口",
-            "option": [
-                "加速器类型"
-            ]
-        },
-        {
-            "name": "活动HARD扫荡",
-            "entry": "活动HARD扫荡入口",
-            "option": [
-                "活动HARD扫荡关卡",
-                "体力不足时使用体力包"
-            ],
-            "description": "按勾选的 HARD 关卡批量扫荡，略过不可用时继续下一关。"
         }
     ],
     "option": {
+        "加速器类型": {
+            "type": "select",
+            "label": "加速器",
+            "description": "各分支会复写 StartApp 包名与「加速」按钮模板。腾讯分支默认仅包名 com.tencent.cmocmna；若无法启动，请在设备上执行 adb shell cmd package resolve-activity --brief com.tencent.cmocmna，将输出的组件名填回本项对应 case 的 package 字段（包名/Activity）。",
+            "default_case": "网易UU",
+            "cases": [
+                {
+                    "name": "网易UU",
+                    "label": "网易UU加速器",
+                    "pipeline_override": {
+                        "启动加速器执行": {
+                            "action": {
+                                "param": {
+                                    "package": "com.netease.uu/.activity.LaunchActivity"
+                                },
+                                "type": "StartApp"
+                            }
+                        },
+                        "加速器原生_点加速": {
+                            "recognition": {
+                                "param": {
+                                    "template": "加速器/UU_Boost.PNG"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "腾讯手游加速器",
+                    "label": "腾讯手游加速器",
+                    "pipeline_override": {
+                        "启动加速器执行": {
+                            "action": {
+                                "param": {
+                                    "package": "com.tencent.cmocmna"
+                                },
+                                "type": "StartApp"
+                            }
+                        },
+                        "加速器原生_点加速": {
+                            "recognition": {
+                                "param": {
+                                    "template": "加速器/TC_Boost.PNG"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
         "GP输入": {
             "type": "input",
             "description": "请输入GP数量",
@@ -219,6 +237,265 @@
                         },
                         "强敌来袭：略过合法性检测": {
                             "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "故事扫荡模式": {
+            "type": "select",
+            "label": "故事类型",
+            "description": "选择要扫荡的故事类型，再选择具体故事。",
+            "default_case": "主线故事",
+            "cases": [
+                {
+                    "name": "主线故事",
+                    "label": "主线故事",
+                    "option": [
+                        "主线故事选择",
+                        "扫荡关卡"
+                    ],
+                    "pipeline_override": {
+                        "寻找HARD": {
+                            "next": [
+                                "故事扫荡关卡右复位"
+                            ]
+                        },
+                        "主线左复位": {
+                            "enabled": true
+                        },
+                        "进入历史关卡": {
+                            "enabled": false
+                        },
+                        "开始进入关卡": {
+                            "next": [
+                                "进入主要关卡"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "历史故事",
+                    "label": "历史故事",
+                    "option": [
+                        "历史故事选择",
+                        "扫荡关卡"
+                    ],
+                    "pipeline_override": {
+                        "寻找HARD": {
+                            "next": [
+                                "故事扫荡关卡右复位"
+                            ]
+                        },
+                        "主线左复位": {
+                            "enabled": false
+                        },
+                        "进入历史关卡": {
+                            "enabled": true
+                        },
+                        "开始进入关卡": {
+                            "next": [
+                                "进入主要关卡"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "强敌来袭",
+                    "label": "强敌来袭",
+                    "option": [
+                        "强敌来袭目标",
+                        "是否开启自动战斗",
+                        "自动战斗次数"
+                    ],
+                    "pipeline_override": {
+                        "故事扫荡入口": {
+                            "timeout": 5000,
+                            "next": [
+                                "检测主画面",
+                                "[JumpBack]强敌来袭：主页返回"
+                            ]
+                        },
+                        "开始进入关卡": {
+                            "next": [
+                                "强敌来袭：进入事件关"
+                            ]
+                        },
+                        "强敌来袭：略过合法性检测": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "活动扫荡",
+                    "label": "活动扫荡",
+                    "option": [
+                        "活动扫荡关卡"
+                    ],
+                    "pipeline_override": {
+                        "故事扫荡入口": {
+                            "next": [
+                                "活动扫荡_状态轮询"
+                            ],
+                            "on_error": [
+                                "战斗出口"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "活动HARD扫荡",
+                    "label": "活动HARD扫荡",
+                    "option": [
+                        "活动HARD扫荡关卡"
+                    ],
+                    "pipeline_override": {
+                        "故事扫荡入口": {
+                            "next": [
+                                "活动HARD扫荡_状态轮询"
+                            ],
+                            "on_error": [
+                                "战斗出口"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "活动HARD扫荡",
+                    "label": "活动HARD扫荡",
+                    "option": [
+                        "活动HARD扫荡关卡"
+                    ],
+                    "pipeline_override": {
+                        "故事扫荡入口": {
+                            "next": [
+                                "活动HARD扫荡_状态轮询"
+                            ],
+                            "on_error": [
+                                "战斗出口"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "扫荡关卡": {
+            "type": "checkbox",
+            "description": "选择需要扫荡的 HARD 关卡；执行顺序固定为 HARD1 到 HARD5。",
+            "cases": [
+                {
+                    "name": "HARD1",
+                    "pipeline_override": {
+                        "故事扫荡_HARD1": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD2",
+                    "pipeline_override": {
+                        "故事扫荡_HARD2": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD3",
+                    "pipeline_override": {
+                        "故事扫荡_HARD3": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD4",
+                    "pipeline_override": {
+                        "故事扫荡_HARD4": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD5",
+                    "pipeline_override": {
+                        "故事扫荡_HARD5": {
+                            "enabled": true
+                        }
+                    }
+                }
+            ]
+        },
+        "活动扫荡关卡": {
+            "type": "checkbox",
+            "description": "选择活动扫荡的 HARD1 到 HARD3；按顺序执行，不处理 BOSS EXPERT。",
+            "cases": [
+                {
+                    "name": "HARD1",
+                    "pipeline_override": {
+                        "活动扫荡_选中HARD1": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD2",
+                    "pipeline_override": {
+                        "活动扫荡_选中HARD2": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD3",
+                    "pipeline_override": {
+                        "活动扫荡_选中HARD3": {
+                            "enabled": true
+                        }
+                    }
+                }
+            ]
+        },
+        "活动HARD扫荡关卡": {
+            "type": "checkbox",
+            "description": "选择需要扫荡的活动 HARD 关卡；执行顺序固定为 HARD1 到 HARD5。",
+            "cases": [
+                {
+                    "name": "HARD1",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD1": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD2",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD2": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD3",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD3": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD4",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD4": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD5",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD5": {
+                            "enabled": true
                         }
                     }
                 }
@@ -1430,15 +1707,14 @@
                 }
             ]
         },
-        "是否略过": {
-            "description": "开启后将使用略过，关闭则进行自动战斗，达到略过次数上限后仍要刷取材料请使用自动战斗",
-            "default": "是",
+        "是否开启自动战斗": {
+            "description": "开启后将不使用略过，关闭则使用略过，达到略过次数上限后仍要刷取材料请打开自动战斗",
             "cases": [
                 {
                     "name": "是",
                     "pipeline_override": {
                         "略过关卡": {
-                            "enabled": true
+                            "enabled": false
                         },
                         "进入出击准备": {
                             "enabled": true
@@ -1452,7 +1728,7 @@
                     "name": "否",
                     "pipeline_override": {
                         "略过关卡": {
-                            "enabled": false
+                            "enabled": true
                         },
                         "进入出击准备": {
                             "enabled": false
@@ -1569,6 +1845,67 @@
                 }
             ]
         },
+        "体力不足时使用体力包": {
+            "type": "checkbox",
+            "description": "扫荡执行时 AP 不足则最多自动使用 3 次体力包；默认不启用。",
+            "cases": [
+                {
+                    "name": "使用体力包",
+                    "pipeline_override": {
+                        "补充体力_选择体力包": {
+                            "enabled": true
+                        },
+                        "活动HARD扫荡_补充体力_选择体力包": {
+                            "enabled": true
+                        },
+                        "体力不够退出": {
+                            "focus": {
+                                "Node.Action.Succeeded": "MGA_TASK_FAILED: 体力不足且补充体力失败，退出任务"
+                            }
+                        },
+                        "活动HARD扫荡_体力不足退出": {
+                            "focus": {
+                                "Node.Action.Succeeded": "MGA_TASK_FAILED: 体力不足且补充体力失败，退出任务"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "故事开荒体力包": {
+            "type": "checkbox",
+            "label": "体力不足时使用体力包",
+            "description": "故事开荒遇到 AP 不足时点击“是”并自动使用最多 3 次体力包；补充完成后回到出击状态轮询。默认不启用。",
+            "cases": [
+                {
+                    "name": "使用体力包",
+                    "pipeline_override": {
+                        "故事开荒_体力不足异常处理": {
+                            "enabled": true
+                        },
+                        "补充体力_选择体力包": {
+                            "enabled": true,
+                            "on_error": [
+                                "故事开荒_体力不足退出"
+                            ]
+                        },
+                        "补充体力_执行": {
+                            "on_error": [
+                                "故事开荒_体力不足退出"
+                            ]
+                        },
+                        "补充体力_关闭": {
+                            "next": [
+                                "故事开荒_出击后状态轮询"
+                            ],
+                            "on_error": [
+                                "故事开荒_体力不足退出"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
         "可选日常": {
             "type": "checkbox",
             "cases": [
@@ -1631,377 +1968,6 @@
                     "description": "默认扫荡0079HARD1以及HARD3",
                     "pipeline_override": {
                         "AP消耗": {
-                            "enabled": true
-                        }
-                    }
-                }
-            ]
-        },
-        "是否开启自动战斗": {
-            "description": "开启后将不使用略过，关闭则使用略过，达到略过次数上限后仍要刷取材料请打开自动战斗",
-            "cases": [
-                {
-                    "name": "是",
-                    "pipeline_override": {
-                        "略过关卡": {
-                            "enabled": false
-                        },
-                        "进入出击准备": {
-                            "enabled": true
-                        },
-                        "强敌来袭：进入出击准备": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "否",
-                    "pipeline_override": {
-                        "略过关卡": {
-                            "enabled": true
-                        },
-                        "进入出击准备": {
-                            "enabled": false
-                        },
-                        "强敌来袭：进入出击准备": {
-                            "enabled": false
-                        }
-                    }
-                }
-            ]
-        },
-        "扫荡关卡": {
-            "type": "checkbox",
-            "description": "选择需要扫荡的 HARD 关卡；执行顺序固定为 HARD1 到 HARD5。",
-            "cases": [
-                {
-                    "name": "HARD1",
-                    "pipeline_override": {
-                        "故事扫荡_HARD1": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD2",
-                    "pipeline_override": {
-                        "故事扫荡_HARD2": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD3",
-                    "pipeline_override": {
-                        "故事扫荡_HARD3": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD4",
-                    "pipeline_override": {
-                        "故事扫荡_HARD4": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD5",
-                    "pipeline_override": {
-                        "故事扫荡_HARD5": {
-                            "enabled": true
-                        }
-                    }
-                }
-            ]
-        },
-        "故事开荒体力包": {
-            "type": "checkbox",
-            "label": "体力不足时使用体力包",
-            "description": "故事开荒遇到 AP 不足时点击“是”并自动使用最多 3 次体力包；补充完成后回到出击状态轮询。默认不启用。",
-            "cases": [
-                {
-                    "name": "使用体力包",
-                    "pipeline_override": {
-                        "故事开荒_体力不足异常处理": {
-                            "enabled": true
-                        },
-                        "补充体力_选择体力包": {
-                            "enabled": true,
-                            "on_error": [
-                                "故事开荒_体力不足退出"
-                            ]
-                        },
-                        "补充体力_执行": {
-                            "on_error": [
-                                "故事开荒_体力不足退出"
-                            ]
-                        },
-                        "补充体力_关闭": {
-                            "next": [
-                                "故事开荒_出击后状态轮询"
-                            ],
-                            "on_error": [
-                                "故事开荒_体力不足退出"
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        "体力不足时使用体力包": {
-            "type": "checkbox",
-            "description": "扫荡执行时 AP 不足则最多自动使用 3 次体力包；默认不启用。",
-            "cases": [
-                {
-                    "name": "使用体力包",
-                    "pipeline_override": {
-                        "补充体力_选择体力包": {
-                            "enabled": true
-                        },
-                        "活动HARD扫荡_补充体力_选择体力包": {
-                            "enabled": true
-                        },
-                        "体力不够退出": {
-                            "focus": {
-                                "Node.Action.Succeeded": "MGA_TASK_FAILED: 体力不足且补充体力失败，退出任务"
-                            }
-                        },
-                        "活动HARD扫荡_体力不足退出": {
-                            "focus": {
-                                "Node.Action.Succeeded": "MGA_TASK_FAILED: 体力不足且补充体力失败，退出任务"
-                            }
-                        }
-                    }
-                }
-            ]
-        },
-        "故事扫荡模式": {
-            "type": "select",
-            "label": "故事类型",
-            "description": "选择要扫荡的故事类型，再选择具体故事。",
-            "default_case": "主线故事",
-            "cases": [
-                {
-                    "name": "主线故事",
-                    "label": "主线故事",
-                    "option": [
-                        "主线故事选择",
-                        "扫荡关卡"
-                    ],
-                    "pipeline_override": {
-                        "寻找HARD": {
-                            "next": [
-                                "故事扫荡关卡右复位"
-                            ]
-                        },
-                        "主线左复位": {
-                            "enabled": true
-                        },
-                        "进入历史关卡": {
-                            "enabled": false
-                        },
-                        "开始进入关卡": {
-                            "next": [
-                                "进入主要关卡"
-                            ]
-                        }
-                    }
-                },
-                {
-                    "name": "历史故事",
-                    "label": "历史故事",
-                    "option": [
-                        "历史故事选择",
-                        "扫荡关卡"
-                    ],
-                    "pipeline_override": {
-                        "寻找HARD": {
-                            "next": [
-                                "故事扫荡关卡右复位"
-                            ]
-                        },
-                        "主线左复位": {
-                            "enabled": false
-                        },
-                        "进入历史关卡": {
-                            "enabled": true
-                        },
-                        "开始进入关卡": {
-                            "next": [
-                                "进入主要关卡"
-                            ]
-                        }
-                    }
-                },
-                {
-                    "name": "强敌来袭",
-                    "label": "强敌来袭",
-                    "option": [
-                        "强敌来袭目标",
-                        "是否开启自动战斗",
-                        "自动战斗次数"
-                    ],
-                    "pipeline_override": {
-                        "故事扫荡入口": {
-                            "timeout": 5000,
-                            "next": [
-                                "检测主画面",
-                                "[JumpBack]强敌来袭：主页返回"
-                            ]
-                        },
-                        "开始进入关卡": {
-                            "next": [
-                                "强敌来袭：进入事件关"
-                            ]
-                        },
-                        "强敌来袭：略过合法性检测": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "活动扫荡",
-                    "label": "活动扫荡",
-                    "option": [
-                        "活动扫荡关卡"
-                    ],
-                    "pipeline_override": {
-                        "故事扫荡入口": {
-                            "next": [
-                                "活动扫荡_状态轮询"
-                            ],
-                            "on_error": [
-                                "战斗出口"
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        "加速器类型": {
-            "type": "select",
-            "label": "加速器",
-            "description": "各分支会复写 StartApp 包名与「加速」按钮模板。腾讯分支默认仅包名 com.tencent.cmocmna；若无法启动，请在设备上执行 adb shell cmd package resolve-activity --brief com.tencent.cmocmna，将输出的组件名填回本项对应 case 的 package 字段（包名/Activity）。",
-            "default_case": "网易UU",
-            "cases": [
-                {
-                    "name": "网易UU",
-                    "label": "网易UU加速器",
-                    "pipeline_override": {
-                        "启动加速器执行": {
-                            "action": {
-                                "param": {
-                                    "package": "com.netease.uu/.activity.LaunchActivity"
-                                },
-                                "type": "StartApp"
-                            }
-                        },
-                        "加速器原生_点加速": {
-                            "recognition": {
-                                "param": {
-                                    "template": "加速器/UU_Boost.PNG"
-                                },
-                                "type": "TemplateMatch"
-                            }
-                        }
-                    }
-                },
-                {
-                    "name": "腾讯手游加速器",
-                    "label": "腾讯手游加速器",
-                    "pipeline_override": {
-                        "启动加速器执行": {
-                            "action": {
-                                "param": {
-                                    "package": "com.tencent.cmocmna"
-                                },
-                                "type": "StartApp"
-                            }
-                        },
-                        "加速器原生_点加速": {
-                            "recognition": {
-                                "param": {
-                                    "template": "加速器/TC_Boost.PNG"
-                                },
-                                "type": "TemplateMatch"
-                            }
-                        }
-                    }
-                }
-            ]
-        },
-        "活动扫荡关卡": {
-            "type": "checkbox",
-            "description": "选择活动扫荡的 HARD1 到 HARD3；按顺序执行，不处理 BOSS EXPERT。",
-            "cases": [
-                {
-                    "name": "HARD1",
-                    "pipeline_override": {
-                        "活动扫荡_选中HARD1": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD2",
-                    "pipeline_override": {
-                        "活动扫荡_选中HARD2": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD3",
-                    "pipeline_override": {
-                        "活动扫荡_选中HARD3": {
-                            "enabled": true
-                        }
-                    }
-                }
-            ]
-        },
-        "活动HARD扫荡关卡": {
-            "type": "checkbox",
-            "description": "选择需要扫荡的活动 HARD 关卡；执行顺序固定为 HARD1 到 HARD5。",
-            "cases": [
-                {
-                    "name": "HARD1",
-                    "pipeline_override": {
-                        "活动HARD扫荡_HARD1": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD2",
-                    "pipeline_override": {
-                        "活动HARD扫荡_HARD2": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD3",
-                    "pipeline_override": {
-                        "活动HARD扫荡_HARD3": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD4",
-                    "pipeline_override": {
-                        "活动HARD扫荡_HARD4": {
-                            "enabled": true
-                        }
-                    }
-                },
-                {
-                    "name": "HARD5",
-                    "pipeline_override": {
-                        "活动HARD扫荡_HARD5": {
                             "enabled": true
                         }
                     }
