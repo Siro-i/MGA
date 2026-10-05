@@ -1,0 +1,876 @@
+{
+    "角色要求入口": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "开始查找角色要求"
+        },
+        "next": [
+            "角色要求_记录开始"
+        ],
+        "on_error": [
+            "角色要求_返回主页"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "个人基地"
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 2000
+    },
+    "角色要求_返回主页": {
+        "action": {
+            "param": {
+                "custom_action": "强制返回主页"
+            },
+            "type": "Custom"
+        },
+        "focus": {
+            "Node.Action.Failed": "MGA_TASK_FAILED: 强制返回主页失败"
+        },
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 5000
+    },
+    "角色要求_记录开始": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求记录",
+                "custom_action_param": {
+                    "op": "reset"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_右复位"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 5000
+    },
+    "角色要求_右复位": {
+        "action": {
+            "param": {
+                "begin": [
+                    1010,
+                    335,
+                    157,
+                    43
+                ],
+                "end": [
+                    [
+                        147,
+                        334,
+                        155,
+                        33
+                    ]
+                ]
+            },
+            "type": "Swipe"
+        },
+        "next": [
+            "角色要求_上复位"
+        ],
+        "repeat": 4
+    },
+    "角色要求_上复位": {
+        "action": {
+            "param": {
+                "begin": [
+                    574,
+                    319,
+                    56,
+                    17
+                ],
+                "end": [
+                    [
+                        493,
+                        503,
+                        44,
+                        19
+                    ]
+                ]
+            },
+            "type": "Swipe"
+        },
+        "next": [
+            "角色要求_尝试下滑动"
+        ],
+        "repeat": 4
+    },
+    "角色要求_尝试下滑动": {
+        "action": {
+            "param": {
+                "begin": [
+                    458,
+                    500,
+                    103,
+                    25
+                ],
+                "end": [
+                    [
+                        462,
+                        278,
+                        90,
+                        22
+                    ]
+                ]
+            },
+            "type": "Swipe"
+        },
+        "max_hit": 3,
+        "next": [
+            "角色要求_向左滑动"
+        ],
+        "post_wait_freezes": 200
+    },
+    "角色要求_向左滑动": {
+        "action": {
+            "param": {
+                "begin": [
+                    294,
+                    249,
+                    105,
+                    27
+                ],
+                "end": [
+                    [
+                        841,
+                        279,
+                        160,
+                        38
+                    ]
+                ]
+            },
+            "type": "Swipe"
+        },
+        "max_hit": 3,
+        "next": [
+            "点击角色要求"
+        ],
+        "on_error": [
+            "角色要求_向左滑动",
+            "角色要求_查找失败"
+        ],
+        "timeout": 2000
+    },
+    "点击角色要求": {
+        "action": {
+            "param": {
+                "target_offset": [
+                    0,
+                    0,
+                    0,
+                    0
+                ]
+            },
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Recognition.Succeeded": "已找到角色要求，点击进入"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "角色要求"
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 15000
+    },
+    "角色要求_等待角色列表_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_左角色距离更新跳过_全检查",
+            "角色要求_点击左角色_全检查"
+        ],
+        "on_error": [
+            "角色要求_完成"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "角色要求"
+                ],
+                "roi": [
+                    120,
+                    20,
+                    360,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_左角色距离更新跳过_全检查": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求记录",
+                "custom_action_param": {
+                    "op": "skip_if_unprocessed",
+                    "slot": "左",
+                    "reason": "距离更新还有"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_检查中角色更新_全检查"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "距离更新还有"
+                ],
+                "roi": [
+                    174,
+                    434,
+                    219,
+                    34
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_点击左角色_全检查": {
+        "action": {
+            "param": {
+                "target": [
+                    240,
+                    180,
+                    90,
+                    150
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_检测左角色强化部队_全检查",
+            "角色要求_检测左角色调度资金_全检查",
+            "角色要求_检测左角色交付机体_全检查",
+            "角色要求_检测左角色委托开发_全检查",
+            "角色要求_检测左角色请求出击_全检查"
+        ],
+        "on_error": [
+            "角色要求_记录左角色跳过"
+        ],
+        "post_wait_freezes": 500,
+        "timeout": 3000
+    },
+    "角色要求_记录左角色跳过": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求记录",
+                "custom_action_param": {
+                    "op": "skip",
+                    "slot": "左",
+                    "reason": "类别不明"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_左角色返回列表_全检查"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 5000
+    },
+    "角色要求_左角色返回列表_全检查": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_检查中角色更新_全检查"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 5000,
+        "post_wait_freezes": 500
+    },
+    "角色要求_检查中角色更新_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_中角色距离更新跳过_全检查",
+            "角色要求_点击中角色_全检查"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 3000
+    },
+    "角色要求_中角色距离更新跳过_全检查": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求记录",
+                "custom_action_param": {
+                    "op": "skip_if_unprocessed",
+                    "slot": "中",
+                    "reason": "距离更新还有"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_检查右角色更新_全检查"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "距离更新还有"
+                ],
+                "roi": [
+                    530,
+                    437,
+                    216,
+                    33
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_点击中角色_全检查": {
+        "action": {
+            "param": {
+                "target": [
+                    600,
+                    180,
+                    90,
+                    150
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_检测中角色强化部队_全检查",
+            "角色要求_检测中角色调度资金_全检查",
+            "角色要求_检测中角色交付机体_全检查",
+            "角色要求_检测中角色委托开发_全检查",
+            "角色要求_检测中角色请求出击_全检查"
+        ],
+        "on_error": [
+            "角色要求_记录中角色跳过"
+        ],
+        "post_wait_freezes": 500,
+        "timeout": 3000
+    },
+    "角色要求_记录中角色跳过": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求记录",
+                "custom_action_param": {
+                    "op": "skip",
+                    "slot": "中",
+                    "reason": "类别不明"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_中角色返回列表_全检查"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 5000
+    },
+    "角色要求_中角色返回列表_全检查": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_检查右角色更新_全检查"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 5000,
+        "post_wait_freezes": 500
+    },
+    "角色要求_检查右角色更新_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_右角色距离更新跳过_全检查",
+            "角色要求_点击右角色_全检查"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 3000
+    },
+    "角色要求_右角色距离更新跳过_全检查": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求记录",
+                "custom_action_param": {
+                    "op": "skip_if_unprocessed",
+                    "slot": "右",
+                    "reason": "距离更新还有"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_完成"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "距离更新还有"
+                ],
+                "roi": [
+                    854,
+                    421,
+                    279,
+                    61
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_点击右角色_全检查": {
+        "action": {
+            "param": {
+                "target": [
+                    955,
+                    180,
+                    90,
+                    150
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_检测右角色强化部队_全检查",
+            "角色要求_检测右角色调度资金_全检查",
+            "角色要求_检测右角色交付机体_全检查",
+            "角色要求_检测右角色委托开发_全检查",
+            "角色要求_检测右角色请求出击_全检查"
+        ],
+        "on_error": [
+            "角色要求_记录右角色跳过"
+        ],
+        "post_wait_freezes": 500,
+        "timeout": 3000
+    },
+    "角色要求_记录右角色跳过": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求记录",
+                "custom_action_param": {
+                    "op": "skip",
+                    "slot": "右",
+                    "reason": "类别不明"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_右角色返回列表_全检查"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 5000
+    },
+    "角色要求_右角色返回列表_全检查": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_完成"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 5000,
+        "post_wait_freezes": 500
+    },
+    "角色要求_等待角色要求报告": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_点击报告提交"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "角色要求"
+                ],
+                "roi": [
+                    120,
+                    20,
+                    360,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击报告提交": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "角色要求已点击报告提交"
+        },
+        "next": [
+            "角色要求_报告剧情略过"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "报告"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_报告剧情略过": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_回报后状态轮询"
+        ],
+        "on_error": [
+            "角色要求_回报后状态轮询"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "略过"
+                ],
+                "roi": [
+                    1085,
+                    20,
+                    190,
+                    60
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击回报完成": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "角色要求任务回报完成"
+        },
+        "next": [
+            "角色要求_回报后状态轮询"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "回报完成"
+                ],
+                "roi": [
+                    520,
+                    215,
+                    260,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_回报后状态轮询": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_点击特殊要求提示",
+            "角色要求_点击回报完成",
+            "角色要求_点击交付完成",
+            "角色要求_点击OK确认"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_点击交付完成": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_回报后状态轮询"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付完成"
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击特殊要求提示": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_点击OK确认"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "特殊要求"
+                ],
+                "roi": [
+                    500,
+                    250,
+                    560,
+                    220
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击OK确认": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "角色要求任务已点击OK确认"
+        },
+        "next": [
+            "角色要求_点击每周报酬继续",
+            "角色要求_报酬后返回界面"
+        ],
+        "on_error": [
+            "角色要求_报酬弹窗已结束"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    519,
+                    625,
+                    243,
+                    81
+                ],
+                "template": [
+                    "OK.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击每周报酬继续": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "每周报酬"
+                ],
+                "roi": [
+                    500,
+                    210,
+                    290,
+                    85
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    530,
+                    585,
+                    220,
+                    100
+                ]
+            }
+        },
+        "focus": {
+            "Node.Action.Succeeded": "角色要求已点击每周报酬 TAP TO NEXT"
+        },
+        "post_delay": 500
+    },
+    "角色要求_报酬后返回界面": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        }
+    },
+    "角色要求_报酬弹窗已结束": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        }
+    },
+    "角色要求_完成": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求记录",
+                "custom_action_param": {
+                    "op": "summary"
+                }
+            },
+            "type": "Custom"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "角色要求流程结束"
+        },
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        }
+    },
+    "角色要求_查找失败": {
+        "action": {
+            "param": {
+                "custom_action": "强制返回主页"
+            },
+            "type": "Custom"
+        },
+        "focus": {
+            "Node.Action.Starting": "MGA_TASK_FAILED: 角色要求查找失败，4次未找到角色要求，跳过该任务，开始返回主页"
+        }
+    }
+}

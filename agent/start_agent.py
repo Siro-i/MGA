@@ -40,6 +40,9 @@ def run_agent_logic(socket_id):
         from maa.toolkit import Toolkit
         import StageSelect
         import GP
+        import RoleRequirementCommission
+        import RoleRequirementDelivery
+        import RoleRequirementTracker
         import SmartShopBuy
         import DailyBattle
         import BatchStageSweep

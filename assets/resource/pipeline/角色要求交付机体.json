@@ -1,0 +1,1128 @@
+{
+    "角色要求_检测左角色交付机体_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理左角色交付机体"
+        ],
+        "on_error": [
+            "角色要求_记录左角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付机体"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_检测中角色交付机体_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理中角色交付机体"
+        ],
+        "on_error": [
+            "角色要求_记录中角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付机体"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_检测右角色交付机体_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理右角色交付机体"
+        ],
+        "on_error": [
+            "角色要求_记录右角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付机体"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_处理左角色交付机体": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "左",
+                    "type": "交付机体",
+                    "entry": "角色要求_交付机体入口状态分流"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_左角色交付机体失败状态"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_处理中角色交付机体": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "中",
+                    "type": "交付机体",
+                    "entry": "角色要求_交付机体入口状态分流"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_中角色交付机体失败状态"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_处理右角色交付机体": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "右",
+                    "type": "交付机体",
+                    "entry": "角色要求_交付机体入口状态分流"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_右角色交付机体失败状态"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_交付机体入口状态分流": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_承接交付机体",
+            "角色要求_交付已有机体",
+            "角色要求_点击获取途径交付机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_承接交付机体": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_交付机体接取剧情略过"
+        ],
+        "on_error": [
+            "角色要求_交付机体接取后状态分流"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "承接"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
+    },
+    "角色要求_交付机体接取剧情略过": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_交付机体接取后状态分流"
+        ],
+        "on_error": [
+            "角色要求_交付机体接取后状态分流"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "略过"
+                ],
+                "roi": [
+                    1080,
+                    0,
+                    200,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 30000
+    },
+    "角色要求_交付机体接取后状态分流": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_交付已有机体",
+            "角色要求_点击获取途径交付机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_交付已有机体": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_等待确认交付界面"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_等待确认交付界面": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_检测交付机体保护标志"
+        ],
+        "on_error": [
+            "角色要求_选择可交付机体"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "确认交付"
+                ],
+                "roi": [
+                    480,
+                    25,
+                    320,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 2000
+    },
+    "角色要求_检测交付机体保护标志": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_点击交付保护OFF"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    315,
+                    330,
+                    155,
+                    130
+                ],
+                "template": [
+                    "角色要求/交付机体保护标志.png"
+                ],
+                "threshold": [
+                    0.8
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 5000
+    },
+    "角色要求_点击交付保护OFF": {
+        "action": {
+            "param": {
+                "target": [
+                    591,
+                    533,
+                    70,
+                    23
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_解锁时点击可交付机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    530,
+                    500,
+                    210,
+                    90
+                ],
+                "template": [
+                    "角色要求/交付保护OFF.png"
+                ],
+                "threshold": [
+                    0.8
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "post_wait_freezes": 500,
+        "timeout": 5000
+    },
+    "角色要求_解锁时点击可交付机体": {
+        "action": {
+            "param": {
+                "target": [
+                    315,
+                    330,
+                    155,
+                    130
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_点击交付保护ON"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "post_wait_freezes": 500,
+        "timeout": 5000
+    },
+    "角色要求_点击交付保护ON": {
+        "action": {
+            "param": {
+                "target": [
+                    591,
+                    533,
+                    70,
+                    23
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_选择可交付机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    530,
+                    500,
+                    210,
+                    90
+                ],
+                "template": [
+                    "角色要求/交付保护ON.png"
+                ],
+                "threshold": [
+                    0.8
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "post_wait_freezes": 500,
+        "timeout": 5000
+    },
+    "角色要求_选择可交付机体": {
+        "action": {
+            "param": {
+                "target": [
+                    365,
+                    371,
+                    41,
+                    35
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_确认交付已有机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "post_wait_freezes": 500,
+        "timeout": 5000
+    },
+    "角色要求_确认交付已有机体": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_交付机体交付剧情略过"
+        ],
+        "on_error": [
+            "角色要求_回报后状态轮询"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付"
+                ],
+                "roi": [
+                    620,
+                    600,
+                    300,
+                    115
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_交付机体交付剧情略过": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_回报后状态轮询"
+        ],
+        "on_error": [
+            "角色要求_回报后状态轮询"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "略过"
+                ],
+                "roi": [
+                    1085,
+                    20,
+                    190,
+                    60
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 30000
+    },
+    "角色要求_点击获取途径交付机体": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_等待主要获得方式"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "获取途径"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_等待主要获得方式": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_记录交付机体目标信息"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "主要获得方式"
+                ],
+                "roi": [
+                    500,
+                    35,
+                    330,
+                    70
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_记录交付机体目标信息": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求交付机体记录目标"
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_点击移动交付机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击移动交付机体": {
+        "action": {
+            "param": {
+                "target_offset": [
+                    570,
+                    30,
+                    0,
+                    0
+                ]
+            },
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_等待开发路线图"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "开发"
+                ],
+                "roi": [
+                    500,
+                    100,
+                    190,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_等待开发路线图": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_选择目标交付机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "开发路线图"
+                ],
+                "roi": [
+                    120,
+                    0,
+                    360,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_选择目标交付机体": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求交付机体选择目标"
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_点击全部开发交付机体"
+        ],
+        "on_error": [
+            "角色要求_交付机体未找到_点击路线图返回"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_开发路线图目标棋子FeatureMatch": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "recognition": {
+            "param": {
+                "roi": [
+                    235,
+                    150,
+                    1045,
+                    500
+                ],
+                "template": [
+                    "角色要求/当前目标棋子.png"
+                ],
+                "detector": "SIFT",
+                "count": 8,
+                "order_by": "Score",
+                "green_mask": true
+            },
+            "type": "FeatureMatch"
+        }
+    },
+    "角色要求_点击全部开发交付机体": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_等待确认执行开发"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "全部开发"
+                ],
+                "roi": [
+                    1040,
+                    610,
+                    230,
+                    100
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
+    },
+    "角色要求_等待确认执行开发": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_全部开发界面确认"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "执行开发"
+                ],
+                "roi": [
+                    680,
+                    620,
+                    220,
+                    80
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_全部开发界面确认": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_点击执行开发交付机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "全部开发"
+                ],
+                "roi": [
+                    522,
+                    40,
+                    236,
+                    46
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击执行开发交付机体": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_确认执行开发界面"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "执行开发"
+                ],
+                "roi": [
+                    680,
+                    620,
+                    220,
+                    80
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_确认执行开发界面": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_确认执行交付机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "确认执行开发"
+                ],
+                "roi": [
+                    522,
+                    40,
+                    236,
+                    46
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_确认执行交付机体": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_等待开发结果TAP"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "执行"
+                ],
+                "roi": [
+                    657,
+                    632,
+                    215,
+                    64
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 120000
+    },
+    "角色要求_等待开发结果TAP": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_开发后返回状态检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "TAP",
+                    "NEXT"
+                ],
+                "roi": [
+                    360,
+                    600,
+                    560,
+                    120
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 60000
+    },
+    "角色要求_开发后返回状态检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_开发后已回任务页报告",
+            "角色要求_开发后已回任务页",
+            "角色要求_开发后关闭主要获得方式",
+            "角色要求_开发后点击路线图返回"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 15000
+    },
+    "角色要求_开发后已回任务页": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_交付已有机体"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
+    },
+    "角色要求_开发后已回任务页报告": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "报告"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_点击报告提交"
+        ],
+        "timeout": 5000
+    },
+    "角色要求_开发后关闭主要获得方式": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_开发后等待任务页"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "关闭"
+                ],
+                "roi": [
+                    500,
+                    610,
+                    300,
+                    100
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
+    },
+    "角色要求_开发后点击路线图返回": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_开发后返回后的状态检查"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "pre_delay": 5000,
+        "post_wait_freezes": 500,
+        "timeout": 5000
+    },
+    "角色要求_开发后返回后的状态检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_开发后已回任务页报告",
+            "角色要求_开发后已回任务页",
+            "角色要求_开发后关闭主要获得方式"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_开发后等待任务页": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_开发后已回任务页报告",
+            "角色要求_交付已有机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 15000
+    },
+    "角色要求_交付机体未找到_点击路线图返回": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_交付机体未找到_等待角色要求详情"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "post_wait_freezes": 500,
+        "timeout": 10000
+    },
+    "角色要求_交付机体未找到_等待角色要求详情": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_交付机体未找到_标记跳过"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "角色要求"
+                ],
+                "roi": [
+                    120,
+                    20,
+                    360,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_交付机体未找到_标记跳过": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求当前执行标记跳过",
+                "custom_action_param": {
+                    "reason": "找不到交付机体"
+                }
+            },
+            "type": "Custom"
+        },
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 5000
+    },
+    "角色要求_左角色交付机体失败状态": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_左角色返回列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_中角色交付机体失败状态": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_中角色返回列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_右角色交付机体失败状态": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_右角色返回列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    }
+}
