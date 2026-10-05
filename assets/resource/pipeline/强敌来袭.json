@@ -64,7 +64,8 @@
         },
         "pre_wait_freezes": 200,
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "focus": {
             "Node.Action.Succeeded": "已点击历史战斗列表机体"
@@ -125,7 +126,7 @@
     "强敌来袭：入口": {
         "timeout": 5000,
         "next": [
-            "强敌来袭：检测主画面",
+            "检测主画面",
             {
                 "name": "强敌来袭：主页返回",
                 "jump_back": true
@@ -151,7 +152,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "focus": {
             "Node.Action.Succeeded": "选择关卡点击成功"
@@ -182,7 +184,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "focus": {
             "Node.Action.Succeeded": "前往事件点击成功"
@@ -193,37 +196,6 @@
         "$__mpe_code": {
             "position": {
                 "x": 800,
-                "y": -340
-            }
-        }
-    },
-    "强敌来袭：开始进入关卡": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "roi": [
-                    0,
-                    630,
-                    1280,
-                    90
-                ],
-                "expected": [
-                    "关卡"
-                ]
-            }
-        },
-        "action": {
-            "type": "Click"
-        },
-        "focus": {
-            "Node.Action.Succeeded": "进入关卡点击成功（强敌来袭）"
-        },
-        "next": [
-            "强敌来袭：进入事件关"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": -414,
                 "y": -340
             }
         }
@@ -282,35 +254,13 @@
             "Node.Recognition.Succeeded": "强敌目标进入成功：已识别「选择关卡」"
         },
         "next": [
-            "略过关卡",
+            "强敌来袭：略过合法性检测",
             "强敌来袭：进入出击准备"
         ],
         "$__mpe_code": {
             "position": {
                 "x": 1959,
                 "y": -512
-            }
-        }
-    },
-    "强敌来袭：检测主画面": {
-        "recognition": {
-            "type": "OCR",
-            "param": {
-                "expected": [
-                    "RANK"
-                ]
-            }
-        },
-        "focus": {
-            "Node.Recognition.Succeeded": "检测到当前为主画面（强敌来袭）"
-        },
-        "next": [
-            "强敌来袭：开始进入关卡"
-        ],
-        "$__mpe_code": {
-            "position": {
-                "x": -770,
-                "y": -340
             }
         }
     },
@@ -330,7 +280,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "focus": {
             "Node.Action.Succeeded": "进入事件关点击成功"
@@ -363,7 +314,8 @@
         },
         "pre_wait_freezes": 200,
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "focus": {
             "Node.Action.Succeeded": "强敌来袭：右下区识别「挑战」，接入战斗出击链"
@@ -380,7 +332,7 @@
     },
     "强敌来袭：选择强敌来袭": {
         "recognition": {
-            "type": "OCR",
+            "type": "TemplateMatch",
             "param": {
                 "roi": [
                     0,
@@ -388,13 +340,14 @@
                     256,
                     720
                 ],
-                "expected": [
-                    "强敌来袭"
+                "template": [
+                    "强敌来袭/强敌来袭.PNG"
                 ]
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "timeout": 3000,
         "focus": {
@@ -418,7 +371,8 @@
     },
     "强敌来袭：选择强敌来袭重试": {
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "post_delay": 600,
         "timeout": 3000,
@@ -438,7 +392,7 @@
             "type": "TemplateMatch",
             "param": {
                 "template": [
-                    "强敌来袭/斯德毕尔.PNG"
+                    "强敌来袭/里格・林格.PNG"
                 ],
                 "threshold": [
                     0.65
@@ -446,7 +400,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "focus": {
             "Node.Action.Succeeded": "已点击机体选项"
@@ -481,7 +436,8 @@
             }
         },
         "action": {
-            "type": "Click"
+            "type": "Click",
+            "param": {}
         },
         "focus": {
             "Node.Action.Succeeded": "已进入历史战斗页签"
@@ -495,5 +451,108 @@
                 "y": -708
             }
         }
+    },
+    "强敌来袭：略过合法性检测": {
+        "enabled": true,
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "强敌来袭：略过不可用",
+            "强敌来袭：略过合法"
+        ],
+        "timeout": 3000
+    },
+    "强敌来袭：略过不可用": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "TemplateMatch",
+                        "roi": [
+                            641,
+                            2,
+                            636,
+                            654
+                        ],
+                        "template": [
+                            "强敌来袭/略过锁定.PNG"
+                        ],
+                        "threshold": [
+                            0.85
+                        ],
+                        "sub_name": "略过锁定图标"
+                    },
+                    {
+                        "recognition": "OCR",
+                        "roi": [
+                            1175,
+                            75,
+                            66,
+                            37
+                        ],
+                        "expected": [
+                            "0/"
+                        ],
+                        "sub_name": "略过次数耗尽"
+                    }
+                ]
+            }
+        },
+        "action": {
+            "type": "StopTask",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Starting": "MGA_TASK_FAILED: 强敌关卡略过尚未解锁或略过次数已用完，停止任务"
+        }
+    },
+    "强敌来袭：略过合法": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "TemplateMatch",
+                        "roi": [
+                            641,
+                            2,
+                            636,
+                            654
+                        ],
+                        "template": [
+                            "强敌来袭/略过锁定.PNG"
+                        ],
+                        "threshold": [
+                            0.85
+                        ],
+                        "sub_name": "略过锁定图标"
+                    },
+                    {
+                        "recognition": "OCR",
+                        "roi": [
+                            1175,
+                            75,
+                            66,
+                            37
+                        ],
+                        "expected": [
+                            "0/"
+                        ],
+                        "sub_name": "略过次数耗尽"
+                    }
+                ]
+            }
+        },
+        "inverse": true,
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "略过关卡"
+        ]
     }
 }
