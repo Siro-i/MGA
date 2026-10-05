@@ -359,23 +359,6 @@
                             ]
                         }
                     }
-                },
-                {
-                    "name": "活动HARD扫荡",
-                    "label": "活动HARD扫荡",
-                    "option": [
-                        "活动HARD扫荡关卡"
-                    ],
-                    "pipeline_override": {
-                        "故事扫荡入口": {
-                            "next": [
-                                "活动HARD扫荡_状态轮询"
-                            ],
-                            "on_error": [
-                                "战斗出口"
-                            ]
-                        }
-                    }
                 }
             ]
         },
