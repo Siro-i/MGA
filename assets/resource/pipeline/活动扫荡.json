@@ -1,0 +1,387 @@
+{
+    "活动扫荡_状态轮询": {
+        "timeout": 60000,
+        "rate_limit": 1000,
+        "next": [
+            "活动扫荡_执行HARD扫荡",
+            "活动扫荡_活动页点击事件关卡",
+            "活动扫荡_点击事件关卡",
+            "活动扫荡_选择活动",
+            "活动扫荡_点击事件",
+            "活动扫荡_点击关卡",
+            "活动扫荡_返回活动页"
+        ],
+        "on_error": [
+            "战斗出口"
+        ]
+    },
+    "活动扫荡_点击关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    525,
+                    650,
+                    215,
+                    70
+                ],
+                "expected": [
+                    "关卡"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 0,
+        "timeout": 8000,
+        "next": [
+            "活动扫荡_状态轮询"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    },
+    "活动扫荡_点击事件": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    426,
+                    0,
+                    427,
+                    720
+                ],
+                "expected": [
+                    "事件"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 8000,
+        "next": [
+            "活动扫荡_选择活动"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    },
+    "活动扫荡_选择活动": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    20,
+                    80,
+                    240,
+                    130
+                ],
+                "template": [
+                    "活动扫荡/00F.png"
+                ],
+                "threshold": [
+                    0.65
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 0,
+        "post_delay": 500,
+        "timeout": 30000,
+        "rate_limit": 1000,
+        "next": [
+            "活动扫荡_点击前往事件"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    },
+    "活动扫荡_点击前往事件": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    360,
+                    1280,
+                    360
+                ],
+                "template": [
+                    "前往事件.PNG"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "pre_delay": 0,
+        "post_wait_freezes": 0,
+        "post_delay": 0,
+        "timeout": 20000,
+        "next": [
+            "活动扫荡_活动页点击事件关卡"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    },
+    "活动扫荡_活动页点击事件关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    708,
+                    75,
+                    248,
+                    244
+                ],
+                "expected": [
+                    "事件关卡"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    708,
+                    75,
+                    248,
+                    244
+                ]
+            }
+        },
+        "post_wait_freezes": 0,
+        "timeout": 30000,
+        "rate_limit": 1000,
+        "next": [
+            "活动扫荡_事件关卡加载等待"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    },
+    "活动扫荡_点击事件关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    360,
+                    720
+                ],
+                "expected": [
+                    "事件关卡"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1500,
+        "timeout": 10000,
+        "next": [
+            "活动扫荡_事件关卡加载等待"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    },
+    "活动扫荡_事件关卡加载等待": {
+        "timeout": 60000,
+        "rate_limit": 1000,
+        "next": [
+            "活动扫荡_执行HARD扫荡",
+            "活动扫荡_事件关卡加载完成"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    },
+    "活动扫荡_事件关卡加载完成": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    0,
+                    120,
+                    720,
+                    430
+                ],
+                "expected": [
+                    "NEXT",
+                    "COMPLETE",
+                    "HARD"
+                ]
+            }
+        },
+        "timeout": 1000,
+        "next": [
+            "活动扫荡_状态轮询"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    },
+    "活动扫荡_执行HARD扫荡": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    80,
+                    720,
+                    560
+                ],
+                "template": [
+                    "HARD1.png",
+                    "HARD1_light.png",
+                    "HARD2.png",
+                    "HARD2_light.png",
+                    "HARD3.png",
+                    "HARD3_light.png"
+                ],
+                "threshold": [
+                    0.65,
+                    0.65,
+                    0.65,
+                    0.65,
+                    0.65,
+                    0.65
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing"
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 5000,
+        "next": [
+            "活动扫荡_选中HARD1",
+            "活动扫荡_选中HARD2",
+            "活动扫荡_选中HARD3",
+            "活动扫荡_仅HARD结束"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    },
+    "活动扫荡_选中HARD1": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD1"
+                    ],
+                    "skip_task": "连续扫荡_略过入口",
+                    "skip_optional": true
+                }
+            }
+        },
+        "next": [
+            "活动扫荡_选中HARD2",
+            "活动扫荡_选中HARD3",
+            "活动扫荡_仅HARD结束"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    },
+    "活动扫荡_选中HARD2": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD2"
+                    ],
+                    "skip_task": "连续扫荡_略过入口",
+                    "skip_optional": true
+                }
+            }
+        },
+        "next": [
+            "活动扫荡_选中HARD3",
+            "活动扫荡_仅HARD结束"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    },
+    "活动扫荡_选中HARD3": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD3"
+                    ],
+                    "skip_task": "连续扫荡_略过入口",
+                    "skip_optional": true
+                }
+            }
+        },
+        "next": [
+            "活动扫荡_仅HARD结束"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    },
+    "活动扫荡_仅HARD结束": {
+        "action": {
+            "type": "StopTask",
+            "param": {}
+        },
+        "focus": "活动 HARD 扫荡完成"
+    },
+    "活动扫荡_返回活动页": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    180,
+                    90
+                ],
+                "template": [
+                    "返回.png"
+                ],
+                "threshold": [
+                    0.8
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1500,
+        "timeout": 10000,
+        "next": [
+            "活动扫荡_状态轮询"
+        ],
+        "on_error": [
+            "活动扫荡_状态轮询"
+        ]
+    }
+}
