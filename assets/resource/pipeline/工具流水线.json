@@ -23,7 +23,10 @@
         },
         "recognition": {
             "param": {
-                "template": "HARD1.png"
+                "template": [
+                    "HARD1.png",
+                    "HARD1_light.png"
+                ]
             },
             "type": "TemplateMatch"
         }
@@ -57,7 +60,10 @@
         },
         "recognition": {
             "param": {
-                "template": "HARD2.png"
+                "template": [
+                    "HARD2.png",
+                    "HARD2_light.png"
+                ]
             },
             "type": "TemplateMatch"
         }
@@ -91,7 +97,10 @@
         },
         "recognition": {
             "param": {
-                "template": "HARD3.png"
+                "template": [
+                    "HARD3.png",
+                    "HARD3_light.png"
+                ]
             },
             "type": "TemplateMatch"
         }
@@ -348,9 +357,30 @@
             }
         },
         "next": [
+            "结果检测",
+            "点击tap to next",
             "点击关闭/取消",
             "点击主画面",
             "点击返回"
+        ],
+        "timeout": 2000
+    },
+    "点击tap to next": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "TAP"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_delay": 400,
+        "next": [
+            "返回主画面入口"
         ],
         "timeout": 2000
     }

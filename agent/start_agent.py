@@ -40,6 +40,8 @@ def run_agent_logic(socket_id):
         from maa.toolkit import Toolkit
         import StageSelect
         import GP
+        import ReturnHome
+        import RunTask
         
     except ImportError as e:
         print(f"[MGA Error] Failed to import dependencies: {e}")
