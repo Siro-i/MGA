@@ -1,0 +1,37 @@
+{
+    "启动游戏入口": {
+        "next": [
+            "启动游戏执行"
+        ],
+        "timeout": 5000
+    },
+    "启动游戏执行": {
+        "action": {
+            "param": {
+                "package": "com.bandainamcoent.gget_WW/com.unity3d.player.UnityPlayerActivity"
+            },
+            "type": "StartApp"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "已执行启动游戏（StartApp）",
+            "Node.Action.Failed": "MGA_TASK_FAILED: 启动游戏失败，请检查 package 与设备连接"
+        },
+        "next": [
+            "启动游戏任务结束"
+        ],
+        "post_delay": 2000
+    },
+    "启动游戏任务结束": {
+        "action": {
+            "param": {},
+            "type": "StopTask"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "启动游戏任务已结束（仅拉起应用）"
+        },
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        }
+    }
+}

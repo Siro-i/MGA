@@ -67,7 +67,7 @@
             "name": "循环战斗",
             "description": "循环战斗某一关卡（包含强敌来袭）直到体力清空（max:100),使用入口为出击准备页面",
             "entry": "出击任务",
-            "option":[
+            "option": [
                 "是否跳过隐藏boss战斗"
             ]
         },
@@ -79,20 +79,33 @@
         {
             "name": "领取礼物盒",
             "entry": "日常任务入口",
-            "pipeline_override":{
-                "领取礼物":{
+            "pipeline_override": {
+                "领取礼物": {
                     "enabled": true
                 }
             }
         },
         {
-            "name":"领取每日任务奖励",
+            "name": "领取每日任务奖励",
             "entry": "日常任务入口",
             "pipeline_override": {
-                        "日常奖励": {
-                            "enabled": true
-                        }
-                    }
+                "日常奖励": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "name": "启动游戏",
+            "description": "通过 ADB 执行 StartApp 拉起游戏包",
+            "entry": "启动游戏入口"
+        },
+        {
+            "name": "启动加速器",
+            "description": "通过 ADB 执行 StartApp 拉起加速器；在任务选项选择加速器类型",
+            "entry": "启动加速器入口",
+            "option": [
+                "加速器类型"
+            ]
         }
     ],
     "option": {
@@ -132,7 +145,7 @@
                     ]
                 },
                 {
-                    "name":"历史故事",
+                    "name": "历史故事",
                     "label": "历史关卡战斗",
                     "option": [
                         "历史故事选择",
@@ -140,7 +153,6 @@
                         "是否略过",
                         "自动战斗次数"
                     ]
-                    
                 },
                 {
                     "name": "强敌来袭",
@@ -871,13 +883,12 @@
                             "enabled": false
                         }
                     }
-                }  
+                }
             ]
         },
         "历史故事选择": {
             "description": "选择主线故事",
             "cases": [
-
                 {
                     "name": "雷霆宙域",
                     "pipeline_override": {
@@ -1245,6 +1256,58 @@
                     "pipeline_override": {
                         "日常奖励": {
                             "enabled": true
+                        }
+                    }
+                }
+            ]
+        },
+        "加速器类型": {
+            "type": "select",
+            "label": "加速器",
+            "description": "各分支会复写 StartApp 包名与「加速」按钮模板。腾讯分支默认仅包名 com.tencent.cmocmna；若无法启动，请在设备上执行 adb shell cmd package resolve-activity --brief com.tencent.cmocmna，将输出的组件名填回本项对应 case 的 package 字段（包名/Activity）。",
+            "default_case": "网易UU",
+            "cases": [
+                {
+                    "name": "网易UU",
+                    "label": "网易UU加速器",
+                    "pipeline_override": {
+                        "启动加速器执行": {
+                            "action": {
+                                "param": {
+                                    "package": "com.netease.uu/.activity.LaunchActivity"
+                                },
+                                "type": "StartApp"
+                            }
+                        },
+                        "加速器原生_点加速": {
+                            "recognition": {
+                                "param": {
+                                    "template": "加速器/UU_Boost.PNG"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "腾讯手游加速器",
+                    "label": "腾讯手游加速器",
+                    "pipeline_override": {
+                        "启动加速器执行": {
+                            "action": {
+                                "param": {
+                                    "package": "com.tencent.cmocmna"
+                                },
+                                "type": "StartApp"
+                            }
+                        },
+                        "加速器原生_点加速": {
+                            "recognition": {
+                                "param": {
+                                    "template": "加速器/TC_Boost.PNG"
+                                },
+                                "type": "TemplateMatch"
+                            }
                         }
                     }
                 }
