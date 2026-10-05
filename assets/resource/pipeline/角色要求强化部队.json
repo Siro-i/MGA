@@ -1,0 +1,532 @@
+{
+    "角色要求_处理左角色强化部队": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "左",
+                    "type": "强化部队",
+                    "entry": "角色要求_强化部队操作轮询"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_处理中角色强化部队": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "中",
+                    "type": "强化部队",
+                    "entry": "角色要求_强化部队操作轮询"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_处理右角色强化部队": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "右",
+                    "type": "强化部队",
+                    "entry": "角色要求_强化部队操作轮询"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_检测左角色强化部队_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理左角色强化部队"
+        ],
+        "on_error": [
+            "角色要求_记录左角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "强化部队"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_检测中角色强化部队_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理中角色强化部队"
+        ],
+        "on_error": [
+            "角色要求_记录中角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "强化部队"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_检测右角色强化部队_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理右角色强化部队"
+        ],
+        "on_error": [
+            "角色要求_记录右角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "强化部队"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_强化部队操作轮询": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_承接强化部队",
+            "角色要求_挑战强化部队"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_承接强化部队": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_剧情略过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "承接"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
+    },
+    "角色要求_剧情略过": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_强化部队操作轮询"
+        ],
+        "on_error": [
+            "角色要求_强化部队操作轮询"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "略过"
+                ],
+                "roi": [
+                    1080,
+                    0,
+                    200,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 30000
+    },
+    "角色要求_挑战强化部队": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_点击排列顺序按钮"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "挑战"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击排列顺序按钮": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_点击左上角机体"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    1080,
+                    560,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/排列顺序按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击左上角机体": {
+        "action": {
+            "param": {
+                "target": [
+                    235,
+                    175,
+                    75,
+                    85
+                ]
+            },
+            "type": "Click"
+        },
+        "focus": {
+            "Node.Action.Succeeded": "角色要求强化部队已点击左上角机体"
+        },
+        "next": [
+            "角色要求_等待单位资料页"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "post_wait_freezes": 500,
+        "timeout": 10000
+    },
+    "角色要求_等待单位资料页": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_点击LV强化"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "单位资料"
+                ],
+                "roi": [
+                    120,
+                    10,
+                    320,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击LV强化": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_等待提升LV弹窗"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "LV强化"
+                ],
+                "roi": [
+                    970,
+                    185,
+                    270,
+                    100
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
+    },
+    "角色要求_等待提升LV弹窗": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_点击LV右箭头四次"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "提升LV"
+                ],
+                "roi": [
+                    520,
+                    35,
+                    260,
+                    80
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击LV右箭头四次": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_点击提升LV"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    760,
+                    415,
+                    130,
+                    90
+                ],
+                "template": [
+                    "角色要求/LV右箭头.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "post_delay": 1000,
+        "repeat": 4,
+        "timeout": 5000
+    },
+    "角色要求_点击提升LV": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_点击提升结果TAP"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "提升LV"
+                ],
+                "roi": [
+                    620,
+                    610,
+                    330,
+                    100
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 15000
+    },
+    "角色要求_点击提升结果TAP": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_点击返回到机库"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "TAP",
+                    "NEXT"
+                ],
+                "roi": [
+                    360,
+                    520,
+                    560,
+                    180
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 15000
+    },
+    "角色要求_点击返回到机库": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_等待机库强化页"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 10000
+    },
+    "角色要求_等待机库强化页": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_点击返回到角色要求"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "强化"
+                ],
+                "roi": [
+                    120,
+                    10,
+                    220,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_点击返回到角色要求": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_等待角色要求报告"
+        ],
+        "recognition": {
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            },
+            "type": "TemplateMatch"
+        },
+        "timeout": 10000
+    }
+}

@@ -68,6 +68,8 @@
             "开发任务",
             "日常奖励",
             "领取礼物",
+            "日常_角色要求",
+            "日常_角色要求",
             "结束出口"
         ],
         "on_error": [
@@ -1254,5 +1256,32 @@
             "Node.Action.Failed": "MGA_TASK_FAILED: 强制返回主页失败"
         },
         "timeout": 5000
+    },
+    "日常_角色要求": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "个人基地"
+                ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "运行子任务",
+                "custom_action_param": {
+                    "entry": "角色要求入口"
+                }
+            }
+        },
+        "enabled": false,
+        "max_hit": 1,
+        "next": [
+            "主画面检测"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "开始日常角色要求"
+        }
     }
 }

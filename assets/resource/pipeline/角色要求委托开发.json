@@ -1,0 +1,706 @@
+{
+    "角色要求_检测左角色委托开发_全检查": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "委托开发"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 3000,
+        "next": [
+            "角色要求_处理左角色委托开发"
+        ],
+        "on_error": [
+            "角色要求_记录左角色跳过"
+        ]
+    },
+    "角色要求_处理左角色委托开发": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "左",
+                    "type": "委托开发",
+                    "entry": "角色要求_委托开发入口状态分流"
+                }
+            }
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_左角色委托开发失败状态"
+        ]
+    },
+    "角色要求_左角色委托开发失败状态": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_左角色返回列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_检测中角色委托开发_全检查": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "委托开发"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 3000,
+        "next": [
+            "角色要求_处理中角色委托开发"
+        ],
+        "on_error": [
+            "角色要求_记录中角色跳过"
+        ]
+    },
+    "角色要求_处理中角色委托开发": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "中",
+                    "type": "委托开发",
+                    "entry": "角色要求_委托开发入口状态分流"
+                }
+            }
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_中角色委托开发失败状态"
+        ]
+    },
+    "角色要求_中角色委托开发失败状态": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_中角色返回列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_检测右角色委托开发_全检查": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "委托开发"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 3000,
+        "next": [
+            "角色要求_处理右角色委托开发"
+        ],
+        "on_error": [
+            "角色要求_记录右角色跳过"
+        ]
+    },
+    "角色要求_处理右角色委托开发": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "右",
+                    "type": "委托开发",
+                    "entry": "角色要求_委托开发入口状态分流"
+                }
+            }
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_右角色委托开发失败状态"
+        ]
+    },
+    "角色要求_右角色委托开发失败状态": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_右角色返回列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_委托开发入口状态分流": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_委托开发承接",
+            "角色要求_点击报告提交",
+            "角色要求_委托开发点击挑战"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_委托开发承接": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "承接"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 5000,
+        "next": [
+            "角色要求_委托开发接取剧情略过"
+        ],
+        "on_error": [
+            "角色要求_委托开发接取后状态分流"
+        ]
+    },
+    "角色要求_委托开发接取剧情略过": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "略过"
+                ],
+                "roi": [
+                    1080,
+                    0,
+                    200,
+                    90
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 30000,
+        "next": [
+            "角色要求_委托开发接取后状态分流"
+        ],
+        "on_error": [
+            "角色要求_委托开发接取后状态分流"
+        ]
+    },
+    "角色要求_委托开发接取后状态分流": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_点击报告提交",
+            "角色要求_委托开发点击挑战"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_委托开发点击挑战": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "挑战"
+                ],
+                "roi": [
+                    961,
+                    530,
+                    245,
+                    85
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_委托开发等待开发路线图"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_委托开发等待开发路线图": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "开发路线图"
+                ],
+                "roi": [
+                    145,
+                    9,
+                    225,
+                    56
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_委托开发选择机体"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_委托开发选择机体": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "角色要求委托开发选择机体"
+            }
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_委托开发等待全部开发"
+        ],
+        "on_error": [
+            "角色要求_委托开发返回状态轮询"
+        ]
+    },
+    "角色要求_委托开发等待全部开发": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000,
+        "next": [
+            "角色要求_点击全部开发交付机体"
+        ],
+        "on_error": [
+            "角色要求_委托开发返回状态轮询"
+        ]
+    },
+    "角色要求_委托开发返回状态轮询": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 12000,
+        "next": [
+            "角色要求_委托开发已回详情并跳过",
+            "角色要求_委托开发点击返回"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_委托开发点击返回": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 5000,
+        "next": [
+            "角色要求_委托开发返回状态轮询"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "max_hit": 3,
+        "post_wait_freezes": 500
+    },
+    "角色要求_委托开发已回详情并跳过": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "角色要求"
+                ],
+                "roi": [
+                    120,
+                    20,
+                    360,
+                    90
+                ]
+            }
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "角色要求当前执行标记跳过",
+                "custom_action_param": {
+                    "reason": "未找到可开发机体"
+                }
+            }
+        },
+        "timeout": 5000
+    },
+    "角色要求_委托开发_N特征": {
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    235,
+                    80,
+                    1045,
+                    640
+                ],
+                "template": [
+                    "角色要求/委托开发_N.png",
+                    "角色要求/委托开发_N小.png"
+                ],
+                "detector": "SIFT",
+                "count": 4,
+                "ratio": 0.6,
+                "order_by": "Score"
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000
+    },
+    "角色要求_委托开发_N颜色": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    1,
+                    1
+                ],
+                "method": 40,
+                "lower": [
+                    [
+                        0,
+                        0,
+                        90
+                    ]
+                ],
+                "upper": [
+                    [
+                        179,
+                        35,
+                        240
+                    ]
+                ],
+                "count": 1,
+                "connected": false
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000
+    },
+    "角色要求_委托开发_R特征": {
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    235,
+                    80,
+                    1045,
+                    640
+                ],
+                "template": [
+                    "角色要求/委托开发_R.png",
+                    "角色要求/委托开发_R小.png"
+                ],
+                "detector": "SIFT",
+                "count": 4,
+                "ratio": 0.6,
+                "order_by": "Score"
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000
+    },
+    "角色要求_委托开发_R颜色": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    1,
+                    1
+                ],
+                "method": 40,
+                "lower": [
+                    [
+                        5,
+                        65,
+                        80
+                    ]
+                ],
+                "upper": [
+                    [
+                        27,
+                        255,
+                        242
+                    ]
+                ],
+                "count": 1,
+                "connected": false
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000
+    },
+    "角色要求_委托开发_SR特征": {
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    235,
+                    80,
+                    1045,
+                    640
+                ],
+                "template": [
+                    "角色要求/委托开发_SR.png",
+                    "角色要求/委托开发_SR小.png"
+                ],
+                "detector": "SIFT",
+                "count": 4,
+                "ratio": 0.6,
+                "order_by": "Score"
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000
+    },
+    "角色要求_委托开发_SR颜色": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    1,
+                    1
+                ],
+                "method": 40,
+                "lower": [
+                    [
+                        80,
+                        35,
+                        80
+                    ]
+                ],
+                "upper": [
+                    [
+                        103,
+                        255,
+                        255
+                    ]
+                ],
+                "count": 1,
+                "connected": false
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000
+    },
+    "角色要求_委托开发_SSR特征": {
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    235,
+                    80,
+                    1045,
+                    640
+                ],
+                "template": [
+                    "角色要求/委托开发_SSR.png"
+                ],
+                "detector": "SIFT",
+                "count": 4,
+                "ratio": 0.6,
+                "order_by": "Score"
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000
+    },
+    "角色要求_委托开发_SSR颜色": {
+        "recognition": {
+            "type": "ColorMatch",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    1,
+                    1
+                ],
+                "method": 40,
+                "lower": [
+                    [
+                        12,
+                        40,
+                        243
+                    ]
+                ],
+                "upper": [
+                    [
+                        35,
+                        255,
+                        255
+                    ]
+                ],
+                "count": 1,
+                "connected": false
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "timeout": 10000
+    }
+}

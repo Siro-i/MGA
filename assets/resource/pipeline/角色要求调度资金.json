@@ -1,0 +1,301 @@
+{
+    "角色要求_处理左角色调度资金": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "左",
+                    "type": "调度资金",
+                    "entry": "角色要求_调度资金操作轮询"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_处理中角色调度资金": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "中",
+                    "type": "调度资金",
+                    "entry": "角色要求_调度资金操作轮询"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_处理右角色调度资金": {
+        "action": {
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "右",
+                    "type": "调度资金",
+                    "entry": "角色要求_调度资金操作轮询"
+                }
+            },
+            "type": "Custom"
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 10000
+    },
+    "角色要求_检测左角色调度资金_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理左角色调度资金"
+        ],
+        "on_error": [
+            "角色要求_记录左角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "调度资金"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_检测中角色调度资金_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理中角色调度资金"
+        ],
+        "on_error": [
+            "角色要求_记录中角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "调度资金"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_检测右角色调度资金_全检查": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_处理右角色调度资金"
+        ],
+        "on_error": [
+            "角色要求_记录右角色跳过"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "调度资金"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 3000
+    },
+    "角色要求_调度资金操作轮询": {
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "next": [
+            "角色要求_承接调度资金",
+            "角色要求_交付调度资金"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_承接调度资金": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_调度资金接取剧情略过"
+        ],
+        "on_error": [
+            "角色要求_调度资金操作轮询"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "承接"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 5000
+    },
+    "角色要求_调度资金接取剧情略过": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_调度资金操作轮询"
+        ],
+        "on_error": [
+            "角色要求_调度资金操作轮询"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "略过"
+                ],
+                "roi": [
+                    1080,
+                    0,
+                    200,
+                    90
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 30000
+    },
+    "角色要求_交付调度资金": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_确认交付调度资金"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_确认交付调度资金": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_调度资金交付剧情略过"
+        ],
+        "on_error": [
+            "角色要求_回报后状态轮询"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "交付"
+                ],
+                "roi": [
+                    620,
+                    500,
+                    300,
+                    130
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 10000
+    },
+    "角色要求_调度资金交付剧情略过": {
+        "action": {
+            "param": {},
+            "type": "Click"
+        },
+        "next": [
+            "角色要求_回报后状态轮询"
+        ],
+        "on_error": [
+            "角色要求_回报后状态轮询"
+        ],
+        "recognition": {
+            "param": {
+                "expected": [
+                    "略过"
+                ],
+                "roi": [
+                    1085,
+                    20,
+                    190,
+                    60
+                ]
+            },
+            "type": "OCR"
+        },
+        "timeout": 30000
+    }
+}

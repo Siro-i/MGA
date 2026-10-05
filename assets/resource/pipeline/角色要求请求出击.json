@@ -1,0 +1,566 @@
+{
+    "角色要求_检测左角色请求出击_全检查": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "请求出击"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_处理左角色请求出击"
+        ]
+    },
+    "角色要求_检测中角色请求出击_全检查": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "请求出击"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_处理中角色请求出击"
+        ]
+    },
+    "角色要求_检测右角色请求出击_全检查": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "请求出击"
+                ],
+                "roi": [
+                    640,
+                    80,
+                    600,
+                    300
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_处理右角色请求出击"
+        ]
+    },
+    "角色要求_处理左角色请求出击": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "左",
+                    "type": "请求出击",
+                    "entry": "角色要求_请求出击入口状态分流"
+                }
+            }
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_左角色请求出击失败状态"
+        ]
+    },
+    "角色要求_处理中角色请求出击": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "中",
+                    "type": "请求出击",
+                    "entry": "角色要求_请求出击入口状态分流"
+                }
+            }
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_中角色请求出击失败状态"
+        ]
+    },
+    "角色要求_处理右角色请求出击": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "角色要求执行并记录",
+                "custom_action_param": {
+                    "slot": "右",
+                    "type": "请求出击",
+                    "entry": "角色要求_请求出击入口状态分流"
+                }
+            }
+        },
+        "next": [
+            "角色要求_等待角色列表_全检查"
+        ],
+        "on_error": [
+            "角色要求_右角色请求出击失败状态"
+        ]
+    },
+    "角色要求_左角色请求出击失败状态": {
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_左角色返回列表_全检查"
+        ]
+    },
+    "角色要求_中角色请求出击失败状态": {
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_中角色返回列表_全检查"
+        ]
+    },
+    "角色要求_右角色请求出击失败状态": {
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_右角色返回列表_全检查"
+        ]
+    },
+    "角色要求_请求出击入口状态分流": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击承接",
+            "角色要求_点击报告提交",
+            "角色要求_请求出击点击挑战"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_请求出击承接": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "承接"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击接取剧情略过"
+        ],
+        "on_error": [
+            "角色要求_请求出击接取后状态分流"
+        ],
+        "timeout": 5000
+    },
+    "角色要求_请求出击接取剧情略过": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "略过"
+                ],
+                "roi": [
+                    1080,
+                    0,
+                    200,
+                    90
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击接取后状态分流"
+        ],
+        "on_error": [
+            "角色要求_请求出击接取后状态分流"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_请求出击接取后状态分流": {
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_点击报告提交",
+            "角色要求_请求出击点击挑战"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_请求出击点击挑战": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "挑战"
+                ],
+                "roi": [
+                    961,
+                    530,
+                    245,
+                    85
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击界面确认"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 15000
+    },
+    "角色要求_请求出击界面确认": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "选择关卡"
+                ],
+                "roi": [
+                    139,
+                    9,
+                    187,
+                    51
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击选择关卡2"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 15000
+    },
+    "角色要求_请求出击选择关卡2": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "运行子任务",
+                "custom_action_param": {
+                    "entry": "角色要求_请求出击故事复位"
+                }
+            }
+        },
+        "next": [
+            "角色要求_请求出击执行略过"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_请求出击重试界面确认": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "选择关卡"
+                ],
+                "roi": [
+                    139,
+                    9,
+                    187,
+                    51
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击选择关卡3"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 15000
+    },
+    "角色要求_请求出击选择关卡3": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "运行子任务",
+                "custom_action_param": {
+                    "entry": "角色要求_请求出击故事复位",
+                    "pipeline_override": {
+                        "角色要求_请求出击关卡图像匹配": {
+                            "recognition": {
+                                "type": "FeatureMatch",
+                                "param": {
+                                    "roi": [
+                                        200,
+                                        385,
+                                        450,
+                                        245
+                                    ],
+                                    "template": [
+                                        "角色要求/请求出击关卡3.png"
+                                    ],
+                                    "detector": "SIFT",
+                                    "count": 4,
+                                    "ratio": 0.6,
+                                    "order_by": "Score"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "next": [
+            "角色要求_请求出击执行略过"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ]
+    },
+    "角色要求_请求出击故事复位": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    570,
+                    390,
+                    50,
+                    30
+                ],
+                "end": [
+                    [
+                        1130,
+                        390,
+                        50,
+                        30
+                    ]
+                ],
+                "duration": 150
+            }
+        },
+        "repeat": 3,
+        "post_wait_freezes": 300,
+        "next": [
+            "角色要求_请求出击关卡图像匹配"
+        ],
+        "timeout": 10000
+    },
+    "角色要求_请求出击关卡图像匹配": {
+        "recognition": {
+            "type": "FeatureMatch",
+            "param": {
+                "roi": [
+                    200,
+                    385,
+                    450,
+                    245
+                ],
+                "template": [
+                    "角色要求/请求出击关卡2.png"
+                ],
+                "detector": "SIFT",
+                "count": 4,
+                "ratio": 0.6,
+                "order_by": "Score"
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "timeout": 10000
+    },
+    "角色要求_请求出击执行略过": {
+        "recognition": {
+            "type": "DirectHit",
+            "param": {}
+        },
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "运行子任务",
+                "custom_action_param": {
+                    "entry": "略过关卡"
+                }
+            }
+        },
+        "next": [
+            "角色要求_请求出击返回交任务状态轮询"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 60000
+    },
+    "角色要求_请求出击返回交任务状态轮询": {
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击已回任务页报告",
+            "角色要求_请求出击继续挑战",
+            "角色要求_请求出击点击返回"
+        ],
+        "on_error": [
+            "角色要求_查找失败"
+        ],
+        "timeout": 30000,
+        "rate_limit": 500
+    },
+    "角色要求_请求出击已回任务页报告": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "报告"
+                ],
+                "roi": [
+                    900,
+                    520,
+                    330,
+                    150
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "next": [
+            "角色要求_点击报告提交"
+        ]
+    },
+    "角色要求_请求出击继续挑战": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "挑战"
+                ],
+                "roi": [
+                    961,
+                    530,
+                    245,
+                    85
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击重试界面确认"
+        ],
+        "max_hit": 10,
+        "timeout": 15000
+    },
+    "角色要求_请求出击点击返回": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    170,
+                    90
+                ],
+                "template": [
+                    "角色要求/返回按钮.png"
+                ],
+                "threshold": [
+                    0.75
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "next": [
+            "角色要求_请求出击返回交任务状态轮询"
+        ],
+        "max_hit": 8,
+        "post_wait_freezes": 500
+    }
+}

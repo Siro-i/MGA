@@ -22,7 +22,7 @@
     "task": [
         {
             "name": "日常",
-            "description": "包含商店、50AP消耗、战舰巡航、开发及强化任务",
+            "description": "包含商店、50AP消耗、战舰巡航、开发、强化任务及角色要求",
             "option": [
                 "可选日常"
             ],
@@ -1569,6 +1569,15 @@
         "可选日常": {
             "type": "checkbox",
             "cases": [
+                {
+                    "name": "角色要求",
+                    "description": "进入个人基地查找并处理角色要求",
+                    "pipeline_override": {
+                        "日常_角色要求": {
+                            "enabled": true
+                        }
+                    }
+                },
                 {
                     "name": "商店任务",
                     "description": "购买商店每日免费道具",
