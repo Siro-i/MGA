@@ -107,6 +107,19 @@
                 "故事扫荡模式",
                 "体力不足时使用体力包"
             ]
+        },
+        {
+            "name": "启动游戏",
+            "description": "通过 ADB 执行 StartApp 拉起游戏包",
+            "entry": "启动游戏入口"
+        },
+        {
+            "name": "启动加速器",
+            "description": "通过 ADB 执行 StartApp 拉起加速器；在任务选项选择加速器类型",
+            "entry": "启动加速器入口",
+            "option": [
+                "加速器类型"
+            ]
         }
     ],
     "option": {
@@ -1621,6 +1634,58 @@
                             "next": [
                                 "进入主要关卡"
                             ]
+                        }
+                    }
+                }
+            ]
+        },
+        "加速器类型": {
+            "type": "select",
+            "label": "加速器",
+            "description": "各分支会复写 StartApp 包名与「加速」按钮模板。腾讯分支默认仅包名 com.tencent.cmocmna；若无法启动，请在设备上执行 adb shell cmd package resolve-activity --brief com.tencent.cmocmna，将输出的组件名填回本项对应 case 的 package 字段（包名/Activity）。",
+            "default_case": "网易UU",
+            "cases": [
+                {
+                    "name": "网易UU",
+                    "label": "网易UU加速器",
+                    "pipeline_override": {
+                        "启动加速器执行": {
+                            "action": {
+                                "param": {
+                                    "package": "com.netease.uu/.activity.LaunchActivity"
+                                },
+                                "type": "StartApp"
+                            }
+                        },
+                        "加速器原生_点加速": {
+                            "recognition": {
+                                "param": {
+                                    "template": "加速器/UU_Boost.PNG"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "腾讯手游加速器",
+                    "label": "腾讯手游加速器",
+                    "pipeline_override": {
+                        "启动加速器执行": {
+                            "action": {
+                                "param": {
+                                    "package": "com.tencent.cmocmna"
+                                },
+                                "type": "StartApp"
+                            }
+                        },
+                        "加速器原生_点加速": {
+                            "recognition": {
+                                "param": {
+                                    "template": "加速器/TC_Boost.PNG"
+                                },
+                                "type": "TemplateMatch"
+                            }
                         }
                     }
                 }
