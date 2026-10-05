@@ -22,7 +22,7 @@
     "task": [
         {
             "name": "日常",
-            "description": "包含商店、战舰巡航、开发、强化任务",
+            "description": "包含商店、50AP消耗、战舰巡航、开发及强化任务",
             "option": [
                 "可选日常"
             ],
@@ -1610,6 +1610,15 @@
                     "description": "进入使命中进行全部领取",
                     "pipeline_override": {
                         "日常奖励": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "50AP消耗任务",
+                    "description": "默认扫荡0079HARD1以及HARD3",
+                    "pipeline_override": {
+                        "AP消耗": {
                             "enabled": true
                         }
                     }
