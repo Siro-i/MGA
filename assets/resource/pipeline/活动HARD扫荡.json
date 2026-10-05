@@ -1,0 +1,632 @@
+{
+    "活动HARD扫荡入口": {
+        "timeout": 5000,
+        "next": [
+            "活动HARD扫荡_状态轮询"
+        ],
+        "on_error": [
+            "活动HARD扫荡结束"
+        ]
+    },
+    "活动HARD扫荡_状态轮询": {
+        "timeout": 60000,
+        "rate_limit": 1000,
+        "next": [
+            "活动HARD扫荡_执行HARD扫荡",
+            "活动HARD扫荡_活动页点击事件关卡",
+            "活动HARD扫荡_点击事件关卡",
+            "活动HARD扫荡_选择活动",
+            "活动HARD扫荡_点击事件",
+            "活动HARD扫荡_点击关卡"
+        ],
+        "on_error": [
+            "活动HARD扫荡错误退出"
+        ]
+    },
+    "活动HARD扫荡_点击关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    525,
+                    650,
+                    215,
+                    70
+                ],
+                "expected": [
+                    "关卡"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 8000,
+        "next": [
+            "活动HARD扫荡_状态轮询"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡_点击事件": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    702,
+                    74,
+                    253,
+                    246
+                ],
+                "expected": [
+                    "事件"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 8000,
+        "next": [
+            "活动HARD扫荡_选择活动"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡_选择活动": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    20,
+                    80,
+                    240,
+                    130
+                ],
+                "template": [
+                    "活动扫荡/00F.png"
+                ],
+                "threshold": [
+                    0.65
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 30000,
+        "rate_limit": 1000,
+        "next": [
+            "活动HARD扫荡_点击前往事件"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡_点击前往事件": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    360,
+                    1280,
+                    360
+                ],
+                "template": [
+                    "前往事件.PNG"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1500,
+        "timeout": 10000,
+        "next": [
+            "活动HARD扫荡_活动页点击事件关卡"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡_活动页点击事件关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    690,
+                    305,
+                    285,
+                    95
+                ],
+                "expected": [
+                    "事件关卡"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    705,
+                    320,
+                    255,
+                    70
+                ]
+            }
+        },
+        "post_wait_freezes": 1500,
+        "timeout": 30000,
+        "rate_limit": 1000,
+        "next": [
+            "活动HARD扫荡_事件关卡加载等待"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡_点击事件关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    0,
+                    0,
+                    360,
+                    720
+                ],
+                "expected": [
+                    "事件关卡"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1500,
+        "timeout": 10000,
+        "next": [
+            "活动HARD扫荡_事件关卡加载等待"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡_事件关卡加载等待": {
+        "timeout": 60000,
+        "rate_limit": 1000,
+        "next": [
+            "活动HARD扫荡_执行HARD扫荡",
+            "活动HARD扫荡_事件关卡加载完成"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡_事件关卡加载完成": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    0,
+                    120,
+                    720,
+                    430
+                ],
+                "expected": [
+                    "NEXT",
+                    "COMPLETE",
+                    "HARD"
+                ]
+            }
+        },
+        "timeout": 1000,
+        "next": [
+            "活动HARD扫荡_状态轮询"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡_执行HARD扫荡": {
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "roi": [
+                    0,
+                    80,
+                    720,
+                    560
+                ],
+                "template": [
+                    "HARD1.png",
+                    "HARD1_light.png",
+                    "HARD2.png",
+                    "HARD2_light.png",
+                    "HARD3.png",
+                    "HARD3_light.png",
+                    "HARD4.png",
+                    "HARD5.png"
+                ],
+                "threshold": [
+                    0.65,
+                    0.65,
+                    0.65,
+                    0.65,
+                    0.65,
+                    0.65,
+                    0.65,
+                    0.65
+                ]
+            }
+        },
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 5000,
+        "next": [
+            "活动HARD扫荡关卡右复位"
+        ],
+        "on_error": [
+            "活动HARD扫荡_状态轮询"
+        ]
+    },
+    "活动HARD扫荡关卡右复位": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    325,
+                    297,
+                    63,
+                    14
+                ],
+                "end": [
+                    [
+                        352,
+                        303,
+                        38,
+                        10
+                    ]
+                ]
+            }
+        },
+        "post_wait_freezes": 300,
+        "next": [
+            "活动HARD扫荡_HARD1",
+            "活动HARD扫荡_HARD2",
+            "活动HARD扫荡_HARD3",
+            "活动HARD扫荡_HARD4",
+            "活动HARD扫荡_HARD5",
+            "活动HARD扫荡结束"
+        ]
+    },
+    "活动HARD扫荡_HARD1": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD1"
+                    ],
+                    "skip_task": "活动HARD扫荡_略过关卡",
+                    "skip_optional": true
+                }
+            }
+        },
+        "next": [
+            "活动HARD扫荡_HARD2",
+            "活动HARD扫荡_HARD3",
+            "活动HARD扫荡_HARD4",
+            "活动HARD扫荡_HARD5",
+            "活动HARD扫荡结束"
+        ],
+        "on_error": [
+            "活动HARD扫荡错误退出"
+        ]
+    },
+    "活动HARD扫荡_HARD2": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD2"
+                    ],
+                    "skip_task": "活动HARD扫荡_略过关卡",
+                    "skip_optional": true
+                }
+            }
+        },
+        "next": [
+            "活动HARD扫荡_HARD3",
+            "活动HARD扫荡_HARD4",
+            "活动HARD扫荡_HARD5",
+            "活动HARD扫荡结束"
+        ],
+        "on_error": [
+            "活动HARD扫荡错误退出"
+        ]
+    },
+    "活动HARD扫荡_HARD3": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD3"
+                    ],
+                    "skip_task": "活动HARD扫荡_略过关卡",
+                    "skip_optional": true
+                }
+            }
+        },
+        "next": [
+            "活动HARD扫荡_HARD4",
+            "活动HARD扫荡_HARD5",
+            "活动HARD扫荡结束"
+        ],
+        "on_error": [
+            "活动HARD扫荡错误退出"
+        ]
+    },
+    "活动HARD扫荡_HARD4": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD4"
+                    ],
+                    "skip_task": "活动HARD扫荡_略过关卡",
+                    "skip_optional": true
+                }
+            }
+        },
+        "next": [
+            "活动HARD扫荡_HARD5",
+            "活动HARD扫荡结束"
+        ],
+        "on_error": [
+            "活动HARD扫荡错误退出"
+        ]
+    },
+    "活动HARD扫荡_HARD5": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD5"
+                    ],
+                    "skip_task": "活动HARD扫荡_略过关卡",
+                    "skip_optional": true
+                }
+            }
+        },
+        "next": [
+            "活动HARD扫荡结束"
+        ],
+        "on_error": [
+            "活动HARD扫荡错误退出"
+        ]
+    },
+    "活动HARD扫荡_略过关卡": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    1010,
+                    430,
+                    220,
+                    90
+                ],
+                "expected": [
+                    "略过"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {
+                "target": [
+                    1030,
+                    445,
+                    170,
+                    55
+                ]
+            }
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 10000,
+        "next": [
+            "活动HARD扫荡_执行关卡略过"
+        ],
+        "on_error": [
+            "活动HARD扫荡_略过不可用"
+        ]
+    },
+    "活动HARD扫荡_执行关卡略过": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    430,
+                    500,
+                    420,
+                    160
+                ],
+                "expected": [
+                    "执行"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 10000,
+        "next": [
+            "活动HARD扫荡_略过完成",
+            "活动HARD扫荡_补充体力_选择体力包",
+            "活动HARD扫荡_体力不足退出"
+        ],
+        "on_error": [
+            "活动HARD扫荡_略过不可用"
+        ]
+    },
+    "活动HARD扫荡_略过不可用": {
+        "action": {
+            "type": "DoNothing",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "活动 HARD 当前关卡未找到可用略过，继续后续关卡"
+        }
+    },
+    "活动HARD扫荡_略过完成": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "OK",
+                    "0K",
+                    "@K"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 10000
+    },
+    "活动HARD扫荡_补充体力_选择体力包": {
+        "enabled": false,
+        "max_hit": 3,
+        "recognition": {
+            "type": "TemplateMatch",
+            "param": {
+                "template": "体力包.png",
+                "threshold": 0.75
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 500,
+        "timeout": 10000,
+        "next": [
+            "活动HARD扫荡_补充体力_执行"
+        ],
+        "on_error": [
+            "活动HARD扫荡_体力不足退出"
+        ]
+    },
+    "活动HARD扫荡_补充体力_执行": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "执行"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 10000,
+        "next": [
+            "活动HARD扫荡_补充体力_关闭"
+        ],
+        "on_error": [
+            "活动HARD扫荡_体力不足退出"
+        ]
+    },
+    "活动HARD扫荡_补充体力_关闭": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "关闭"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "post_wait_freezes": 1000,
+        "timeout": 10000,
+        "next": [
+            "活动HARD扫荡_执行关卡略过"
+        ],
+        "on_error": [
+            "活动HARD扫荡_体力不足退出"
+        ]
+    },
+    "活动HARD扫荡_体力不足退出": {
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "expected": [
+                    "关闭"
+                ]
+            }
+        },
+        "action": {
+            "type": "Click",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "活动 HARD 扫荡体力不足，关闭弹窗并停止任务"
+        },
+        "next": [
+            "活动HARD扫荡结束"
+        ]
+    },
+    "活动HARD扫荡错误退出": {
+        "action": {
+            "type": "StopTask",
+            "param": {}
+        },
+        "focus": {
+            "Node.Action.Succeeded": "活动 HARD 扫荡意外错误"
+        }
+    },
+    "活动HARD扫荡结束": {
+        "action": {
+            "type": "StopTask",
+            "param": {}
+        },
+        "focus": "活动 HARD 扫荡完成"
+    }
+}
