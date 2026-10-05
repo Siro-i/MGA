@@ -25,12 +25,10 @@
     "材料本入口": {
         "timeout": 5000,
         "next": [
-            "主页面检测"
-        ],
-        "on_error": [
+            "主页面检测",
             {
-                "name": "返回主画面入口",
-                "jump_back": true
+                "jump_back": true,
+                "name": "新建节点5"
             }
         ],
         "$__mpe_code": {
@@ -38,16 +36,24 @@
                 "x": -553,
                 "y": 412
             }
+        },
+        "action": {
+            "param": {},
+            "type": "DoNothing"
+        },
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
         }
     },
     "主页面检测": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "RANK"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "timeout": 5000,
         "next": [
@@ -58,18 +64,29 @@
                 "x": -126,
                 "y": 276
             }
+        },
+        "action": {
+            "param": {},
+            "type": "DoNothing"
         }
     },
     "进入关卡": {
         "recognition": {
-            "type": "OCR",
             "param": {
+                "roi": [
+                    525,
+                    650,
+                    215,
+                    70
+                ],
                 "expected": [
                     "关卡"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -84,32 +101,33 @@
     },
     "进入强化培育关卡": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "强化培育"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
             {
-                "name": "进入CAPITAL材料",
-                "jump_back": true
+                "jump_back": true,
+                "name": "进入CAPITAL材料"
             },
             {
-                "name": "进入单位材料",
-                "jump_back": true
+                "jump_back": true,
+                "name": "进入单位材料"
             },
             {
-                "name": "进入角色材料",
-                "jump_back": true
+                "jump_back": true,
+                "name": "进入角色材料"
             },
             {
-                "name": "进入支援人员材料",
-                "jump_back": true
+                "jump_back": true,
+                "name": "进入支援人员材料"
             }
         ],
         "$__mpe_code": {
@@ -122,14 +140,15 @@
     "进入CAPITAL材料": {
         "max_hit": 1,
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "CAPITAL"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -144,14 +163,15 @@
     },
     "执行略过": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "略过"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "timeout": 2000,
@@ -174,14 +194,15 @@
     },
     "确认略过": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "执行"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -197,14 +218,15 @@
     "返回上级": {
         "max_hit": 3,
         "recognition": {
-            "type": "TemplateMatch",
             "param": {
                 "template": [
                     "返回.png"
                 ]
-            }
+            },
+            "type": "TemplateMatch"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "$__mpe_code": {
@@ -217,14 +239,15 @@
     "进入单位材料": {
         "max_hit": 1,
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "单位"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -240,14 +263,15 @@
     "进入角色材料": {
         "max_hit": 1,
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "角色"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -263,14 +287,15 @@
     "进入支援人员材料": {
         "max_hit": 1,
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "支援人员"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -285,14 +310,17 @@
     },
     "领取奖励": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
-                    "OK"
+                    "OK",
+                    "@K",
+                    "0K"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -308,6 +336,7 @@
     },
     "任务结束出口": {
         "action": {
+            "param": {},
             "type": "StopTask"
         },
         "focus": {
@@ -318,6 +347,26 @@
                 "x": 2011,
                 "y": 411
             }
+        },
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
         }
+    },
+    "新建节点5": {
+        "action": {
+            "param": {
+                "custom_action": "强制返回主页"
+            },
+            "type": "Custom"
+        },
+        "focus": {
+            "Node.Action.Failed": "MGA_TASK_FAILED: 强制返回主页失败"
+        },
+        "recognition": {
+            "param": {},
+            "type": "DirectHit"
+        },
+        "timeout": 5000
     }
 }

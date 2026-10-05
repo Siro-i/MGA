@@ -68,14 +68,15 @@
     },
     "下一步点击": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "TAP"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "repeat": 2,
@@ -89,14 +90,15 @@
     },
     "全部开发": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "全部开发"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "timeout": 5000,
@@ -185,20 +187,21 @@
     },
     "开始执行解体": {
         "recognition": {
-            "type": "OCR",
             "param": {
+                "expected": [
+                    "执行"
+                ],
                 "roi": [
                     716,
                     646,
                     97,
                     35
-                ],
-                "expected": [
-                    "执行"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -213,20 +216,21 @@
     },
     "执行解体": {
         "recognition": {
-            "type": "OCR",
             "param": {
+                "expected": [
+                    "执行解体"
+                ],
                 "roi": [
                     691,
                     635,
                     154,
                     54
-                ],
-                "expected": [
-                    "执行解体"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -242,14 +246,15 @@
     },
     "批量开发入口": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "开发"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -264,15 +269,15 @@
     },
     "新建节点3": {
         "action": {
+            "param": {
+                "custom_action": "强制返回主页"
+            },
             "type": "Custom"
         },
         "timeout": 5000,
         "focus": {
-            "Node.Action.Failed": "强制返回主页失败"
+            "Node.Action.Failed": "MGA_TASK_FAILED: 强制返回主页失败"
         },
-        "next": [
-            "返回主画面入口"
-        ],
         "$__mpe_code": {
             "position": {
                 "x": -177,
@@ -282,7 +287,6 @@
     },
     "点击61车": {
         "recognition": {
-            "type": "TemplateMatch",
             "param": {
                 "template": [
                     "61车.png"
@@ -290,9 +294,11 @@
                 "threshold": [
                     0.9
                 ]
-            }
+            },
+            "type": "TemplateMatch"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -307,14 +313,15 @@
     },
     "点击强化": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "强化"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -329,14 +336,15 @@
     },
     "点击执行开发": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "执行开发"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "post_wait_freezes": 200,
@@ -352,14 +360,15 @@
     },
     "点击最大值": {
         "recognition": {
-            "type": "TemplateMatch",
             "param": {
                 "template": [
                     "最大值.png"
                 ]
-            }
+            },
+            "type": "TemplateMatch"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -374,21 +383,22 @@
     },
     "点击确认执行": {
         "recognition": {
-            "type": "OCR",
             "param": {
+                "expected": [
+                    "执行"
+                ],
                 "roi": [
                     699,
                     636,
                     136,
                     54
-                ],
-                "expected": [
-                    "执行"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "pre_wait_freezes": 200,
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -403,14 +413,15 @@
     },
     "点击自动解体": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "自动解体"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "post_wait_freezes": 200,
@@ -426,14 +437,15 @@
     },
     "点击重置": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "重置"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "post_wait_freezes": 200,
@@ -469,20 +481,21 @@
     },
     "确定解体单位": {
         "recognition": {
-            "type": "OCR",
             "param": {
+                "expected": [
+                    "解体"
+                ],
                 "roi": [
                     1008,
                     553,
                     221,
                     65
-                ],
-                "expected": [
-                    "解体"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "timeout": 2000,
@@ -501,14 +514,17 @@
     },
     "确认结果": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
-                    "OK"
+                    "OK",
+                    "0K",
+                    "@K"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "$__mpe_code": {
@@ -556,14 +572,15 @@
     },
     "自动解体配置确定": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "确定"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "post_wait_freezes": 500,
@@ -616,6 +633,7 @@
     },
     "达到目标GP退出": {
         "action": {
+            "param": {},
             "type": "StopTask"
         },
         "focus": {
@@ -630,14 +648,15 @@
     },
     "进入开发页面": {
         "recognition": {
-            "type": "TemplateMatch",
             "param": {
                 "template": [
                     "0079.png"
                 ]
-            }
+            },
+            "type": "TemplateMatch"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -652,14 +671,15 @@
     },
     "进入解体页面": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
                     "解体"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
@@ -674,14 +694,17 @@
     },
     "退出解体": {
         "recognition": {
-            "type": "OCR",
             "param": {
                 "expected": [
-                    "OK"
+                    "OK",
+                    "0K",
+                    "@K"
                 ]
-            }
+            },
+            "type": "OCR"
         },
         "action": {
+            "param": {},
             "type": "Click"
         },
         "next": [
