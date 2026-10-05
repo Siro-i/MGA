@@ -1,0 +1,152 @@
+{
+    "故事扫荡入口": {
+        "timeout": 5000,
+        "next": [
+            "检测主画面",
+            {
+                "name": "主页返回",
+                "jump_back": true
+            }
+        ]
+    },
+    "故事扫荡关卡右复位": {
+        "action": {
+            "type": "Swipe",
+            "param": {
+                "begin": [
+                    325,
+                    297,
+                    63,
+                    14
+                ],
+                "end": [
+                    [
+                        352,
+                        303,
+                        38,
+                        10
+                    ]
+                ]
+            }
+        },
+        "post_wait_freezes": 300,
+        "next": [
+            "故事扫荡_HARD1",
+            "故事扫荡_HARD2",
+            "故事扫荡_HARD3",
+            "故事扫荡_HARD4",
+            "故事扫荡_HARD5",
+            "战斗出口"
+        ]
+    },
+    "故事扫荡_HARD1": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD1"
+                    ]
+                }
+            }
+        },
+        "next": [
+            "故事扫荡_HARD2",
+            "故事扫荡_HARD3",
+            "故事扫荡_HARD4",
+            "故事扫荡_HARD5",
+            "战斗出口"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    },
+    "故事扫荡_HARD2": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD2"
+                    ]
+                }
+            }
+        },
+        "next": [
+            "故事扫荡_HARD3",
+            "故事扫荡_HARD4",
+            "故事扫荡_HARD5",
+            "战斗出口"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    },
+    "故事扫荡_HARD3": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD3"
+                    ]
+                }
+            }
+        },
+        "next": [
+            "故事扫荡_HARD4",
+            "故事扫荡_HARD5",
+            "战斗出口"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    },
+    "故事扫荡_HARD4": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD4"
+                    ]
+                }
+            }
+        },
+        "next": [
+            "故事扫荡_HARD5",
+            "战斗出口"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    },
+    "故事扫荡_HARD5": {
+        "enabled": false,
+        "action": {
+            "type": "Custom",
+            "param": {
+                "custom_action": "BatchStageSweep",
+                "custom_action_param": {
+                    "stage_targets": [
+                        "HARD5"
+                    ]
+                }
+            }
+        },
+        "next": [
+            "战斗出口"
+        ],
+        "on_error": [
+            "战斗寻找错误退出"
+        ]
+    }
+}
