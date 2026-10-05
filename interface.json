@@ -117,6 +117,15 @@
             "option": [
                 "加速器类型"
             ]
+        },
+        {
+            "name": "活动HARD扫荡",
+            "entry": "活动HARD扫荡入口",
+            "option": [
+                "活动HARD扫荡关卡",
+                "体力不足时使用体力包"
+            ],
+            "description": "按勾选的 HARD 关卡批量扫荡，略过不可用时继续下一关。"
         }
     ],
     "option": {
@@ -1549,7 +1558,15 @@
                         "补充体力_选择体力包": {
                             "enabled": true
                         },
+                        "活动HARD扫荡_补充体力_选择体力包": {
+                            "enabled": true
+                        },
                         "体力不够退出": {
+                            "focus": {
+                                "Node.Action.Succeeded": "MGA_TASK_FAILED: 体力不足且补充体力失败，退出任务"
+                            }
+                        },
+                        "活动HARD扫荡_体力不足退出": {
                             "focus": {
                                 "Node.Action.Succeeded": "MGA_TASK_FAILED: 体力不足且补充体力失败，退出任务"
                             }
@@ -1660,6 +1677,99 @@
                                 },
                                 "type": "TemplateMatch"
                             }
+                        }
+                    }
+                },
+                {
+                    "name": "活动扫荡",
+                    "label": "活动扫荡",
+                    "option": [
+                        "活动扫荡关卡"
+                    ],
+                    "pipeline_override": {
+                        "故事扫荡入口": {
+                            "next": [
+                                "活动扫荡_状态轮询"
+                            ],
+                            "on_error": [
+                                "战斗出口"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "活动扫荡关卡": {
+            "type": "checkbox",
+            "description": "选择活动扫荡的 HARD1 到 HARD3；按顺序执行，不处理 BOSS EXPERT。",
+            "cases": [
+                {
+                    "name": "HARD1",
+                    "pipeline_override": {
+                        "活动扫荡_选中HARD1": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD2",
+                    "pipeline_override": {
+                        "活动扫荡_选中HARD2": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD3",
+                    "pipeline_override": {
+                        "活动扫荡_选中HARD3": {
+                            "enabled": true
+                        }
+                    }
+                }
+            ]
+        },
+        "活动HARD扫荡关卡": {
+            "type": "checkbox",
+            "description": "选择需要扫荡的活动 HARD 关卡；执行顺序固定为 HARD1 到 HARD5。",
+            "cases": [
+                {
+                    "name": "HARD1",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD1": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD2",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD2": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD3",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD3": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD4",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD4": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD5",
+                    "pipeline_override": {
+                        "活动HARD扫荡_HARD5": {
+                            "enabled": true
                         }
                     }
                 }
