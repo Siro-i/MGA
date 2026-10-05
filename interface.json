@@ -57,7 +57,12 @@
             "description": "从主画面进入关卡页后，依次进入事件、选择强敌来袭并点击前往事件",
             "option": [
                 "强敌来袭目标"
-            ]
+            ],
+            "pipeline_override": {
+                "强敌来袭：略过合法性检测": {
+                    "enabled": false
+                }
+            }
         },
         {
             "name": "GP任务",
@@ -181,9 +186,17 @@
                         "战斗入口": {
                             "timeout": 5000,
                             "next": [
-                                "强敌来袭：检测主画面",
+                                "检测主画面",
                                 "[JumpBack]强敌来袭：主页返回"
                             ]
+                        },
+                        "开始进入关卡": {
+                            "next": [
+                                "强敌来袭：进入事件关"
+                            ]
+                        },
+                        "强敌来袭：略过合法性检测": {
+                            "enabled": false
                         }
                     }
                 }
@@ -193,13 +206,13 @@
             "description": "选择强敌来袭活动名称",
             "cases": [
                 {
-                    "name": "斯德毕尔",
+                    "name": "里格・林格",
                     "pipeline_override": {
                         "强敌来袭：选择机体": {
                             "recognition": {
                                 "param": {
                                     "template": [
-                                        "强敌来袭/斯德毕尔.PNG"
+                                        "强敌来袭/里格・林格.PNG"
                                     ]
                                 },
                                 "type": "TemplateMatch"
@@ -207,6 +220,156 @@
                         },
                         "进入历史战斗": {
                             "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "NT-X",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/NT-X.PNG"
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史战斗": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "骑士高达（半人马型态）",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/骑士高达（半人马型态）.PNG"
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史战斗": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "武者亡灵",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/武者亡灵.PNG"
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史战斗": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "古罗连",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗_匹配": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/古罗连.PNG"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "斯德毕尔",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗_匹配": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/斯德毕尔.PNG"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "高达F90（火星独立吉翁军规格）",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗_匹配": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/高达F90（火星独立吉翁军规格）.PNG"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "高达Mk-IV",
+                    "pipeline_override": {
+                        "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗_匹配": {
+                            "recognition": {
+                                "param": {
+                                    "template": [
+                                        "强敌来袭/历史战斗/高达Mk-IV.PNG"
+                                    ],
+                                    "threshold": [
+                                        0.65
+                                    ]
+                                },
+                                "type": "TemplateMatch"
+                            }
                         }
                     }
                 },
@@ -214,17 +377,23 @@
                     "name": "G猎鹰GX",
                     "pipeline_override": {
                         "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
-                                        "强敌来袭/G猎鹰GX.PNG"
+                                        "强敌来袭/历史战斗/G猎鹰GX.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
                                     ]
                                 },
                                 "type": "TemplateMatch"
                             }
-                        },
-                        "进入历史战斗": {
-                            "enabled": false
                         }
                     }
                 },
@@ -232,17 +401,23 @@
                     "name": "G西福斯",
                     "pipeline_override": {
                         "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
-                                        "强敌来袭/G西福斯.PNG"
+                                        "强敌来袭/历史战斗/G西福斯.png"
+                                    ],
+                                    "threshold": [
+                                        0.65
                                     ]
                                 },
                                 "type": "TemplateMatch"
                             }
-                        },
-                        "进入历史战斗": {
-                            "enabled": false
                         }
                     }
                 },
@@ -250,17 +425,23 @@
                     "name": "扎古战士（演唱会式样）",
                     "pipeline_override": {
                         "强敌来袭：选择机体": {
+                            "enabled": false
+                        },
+                        "进入历史战斗": {
+                            "enabled": true
+                        },
+                        "寻找目标历史战斗_匹配": {
                             "recognition": {
                                 "param": {
                                     "template": [
-                                        "强敌来袭/扎古战士（演唱会式样）.PNG"
+                                        "强敌来袭/历史战斗/扎古战士（演唱会式样）.PNG"
+                                    ],
+                                    "threshold": [
+                                        0.65
                                     ]
                                 },
                                 "type": "TemplateMatch"
                             }
-                        },
-                        "进入历史战斗": {
-                            "enabled": false
                         }
                     }
                 },
@@ -1603,6 +1784,32 @@
                             "next": [
                                 "进入主要关卡"
                             ]
+                        }
+                    }
+                },
+                {
+                    "name": "强敌来袭",
+                    "label": "强敌来袭",
+                    "option": [
+                        "强敌来袭目标",
+                        "是否开启自动战斗",
+                        "自动战斗次数"
+                    ],
+                    "pipeline_override": {
+                        "故事扫荡入口": {
+                            "timeout": 5000,
+                            "next": [
+                                "检测主画面",
+                                "[JumpBack]强敌来袭：主页返回"
+                            ]
+                        },
+                        "开始进入关卡": {
+                            "next": [
+                                "强敌来袭：进入事件关"
+                            ]
+                        },
+                        "强敌来袭：略过合法性检测": {
+                            "enabled": true
                         }
                     }
                 }
