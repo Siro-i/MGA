@@ -39,13 +39,17 @@
             "entry": "战斗入口",
             "description": "Interface V2 嵌套选项：先选战斗模式，再显示对应子项。主线沿用战斗管线；强敌模式将入口跳转到强敌来袭管线（需已加载 pipeline/强敌来袭.json）。",
             "option": [
-                "战斗模式V2"
+                "战斗模式V2",
+                "体力不足时使用体力包"
             ]
         },
         {
             "name": "故事开荒",
             "entry": "故事开荒入口",
-            "description": "从当前故事/事件关卡页开始，连续推进 NEXT 关卡直到无下一关。"
+            "description": "从当前故事/事件关卡页开始，连续推进 NEXT 关卡直到无下一关。",
+            "option": [
+                "故事开荒体力包"
+            ]
         },
         {
             "name": "强敌来袭",
@@ -95,6 +99,13 @@
             }
         },
         {
+            "name": "故事扫荡",
+            "label": "故事扫荡",
+            "entry": "故事扫荡入口",
+            "description": "进入一个故事后，按勾选的 HARD 关卡顺序连续扫荡；找不到的关卡会跳过。",
+            "option": [
+                "故事扫荡模式",
+                "体力不足时使用体力包"
             "name": "启动游戏",
             "description": "通过 ADB 执行 StartApp 拉起游戏包",
             "entry": "启动游戏入口"
@@ -139,10 +150,17 @@
                     "option": [
                         "主线故事选择",
                         "关卡选择",
-                        "是否略过",
+                        "是否开启自动战斗",
                         "是否跳过隐藏boss战斗",
                         "自动战斗次数"
-                    ]
+                    ],
+                    "pipeline_override": {
+                        "开始进入关卡": {
+                            "next": [
+                                "进入主要关卡"
+                            ]
+                        }
+                    }
                 },
                 {
                     "name": "历史故事",
@@ -150,16 +168,23 @@
                     "option": [
                         "历史故事选择",
                         "关卡选择",
-                        "是否略过",
+                        "是否开启自动战斗",
                         "自动战斗次数"
-                    ]
+                    ],
+                    "pipeline_override": {
+                        "开始进入关卡": {
+                            "next": [
+                                "进入主要关卡"
+                            ]
+                        }
+                    }
                 },
                 {
                     "name": "强敌来袭",
                     "label": "强敌来袭",
                     "option": [
                         "强敌来袭目标",
-                        "是否略过",
+                        "是否开启自动战斗",
                         "自动战斗次数"
                     ],
                     "pipeline_override": {
@@ -828,6 +853,44 @@
                     }
                 },
                 {
+                    "name": "F91",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                                "param": {
+                                    "template": "机动战士高达F91.png"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位": {
+                            "enabled": true
+                        },
+                        "进入历史关卡": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "V",
+                    "pipeline_override": {
+                        "寻找目标故事": {
+                            "recognition": {
+                                "param": {
+                                    "template": "机动战士V高达.png"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "主线左复位": {
+                            "enabled": true
+                        },
+                        "进入历史关卡": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
                     "name": "AGE",
                     "pipeline_override": {
                         "寻找目标故事": {
@@ -887,8 +950,35 @@
             ]
         },
         "历史故事选择": {
-            "description": "选择主线故事",
+            "description": "选择历史故事",
             "cases": [
+                {
+                    "name": "Stargazer",
+                    "label": "Stargazer",
+                    "pipeline_override": {
+                        "寻找目标历史关卡": {
+                            "recognition": {
+                                "type": "TemplateMatch",
+                                "param": {
+                                    "template": [
+                                        "活动扫荡/stargazer_inner.png",
+                                        "活动扫荡/stargazer.png"
+                                    ],
+                                    "threshold": [
+                                        0.62,
+                                        0.65
+                                    ]
+                                }
+                            }
+                        },
+                        "进入历史关卡": {
+                            "enabled": true
+                        },
+                        "主线左复位": {
+                            "enabled": false
+                        }
+                    }
+                },
                 {
                     "name": "雷霆宙域",
                     "pipeline_override": {
@@ -972,6 +1062,82 @@
                             "recognition": {
                                 "param": {
                                     "template": "BD.png"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史关卡": {
+                            "enabled": true
+                        },
+                        "主线左复位": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "08MS小队",
+                    "pipeline_override": {
+                        "寻找目标历史关卡": {
+                            "recognition": {
+                                "param": {
+                                    "template": "第08MS小队.png"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史关卡": {
+                            "enabled": true
+                        },
+                        "主线左复位": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "雷霆宙域S2",
+                    "pipeline_override": {
+                        "寻找目标历史关卡": {
+                            "recognition": {
+                                "param": {
+                                    "template": "雷霆宙域S2.png"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史关卡": {
+                            "enabled": true
+                        },
+                        "主线左复位": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "XAstray",
+                    "pipeline_override": {
+                        "寻找目标历史关卡": {
+                            "recognition": {
+                                "param": {
+                                    "template": "XAstray.png"
+                                },
+                                "type": "TemplateMatch"
+                            }
+                        },
+                        "进入历史关卡": {
+                            "enabled": true
+                        },
+                        "主线左复位": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "口袋里的战争",
+                    "pipeline_override": {
+                        "寻找目标历史关卡": {
+                            "recognition": {
+                                "param": {
+                                    "template": "口袋里的战争.png"
                                 },
                                 "type": "TemplateMatch"
                             }
@@ -1106,7 +1272,7 @@
             ]
         },
         "自动战斗次数": {
-            "description": "该选项仅在不选择略过时生效",
+            "description": "该选项仅在开启自动战斗后生效",
             "cases": [
                 {
                     "name": "1",
@@ -1175,7 +1341,6 @@
         },
         "是否跳过隐藏boss战斗": {
             "description": "开启后会跳过隐藏boss战斗,默认不跳过",
-            "default": "否",
             "cases": [
                 {
                     "name": "是",
@@ -1261,6 +1426,193 @@
                 }
             ]
         },
+        "是否开启自动战斗": {
+            "description": "开启后将不使用略过，关闭则使用略过，达到略过次数上限后仍要刷取材料请打开自动战斗",
+            "cases": [
+                {
+                    "name": "是",
+                    "pipeline_override": {
+                        "略过关卡": {
+                            "enabled": false
+                        },
+                        "进入出击准备": {
+                            "enabled": true
+                        },
+                        "强敌来袭：进入出击准备": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "否",
+                    "pipeline_override": {
+                        "略过关卡": {
+                            "enabled": true
+                        },
+                        "进入出击准备": {
+                            "enabled": false
+                        },
+                        "强敌来袭：进入出击准备": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "扫荡关卡": {
+            "type": "checkbox",
+            "description": "选择需要扫荡的 HARD 关卡；执行顺序固定为 HARD1 到 HARD5。",
+            "cases": [
+                {
+                    "name": "HARD1",
+                    "pipeline_override": {
+                        "故事扫荡_HARD1": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD2",
+                    "pipeline_override": {
+                        "故事扫荡_HARD2": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD3",
+                    "pipeline_override": {
+                        "故事扫荡_HARD3": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD4",
+                    "pipeline_override": {
+                        "故事扫荡_HARD4": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "HARD5",
+                    "pipeline_override": {
+                        "故事扫荡_HARD5": {
+                            "enabled": true
+                        }
+                    }
+                }
+            ]
+        },
+        "故事开荒体力包": {
+            "type": "checkbox",
+            "label": "体力不足时使用体力包",
+            "description": "故事开荒遇到 AP 不足时点击“是”并自动使用最多 3 次体力包；补充完成后回到出击状态轮询。默认不启用。",
+            "cases": [
+                {
+                    "name": "使用体力包",
+                    "pipeline_override": {
+                        "故事开荒_体力不足异常处理": {
+                            "enabled": true
+                        },
+                        "补充体力_选择体力包": {
+                            "enabled": true,
+                            "on_error": [
+                                "故事开荒_体力不足退出"
+                            ]
+                        },
+                        "补充体力_执行": {
+                            "on_error": [
+                                "故事开荒_体力不足退出"
+                            ]
+                        },
+                        "补充体力_关闭": {
+                            "next": [
+                                "故事开荒_出击后状态轮询"
+                            ],
+                            "on_error": [
+                                "故事开荒_体力不足退出"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "体力不足时使用体力包": {
+            "type": "checkbox",
+            "description": "扫荡执行时 AP 不足则最多自动使用 3 次体力包；默认不启用。",
+            "cases": [
+                {
+                    "name": "使用体力包",
+                    "pipeline_override": {
+                        "补充体力_选择体力包": {
+                            "enabled": true
+                        },
+                        "体力不够退出": {
+                            "focus": {
+                                "Node.Action.Succeeded": "MGA_TASK_FAILED: 体力不足且补充体力失败，退出任务"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "故事扫荡模式": {
+            "type": "select",
+            "label": "故事类型",
+            "description": "选择要扫荡的故事类型，再选择具体故事。",
+            "default_case": "主线故事",
+            "cases": [
+                {
+                    "name": "主线故事",
+                    "label": "主线故事",
+                    "option": [
+                        "主线故事选择",
+                        "扫荡关卡"
+                    ],
+                    "pipeline_override": {
+                        "寻找HARD": {
+                            "next": [
+                                "故事扫荡关卡右复位"
+                            ]
+                        },
+                        "主线左复位": {
+                            "enabled": true
+                        },
+                        "进入历史关卡": {
+                            "enabled": false
+                        },
+                        "开始进入关卡": {
+                            "next": [
+                                "进入主要关卡"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "历史故事",
+                    "label": "历史故事",
+                    "option": [
+                        "历史故事选择",
+                        "扫荡关卡"
+                    ],
+                    "pipeline_override": {
+                        "寻找HARD": {
+                            "next": [
+                                "故事扫荡关卡右复位"
+                            ]
+                        },
+                        "主线左复位": {
+                            "enabled": false
+                        },
+                        "进入历史关卡": {
+                            "enabled": true
+                        },
+                        "开始进入关卡": {
+                            "next": [
+                                "进入主要关卡"
+                            ]
         "加速器类型": {
             "type": "select",
             "label": "加速器",

@@ -40,6 +40,7 @@ def run_agent_logic(socket_id):
         from maa.toolkit import Toolkit
         import StageSelect
         import GP
+        import BatchStageSweep
         import ReturnHome
         import RunTask
         
