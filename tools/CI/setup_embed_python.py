@@ -79,9 +79,9 @@ def setup_embed_python():
     os.remove(get_pip_path)
 
     # 5. 安装基础依赖
-    print("Installing dependencies (maafw, numpy)...")
+    print("Installing dependencies from requirements.txt...")
     subprocess.check_call([str(PYTHON_EXE), "-m", "pip", "install", "--upgrade", "pip"])
-    subprocess.check_call([str(PYTHON_EXE), "-m", "pip", "install", "maafw", "numpy", "Pillow"])
+    subprocess.check_call([str(PYTHON_EXE), "-m", "pip", "install", "-r", str(PROJECT_ROOT / "requirements.txt")])
 
     # 6. 补齐标准库 (从宿主环境复制 Lib)
     host_python_lib = Path(sys.executable).parent / "Lib"
@@ -90,12 +90,25 @@ def setup_embed_python():
     if host_python_lib.exists():
         print(f"Copying standard library from host ({host_python_lib})...")
         try:
-            shutil.copytree(host_python_lib, target_lib, dirs_exist_ok=True)
+            shutil.copytree(
+                host_python_lib,
+                target_lib,
+                ignore=shutil.ignore_patterns("site-packages", "__pycache__"),
+                dirs_exist_ok=True,
+            )
         except Exception as e:
             print(f"[Warning] Failed to copy standard library: {e}")
     else:
         print("[Warning] Host Python Lib directory not found.")
 
+    # 使用包内解释器验证实际安装版本，避免构建成功但 Agent 协议不兼容。
+    subprocess.check_call([
+        str(PYTHON_EXE), "-c",
+        "from importlib.metadata import version; "
+        "actual = version('maafw'); "
+        "assert actual == '5.12.3', f'Unexpected maafw version: {actual}'; "
+        "print('Packaged maafw version:', actual)",
+    ])
     print("=== Embedded Python Setup Complete ===")
 
 if __name__ == "__main__":

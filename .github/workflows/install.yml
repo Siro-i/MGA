@@ -120,8 +120,8 @@ jobs:
         uses: robinraju/release-downloader@v1
         with:
           repository: MaaXYZ/MaaFramework
+          tag: v5.12.3
           fileName: "MAA-${{ matrix.maa_os }}-${{ matrix.arch }}*"
-          latest: true
           out-file-path: "deps"
           extract: true
 
@@ -130,8 +130,8 @@ jobs:
         uses: robinraju/release-downloader@v1
         with:
           repository: SweetSmellFox/MFAAvalonia
+          tag: v2.16.2
           fileName: "MFAAvalonia-*-${{ matrix.os_key }}-${{ matrix.mfa_arch }}*"
-          latest: true
           out-file-path: "MFA"
           extract: true
 
