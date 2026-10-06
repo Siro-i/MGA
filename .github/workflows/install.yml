@@ -10,6 +10,7 @@ on:
       - ".github/workflows/install.yml"
       - "assets/**"
       - "**.py"
+      - "interface.json"
   pull_request:
     branches:
       - "**"
@@ -17,6 +18,7 @@ on:
       - ".github/workflows/install.yml"
       - "assets/**"
       - "**.py"
+      - "interface.json"
   workflow_dispatch:
 
 jobs:
